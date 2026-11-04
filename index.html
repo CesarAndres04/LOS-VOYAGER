@@ -314,6 +314,54 @@
   .planeta.con-anillo::after { content: ""; position: absolute; inset: 38% -34%; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c) 75%, transparent); border-top-color: transparent; transform: rotate(-18deg); pointer-events: none; }
   .voyager span { top: 50px; }
   @media (prefers-reduced-motion: reduce) { .vinilo-disco { animation: none; } }
+
+  /* ===== Hub de escucha: pestañas por plataforma, reproductores y rutas directas ===== */
+  .hub { position: relative; z-index: 1; padding: 56px 16px 40px; max-width: 1120px; margin: 0 auto; scroll-margin-top: 70px; }
+  .hub-cab { text-align: center; margin-bottom: 28px; }
+  .hub-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 22px; }
+  .hub-tab { display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); background: rgba(10,8,20,.7); color: #f2efe6; font-family: var(--display); font-size: 17px; letter-spacing: .02em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, color .2s ease, box-shadow .2s ease; }
+  .hub-tab svg { width: 22px; height: 22px; color: var(--c); flex: none; }
+  .hub-tab:hover { box-shadow: 0 0 0 1px var(--c); }
+  .hub-tab[aria-selected="true"] { background: var(--c); color: #06050e; box-shadow: 0 0 26px -6px var(--c); }
+  .hub-tab[aria-selected="true"] svg { color: #ffffff; }
+  .hub-tab:focus-visible { outline: 2px solid #f2efe6; outline-offset: 3px; }
+  .hub-panel { display: grid; gap: 22px; padding: 22px; border-radius: 14px; background: rgba(8,6,18,.78); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); box-shadow: 0 0 40px -18px var(--c); }
+  .hub-panel[hidden] { display: none; }
+  @media (min-width: 900px) { .hub-panel { grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr); align-items: start; } }
+  .hub-embeds { display: grid; gap: 12px; }
+  .hub-embed { position: relative; min-height: var(--alto, 352px); border-radius: 12px; overflow: hidden; background: #0b0917; display: grid; place-items: center; color: var(--gris); font-size: 13px; }
+  .hub-embed.video { aspect-ratio: 16 / 9; min-height: 0; }
+  .hub-embed.vertical { width: min(100%, 340px); height: 600px; min-height: 0; justify-self: center; }
+  .hub-embed.tiktok { display: block; min-height: 0; background: transparent; color: #f2efe6; }
+  .tt-tarjeta { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center; padding: 14px; border-radius: 12px; background: #0b0917; border: 1px solid rgba(63,240,255,.3); }
+  .tt-tarjeta img { width: 140px; height: 140px; object-fit: cover; border-radius: 50%; border: 2px solid #3ff0ff; }
+  .tt-info { display: flex; flex-direction: column; gap: 8px; }
+  .tt-info b { font-family: var(--display); font-size: 26px; letter-spacing: .02em; color: #f2efe6; font-weight: 400; }
+  .tt-info span { font-size: 14px; color: var(--gris); }
+  .tt-info .hub-btn { align-self: flex-start; }
+  @media (max-width: 520px) { .tt-tarjeta { grid-template-columns: 1fr; justify-items: center; text-align: center; } .tt-info .hub-btn { align-self: center; } }
+  .hub-embed.tiktok a { color: #3ff0ff; }
+  .hub-embed.tiktok iframe { position: static; }
+  .hub-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .hub-embed .cargando { display: inline-flex; align-items: center; gap: 8px; }
+  .hub-embed .cargando::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--c); border-right-color: transparent; animation: girarCarga .8s linear infinite; }
+  @keyframes girarCarga { to { transform: rotate(360deg); } }
+  .hub-acciones { display: flex; flex-direction: column; gap: 10px; }
+  .hub-sub { margin-top: 6px; font-family: var(--maq); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gris); }
+  .hub-btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 16px; border-radius: 10px; border: 1px solid color-mix(in srgb, var(--c) 55%, transparent); background: transparent; color: #f2efe6; font: inherit; font-size: 15px; text-decoration: none; cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .hub-btn b { color: var(--c); font-size: 18px; line-height: 1; }
+  .hub-btn em { font-style: normal; font-family: var(--display); letter-spacing: .02em; text-transform: uppercase; }
+  .hub-btn:hover, .hub-btn:focus-visible { background: color-mix(in srgb, var(--c) 16%, transparent); border-color: var(--c); outline: none; }
+  .hub-btn.principal { background: var(--c); color: #06050e; border-color: var(--c); font-family: var(--display); font-size: 18px; letter-spacing: .03em; text-transform: uppercase; }
+  .hub-btn.principal:hover { filter: brightness(1.08); }
+  .hub-btn.compartir { border-style: dashed; color: var(--gris); }
+  .hub-btn.compartir.ok { color: var(--c); border-style: solid; }
+  .hub-nota { font-size: 13px; line-height: 1.5; color: var(--gris); }
+  .hub-nota b { color: #f2efe6; font-weight: 400; }
+  .hub-mas { margin-top: 18px; text-align: center; font-size: 13px; color: var(--gris); }
+  .hub-mas a { color: #f2efe6; }
+  @media (min-width: 720px) { .hub { padding-left: 48px; padding-right: 48px; } }
+  @media (prefers-reduced-motion: reduce) { .hub-embed .cargando::before { animation: none; } }
 </style>
 </head>
 <body>
@@ -394,6 +442,79 @@
     </div>
   </article>
 </main>
+
+<section class="hub" id="escuchar" aria-labelledby="hub-titulo">
+  <div class="hub-cab">
+    <span class="sistema-kicker">Rutas rápidas</span>
+    <h2 id="hub-titulo" class="sistema-titulo">Escúchanos donde quieras</h2>
+    <p class="sistema-sub">Dale play aquí mismo, guarda las canciones en tu biblioteca y síguenos en tu app.</p>
+  </div>
+
+  <div class="hub-tabs" role="tablist" aria-label="Plataformas">
+    <button class="hub-tab" role="tab" id="tab-spotify" aria-controls="panel-spotify" aria-selected="true" data-plat="spotify" style="--c:#1ed760"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M6.8 9.4c3.6-1.1 7.7-.8 10.8 1M7.4 12.6c3.1-.8 6.4-.5 9 .9M8.1 15.6c2.5-.6 5-.4 7 .7" stroke="#0b0917" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><span>Spotify</span></button>
+    <button class="hub-tab" role="tab" id="tab-apple" aria-controls="panel-apple" aria-selected="false" tabindex="-1" data-plat="apple" style="--c:#fa3c64"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="currentColor"/><path d="M15.6 6.4v8.4a2.1 2.1 0 1 1-1.5-2V8.7l-4.6 1.1v6.4a2.1 2.1 0 1 1-1.5-2V8.6z" fill="#0b0917"/></svg><span>Apple Music</span></button>
+    <button class="hub-tab" role="tab" id="tab-youtube" aria-controls="panel-youtube" aria-selected="false" tabindex="-1" data-plat="youtube" style="--c:#ff3b3b"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.5" width="20" height="13" rx="4" fill="currentColor"/><path d="M10 9v6l5.2-3z" fill="#0b0917"/></svg><span>YouTube</span></button>
+    <button class="hub-tab" role="tab" id="tab-tiktok" aria-controls="panel-tiktok" aria-selected="false" tabindex="-1" data-plat="tiktok" style="--c:#3ff0ff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 3h3.1c.2 1.8 1.6 3.2 3.4 3.4v3.1a6.4 6.4 0 0 1-3.4-1.1V15a5.6 5.6 0 1 1-5.6-5.6l.9.1v3.2a2.5 2.5 0 1 0 1.6 2.3z" fill="currentColor"/></svg><span>TikTok</span></button>
+  </div>
+
+  <div class="hub-panel" id="panel-spotify" role="tabpanel" aria-labelledby="tab-spotify" style="--c:#1ed760">
+    <div class="hub-embeds">
+      <div class="hub-embed" data-src="https://open.spotify.com/embed/artist/79JBzLkRFj1qpFfbIcvW3l?utm_source=generator&amp;theme=0" data-alto="352" data-titulo="Los Voyagers en Spotify"></div>
+    </div>
+    <div class="hub-acciones">
+      <a class="hub-btn principal" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener">Seguir en Spotify</a>
+      <span class="hub-sub">Canciones</span>
+      <a class="hub-btn" href="https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q" target="_blank" rel="noopener"><b>＋</b> Guardar <em>Vuelvo</em></a>
+      <a class="hub-btn" href="https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke" target="_blank" rel="noopener"><b>＋</b> Guardar <em>Decidido</em></a>
+      <p class="hub-nota">Se abre la canción en tu app. Toca <b>＋</b> para guardarla o <b>···</b> → <b>Añadir a playlist</b>.</p>
+      <button class="hub-btn compartir" type="button" data-url="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" data-titulo="Los Voyagers en Spotify">Compartir</button>
+    </div>
+  </div>
+
+  <div class="hub-panel" id="panel-apple" role="tabpanel" aria-labelledby="tab-apple" style="--c:#fa3c64" hidden>
+    <div class="hub-embeds">
+      <div class="hub-embed" data-src="https://embed.music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" data-alto="175" data-titulo="Vuelvo en Apple Music"></div>
+      <div class="hub-embed" data-src="https://embed.music.apple.com/pe/album/decidido/6794141871?i=6794141872" data-alto="175" data-titulo="Decidido en Apple Music"></div>
+    </div>
+    <div class="hub-acciones">
+      <a class="hub-btn principal" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" target="_blank" rel="noopener">Abrir en Apple Music</a>
+      <span class="hub-sub">Canciones</span>
+      <a class="hub-btn" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" target="_blank" rel="noopener"><b>＋</b> Añadir <em>Vuelvo</em></a>
+      <a class="hub-btn" href="https://music.apple.com/pe/album/decidido/6794141871?i=6794141872" target="_blank" rel="noopener"><b>＋</b> Añadir <em>Decidido</em></a>
+      <p class="hub-nota">Con tu cuenta iniciada, el botón <b>＋</b> del reproductor la agrega a tu biblioteca.</p>
+      <button class="hub-btn compartir" type="button" data-url="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" data-titulo="Vuelvo de Los Voyagers">Compartir</button>
+    </div>
+  </div>
+
+  <div class="hub-panel" id="panel-youtube" role="tabpanel" aria-labelledby="tab-youtube" style="--c:#ff3b3b" hidden>
+    <div class="hub-embeds">
+      <div class="hub-embed video" data-src="https://www.youtube-nocookie.com/embed/T1SDRPZFOKY?rel=0" data-titulo="Videoclip de Vuelvo"></div>
+    </div>
+    <div class="hub-acciones">
+      <a class="hub-btn principal" href="https://www.youtube.com/@LosVoyagers?sub_confirmation=1" target="_blank" rel="noopener">Suscribirme al canal</a>
+      <span class="hub-sub">Videos</span>
+      <a class="hub-btn" href="https://www.youtube.com/watch?v=T1SDRPZFOKY" target="_blank" rel="noopener">▶ Ver <em>Vuelvo</em> en YouTube</a>
+      <a class="hub-btn" href="https://www.youtube.com/@LosVoyagers/videos" target="_blank" rel="noopener">Todos los videos</a>
+      <p class="hub-nota">En YouTube, <b>Guardar</b> lo agrega a una de tus playlists.</p>
+      <button class="hub-btn compartir" type="button" data-url="https://www.youtube.com/watch?v=T1SDRPZFOKY" data-titulo="Vuelvo — videoclip de Los Voyagers">Compartir</button>
+    </div>
+  </div>
+
+  <div class="hub-panel" id="panel-tiktok" role="tabpanel" aria-labelledby="tab-tiktok" style="--c:#3ff0ff" hidden>
+    <div class="hub-embeds">
+      <div class="hub-embed tiktok" data-tipo="tiktok" data-titulo="Perfil de Los Voyagers en TikTok"></div>
+    </div>
+    <div class="hub-acciones">
+      <a class="hub-btn principal" href="https://www.tiktok.com/@losvoyagers" target="_blank" rel="noopener">Seguir en TikTok</a>
+      <span class="hub-sub">Videos</span>
+      <a class="hub-btn" href="https://www.tiktok.com/@losvoyagers/video/7675491756414094613" target="_blank" rel="noopener">▶ Ver <em>Decidido</em> en TikTok</a>
+      <p class="hub-nota">Ensayos, covers y tocadas de la banda.</p>
+      <button class="hub-btn compartir" type="button" data-url="https://www.tiktok.com/@losvoyagers" data-titulo="Los Voyagers en TikTok">Compartir</button>
+    </div>
+  </div>
+
+  <p class="hub-mas">También en Deezer: <a href="https://www.deezer.com/album/827098931" target="_blank" rel="noopener">Vuelvo</a> · <a href="https://www.deezer.com/album/1036594372" target="_blank" rel="noopener">Decidido</a></p>
+</section>
 
 <div class="cosmos">
   <video class="fondo-video" src="fondos/planetas.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
@@ -1216,6 +1337,108 @@
     document.querySelectorAll(".planeta").forEach((p) => p.addEventListener("pointerdown", (e) => {
       if (window.lanzarChispas) window.lanzarChispas(e.clientX, e.clientY, getComputedStyle(p).getPropertyValue("--c").trim());
     }));
+  })();
+</script>
+<script>
+  // Hub de escucha: pestañas accesibles, reproductores que se cargan al elegir la plataforma,
+  // botón de compartir y atajos desde el dock y los planetas.
+  (function () {
+    const hub = document.getElementById("escuchar");
+    if (!hub) return;
+    const tabs = Array.from(hub.querySelectorAll(".hub-tab"));
+    const panelDe = (tab) => document.getElementById(tab.getAttribute("aria-controls"));
+    let visible = false;
+
+    function cargarEmbeds(panel) {
+      panel.querySelectorAll(".hub-embed").forEach((caja) => {
+        if (caja.dataset.cargado) return;
+        caja.dataset.cargado = "1";
+        if (caja.dataset.tipo === "tiktok") {
+          // Tarjeta propia (siempre funciona); el embed oficial de TikTok se carga solo si la persona lo pide
+          caja.innerHTML = '<div class="tt-tarjeta"><img src="fotos/banda-noche-lima.jpg" alt="" loading="lazy"><div class="tt-info"><b>@losvoyagers</b><span>Ensayos, covers y tocadas desde Lima</span><button type="button" class="hub-btn tt-cargar">Ver el perfil aquí</button></div></div>';
+          caja.querySelector(".tt-cargar").addEventListener("click", () => cargarTikTok(caja));
+          return;
+        }
+        if (caja.dataset.alto) caja.style.setProperty("--alto", caja.dataset.alto + "px");
+        caja.innerHTML = '<span class="cargando">Cargando reproductor…</span>';
+        const f = document.createElement("iframe");
+        f.src = caja.dataset.src;
+        f.title = caja.dataset.titulo || "Reproductor";
+        f.loading = "lazy";
+        f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+        f.setAttribute("allowfullscreen", "");
+        f.addEventListener("load", () => { const c = caja.querySelector(".cargando"); if (c) c.remove(); });
+        caja.appendChild(f);
+      });
+    }
+    function cargarTikTok(caja) {
+      caja.innerHTML = '<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@losvoyagers" data-unique-id="losvoyagers" data-embed-type="creator" style="max-width:780px;min-width:288px;margin:0"><section><a target="_blank" rel="noopener" href="https://www.tiktok.com/@losvoyagers">@losvoyagers en TikTok</a></section></blockquote><p class="hub-nota">¿No carga? <a href="https://www.tiktok.com/@losvoyagers" target="_blank" rel="noopener">Abre el perfil en TikTok</a>.</p>';
+      const viejo = document.getElementById("tiktok-embed-js");
+      if (viejo) viejo.remove();
+      const sc = document.createElement("script");
+      sc.id = "tiktok-embed-js"; sc.async = true; sc.src = "https://www.tiktok.com/embed.js";
+      document.body.appendChild(sc);
+    }
+    function activar(tab, enfocar) {
+      tabs.forEach((t) => {
+        const activo = t === tab;
+        t.setAttribute("aria-selected", String(activo));
+        t.tabIndex = activo ? 0 : -1;
+        panelDe(t).hidden = !activo;
+      });
+      if (enfocar) tab.focus();
+      if (visible) cargarEmbeds(panelDe(tab));
+    }
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => activar(t));
+      t.addEventListener("keydown", (e) => {
+        const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (e.key === "Home") { e.preventDefault(); activar(tabs[0], true); }
+        else if (e.key === "End") { e.preventDefault(); activar(tabs[tabs.length - 1], true); }
+        else if (dir) { e.preventDefault(); activar(tabs[(i + dir + tabs.length) % tabs.length], true); }
+      });
+    });
+
+    // Los reproductores solo se cargan cuando el hub entra en pantalla (o al elegir una plataforma)
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((e) => {
+        if (e[0].isIntersecting) { visible = true; cargarEmbeds(panelDe(tabs.find((t) => t.getAttribute("aria-selected") === "true"))); io.disconnect(); }
+      }, { rootMargin: "200px" });
+      io.observe(hub);
+    } else { visible = true; cargarEmbeds(panelDe(tabs[0])); }
+
+    // Compartir: menú nativo del teléfono o copiar el enlace
+    hub.querySelectorAll(".compartir").forEach((b) => b.addEventListener("click", async () => {
+      const url = b.dataset.url, titulo = b.dataset.titulo;
+      try {
+        if (navigator.share) { await navigator.share({ title: titulo, url }); return; }
+        await navigator.clipboard.writeText(url);
+        b.textContent = "¡Enlace copiado!"; b.classList.add("ok");
+        setTimeout(() => { b.textContent = "Compartir"; b.classList.remove("ok"); }, 2200);
+      } catch (_) {}
+    }));
+
+    // Atajos: el dock del encabezado y los planetas abren el hub en su plataforma
+    const mapa = { "spotify": "spotify", "apple music": "apple", "youtube": "youtube", "tiktok": "tiktok" };
+    window.abrirHub = (plat) => {
+      const tab = tabs.find((t) => t.dataset.plat === plat);
+      if (!tab) return false;
+      visible = true;
+      activar(tab);
+      hub.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      return true;
+    };
+    function atajo(el, nombre) {
+      el.addEventListener("click", (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const plat = mapa[(nombre() || "").replace(/\u00a0/g, " ").trim().toLowerCase()];
+        if (plat && window.abrirHub(plat)) e.preventDefault();
+      });
+    }
+    document.querySelectorAll(".dock .plat").forEach((a) => atajo(a, () => a.dataset.nombre));
+    const rot = document.getElementById("rot");
+    if (rot) atajo(rot, () => rot.textContent);
+    document.querySelectorAll(".planeta").forEach((a) => atajo(a, () => (a.querySelector(".planeta-nombre") || {}).textContent));
   })();
 </script>
 </body>
