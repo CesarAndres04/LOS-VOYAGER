@@ -222,7 +222,6 @@
   @media (prefers-reduced-motion: reduce) { .estrellas { animation: none; } }
   html { scroll-behavior: smooth; }
 
-
   /* ===== Dock de plataformas (react-bits: Magnet + StarBorder + ClickSpark + RotatingText) ===== */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .dock { display: flex; align-items: center; gap: 22px; }
@@ -265,7 +264,7 @@
   .titulo-fila .gv .facade { box-shadow: 0 0 34px -8px rgba(63,240,255,.55); }
 
   .tira { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 16px 28px; scrollbar-width: thin; scrollbar-color: var(--cian-x, #3ff0ff) transparent; }
-  .tira-item { flex: none; margin: 0; padding: 8px; scroll-snap-align: start; background: rgba(8,6,18,.6); border: 1px solid rgba(63,240,255,.35); box-shadow: 0 0 26px -8px rgba(63,240,255,.55); }
+  .tira-item { flex: none; margin: 0; padding: 8px; scroll-snap-align: start; background: rgba(8,6,18,.88); border: 1px solid rgba(63,240,255,.35); box-shadow: 0 0 26px -8px rgba(63,240,255,.55); }
   .tira-item img { height: 360px; width: auto; max-width: none; display: block; }
   .tira-item figcaption { margin-top: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gris); }
   @media (min-width: 720px) { .tira { padding-left: 48px; padding-right: 48px; } }
@@ -335,7 +334,7 @@
   .hub-tab[aria-selected="true"] { background: var(--c); color: #06050e; box-shadow: 0 0 26px -6px var(--c); }
   .hub-tab[aria-selected="true"] svg { color: #ffffff; }
   .hub-tab:focus-visible { outline: 2px solid #f2efe6; outline-offset: 3px; }
-  .hub-panel { display: grid; gap: 22px; padding: 22px; border-radius: 14px; background: rgba(8,6,18,.78); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); box-shadow: 0 0 40px -18px var(--c); }
+  .hub-panel { display: grid; gap: 22px; padding: 22px; border-radius: 14px; background: rgba(8,6,18,.6); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); box-shadow: 0 0 40px -18px var(--c); }
   .hub-panel[hidden] { display: none; }
   @media (min-width: 900px) { .hub-panel { grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr); align-items: start; } }
   .hub-embeds { display: grid; gap: 12px; }
@@ -372,60 +371,6 @@
   .hub-mas a { color: #f2efe6; }
   @media (min-width: 720px) { .hub { padding-left: 48px; padding-right: 48px; } }
   @media (prefers-reduced-motion: reduce) { .hub-embed .cargando::before { animation: none; } }
-
-  /* ===== Propuestas de cierre (vista previa) ===== */
-  .final { position: relative; z-index: 1; display: grid; gap: 32px; align-items: center; padding: 72px 16px 64px; max-width: 1180px; margin: 0 auto; }
-  .final[hidden] { display: none; }
-  @media (min-width: 900px) { .final { grid-template-columns: 1.1fr 1fr; padding-left: 48px; padding-right: 48px; } }
-  .f1-titulo { font-family: var(--display); font-size: clamp(42px, 6.4vw, 84px); line-height: .92; text-transform: uppercase; color: #f2efe6; margin-top: 10px; text-shadow: 0 0 28px rgba(255,79,216,.4); }
-  .f1-sub { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--gris); max-width: 44ch; }
-  .f1-botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-  .f1-botones .hub-btn { min-width: 220px; }
-  .f1-terminal { margin-top: 26px; font-family: var(--maq); font-size: 14px; color: #3ff0ff; letter-spacing: .03em; }
-  .f1-cursor { animation: parpadeo 1s steps(1) infinite; }
-  @keyframes parpadeo { 50% { opacity: 0; } }
-
-  .f1-escena { position: relative; height: 340px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 72%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(#000 72%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-composite: intersect; }
-  .f1-planeta { position: absolute; left: -20%; right: -20%; top: 62%; height: 200%; border-radius: 50%; border-top: 2px solid #3ff0ff; background: radial-gradient(ellipse at 50% 0%, rgba(157,107,255,.45), rgba(20,10,40,.95) 30%, #07060f 60%); box-shadow: 0 -20px 60px -20px rgba(63,240,255,.6), inset 0 30px 60px -30px rgba(255,79,216,.5); }
-  .f1-combi { position: absolute; left: 50%; top: 24%; width: 520px; height: 280px; translate: -50% 0; }
-  .f1-bandera { position: absolute; left: 74%; top: 40%; width: 2px; height: 70px; background: #e6e6ef; }
-  .f1-bandera span { position: absolute; left: 2px; top: 0; padding: 4px 10px 4px 8px; font-family: var(--display); font-size: 16px; color: #06050e; background: #ff4fd8; clip-path: polygon(0 0, 100% 0, 86% 50%, 100% 100%, 0 100%); animation: ondear 2.4s ease-in-out infinite; transform-origin: left center; }
-  @keyframes ondear { 50% { transform: skewY(-4deg) scaleX(.94); } }
-
-  .f2-colgante { position: relative; display: grid; justify-items: center; padding-top: 70px; }
-  .f2-cinta { position: absolute; top: 0; width: 34px; height: 92px; background: repeating-linear-gradient(135deg, #ff4fd8 0 10px, #9d6bff 10px 20px); clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%); }
-  .f2-pase { position: relative; width: min(100%, 320px); border-radius: 18px; padding: 16px 16px 14px; background: linear-gradient(160deg, #15122a, #0b0917 60%); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); transform-origin: 50% -70px; animation: balanceo 5s ease-in-out infinite; transition: transform .3s ease; }
-  .f2-pase::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; background: conic-gradient(from var(--ang), #3ff0ff, #ff4fd8, #9d6bff, #ffd84a, #3ff0ff); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: luzBorde 6s linear infinite; pointer-events: none; }
-  .f2-pase::after { content: ""; position: absolute; top: 8px; left: 50%; width: 46px; height: 8px; translate: -50% 0; border-radius: 6px; background: #07060f; box-shadow: inset 0 1px 2px rgba(0,0,0,.8); }
-  .f2-colgante:hover .f2-pase { animation-play-state: paused; transform: rotate(0deg) scale(1.03); }
-  @keyframes balanceo { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
-  .f2-cabeza { display: flex; justify-content: space-between; margin-top: 12px; padding: 6px 10px; background: #ff4fd8; color: #06050e; font-family: var(--display); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; border-radius: 6px; }
-  .f2-pase img { width: 100%; height: auto; border-radius: 10px; margin-top: 12px; }
-  .f2-pase h3 { margin-top: 12px; font-family: var(--display); font-size: 34px; line-height: 1; text-transform: uppercase; color: #f2efe6; }
-  .f2-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 10px; }
-  .f2-datos dt { font-family: var(--maq); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #3ff0ff; }
-  .f2-datos dd { font-size: 14px; color: #f2efe6; margin: 2px 0 0; }
-  .f2-pie { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,.2); }
-  .f2-qr { width: 84px; height: 84px; padding: 5px; background: #fff; border-radius: 8px; flex: none; }
-  .f2-qr img, .f2-qr canvas { width: 74px !important; height: 74px !important; display: block; }
-  .f2-pie span { font-family: var(--maq); font-size: 12px; line-height: 1.4; color: var(--gris); }
-
-  .f3-cartel { grid-column: 1 / -1; position: relative; justify-self: center; width: min(100%, 760px); padding: 40px 32px 34px; border-radius: 6px; background: radial-gradient(circle at 1px 1px, rgba(255,216,74,.18) 1px, transparent 1.6px) 0 0 / 9px 9px, linear-gradient(170deg, #1b1430, #0a0814 70%); border: 2px solid #ffd84a; box-shadow: 0 0 0 6px #0a0814, 0 0 0 8px #ff4fd8, 0 30px 70px -20px rgba(0,0,0,.9); transform: rotate(-1deg); }
-  .f3-sello { position: absolute; top: 22px; right: 24px; padding: 6px 12px; border: 2px solid #ff4fd8; color: #ff4fd8; font-family: var(--display); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; transform: rotate(8deg); }
-  .f3-titulo { font-family: var(--display); font-size: clamp(56px, 11vw, 132px); line-height: .84; text-transform: uppercase; color: #ffd84a; letter-spacing: -.01em; text-shadow: 4px 4px 0 #ff4fd8, 8px 8px 0 rgba(63,240,255,.55); }
-  .f3-fechas { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 10px; }
-  .f3-fechas li { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 14px; padding: 14px 18px; background: #f2efe6; color: #06050e; border-radius: 6px; -webkit-mask: radial-gradient(circle 9px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat; transition: transform .2s ease; }
-  .f3-fechas li:hover { transform: translateX(6px) rotate(-.6deg); }
-  .f3-dia { font-family: var(--display); font-size: 24px; }
-  .f3-lugar { font-size: 15px; }
-  .f3-estado { font-family: var(--maq); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 8px; border: 1px dashed #06050e; }
-  .f3-boton { margin-top: 24px; max-width: 320px; }
-
-  .vista-previa { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 12px; background: rgba(8,6,18,.92); border: 1px solid rgba(63,240,255,.5); font-family: var(--maq); font-size: 12px; color: var(--gris); }
-  .vista-previa[hidden] { display: none; }
-  .vista-previa a { padding: 5px 9px; border-radius: 8px; color: #f2efe6; text-decoration: none; border: 1px solid rgba(255,255,255,.15); }
-  .vista-previa a[aria-current="true"] { background: #3ff0ff; color: #06050e; border-color: #3ff0ff; }
-  @media (prefers-reduced-motion: reduce) { .f1-cursor, .f1-bandera span, .f2-pase, .f2-pase::before { animation: none; } }
 
   /* ===== Viaje: material nuevo (nebulosa, horizonte, luces líquidas, Andrómeda) ===== */
   /* Las capas de video se funden con modo "screen": el negro desaparece y solo queda la luz */
@@ -476,10 +421,6 @@
     -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%); }
   .capa-sistema[data-capa="andromeda"] { width: 980px; max-width: 150vw; aspect-ratio: 1280 / 648; opacity: .75;
     -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%); }
-  html[data-mezcla="b"] .luces { display: none; }
-  .vista-mezcla { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 12px; background: rgba(8,6,18,.92); border: 1px solid rgba(255,79,216,.55); font-family: var(--maq); font-size: 12px; color: var(--gris); }
-  .vista-mezcla a { color: #f2efe6; text-decoration: none; padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(242,239,230,.25); cursor: pointer; }
-  .vista-mezcla a[aria-current] { background: #ff4fd8; color: #111; border-color: #ff4fd8; }
 
   /* Al acercarte el agujero negro te jala y Andrómeda crece en el horizonte */
   @supports (animation-timeline: view()) {
@@ -553,6 +494,36 @@
   @keyframes titila { from { opacity: .35; scale: .8; } to { opacity: 1; scale: 1.15; } }
   .nebula.quieto * { animation-play-state: paused; }
   @media (prefers-reduced-motion: reduce) { .nube, .estrella-cruz { animation: none; } }
+
+  /* ===== Ajustes de pantalla: táctil y celular ===== */
+  .con-dedo { display: none; }
+  @media (hover: none) { .con-cursor { display: none; } .con-dedo { display: inline; } }
+  @media (max-width: 640px) {
+    .rayos { inset: 0 0 16px 0; }
+    .tira-item img { height: auto; width: 80vw; max-width: 100%; }
+    .tira { align-items: flex-start; }
+    .tira-item { width: calc(80vw + 16px); }
+    .capa-sistema { width: 540px; max-width: none; }
+    .capa-sistema[data-capa="andromeda"] { width: 760px; }
+    .sistema { width: calc(100% - 48px); }
+    .planeta { top: -21px; left: calc(50% - 21px); width: 42px; height: 42px; }
+    .planeta svg { width: 20px; height: 20px; }
+    .capa-cierre[data-capa="nebulosa-plasma"] { width: 260vw; left: 50%; }
+    .nube { width: max(var(--w), 230px); }
+  }
+  /* Ruta mínima en pantallas sin espacio lateral: seis puntos finos en el margen, sin etiquetas */
+  @media (max-width: 1179px), (hover: none) {
+    .ruta { display: block; position: fixed; right: 5px; top: 50%; translate: 0 -50%; z-index: 40; pointer-events: none; }
+    .ruta ol { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 14px; }
+    .ruta ol::before, .ruta ol::after { content: ""; position: absolute; left: 2.5px; top: 3px; bottom: 3px; width: 1px; }
+    .ruta ol::before { background: rgba(242,239,230,.16); }
+    .ruta ol::after { background: linear-gradient(#3ff0ff, #9d6bff, #ff4fd8); transform-origin: top; scale: 1 var(--avance, 0); }
+    .ruta a { display: block; }
+    .ruta i { display: block; position: relative; z-index: 1; width: 6px; height: 6px; border-radius: 50%; background: #0e0e0e; border: 1px solid rgba(242,239,230,.45); transition: background .4s, box-shadow .4s; }
+    .ruta span { display: none; }
+    .ruta a.pasada i { background: #3ff0ff; border-color: #3ff0ff; }
+    .ruta a.aqui i { background: #ff4fd8; border-color: #ff4fd8; box-shadow: 0 0 8px #ff4fd8; }
+  }
 </style>
 </head>
 <body>
@@ -609,7 +580,6 @@
   <div class="cinta cinta-b"><div>Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ </div></div>
   <div class="cinta cinta-a"><div>Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ </div></div>
 </div>
-
 
 <div class="zona-hub">
   <div class="nebula" aria-hidden="true"><div class="nebula-filamentos"></div><div class="nebula-polvo"></div></div>
@@ -720,7 +690,7 @@
 
 <div class="tira-cab" id="en-vivo">
   <span class="sistema-kicker">Parada 05 · En vivo</span>
-  <p class="tira-pista">Pasa por las fotos en vivo y se prenden las luces del escenario.</p>
+  <p class="tira-pista"><span class="con-cursor">Pasa el cursor por las fotos en vivo y se prenden las luces del escenario.</span><span class="con-dedo">Desliza las fotos en vivo: las luces del escenario se prenden solas.</span></p>
 </div>
 <section class="tira" aria-label="Fotos de la banda">
   <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo" loading="lazy"><video class="luces" data-src="fondos/luces-liquidas.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>John · en vivo</figcaption></figure>
@@ -731,7 +701,6 @@
 
 <div class="destino" id="destino">
 <video class="capa capa-cierre" muted loop playsinline preload="none" aria-hidden="true"></video>
-<div id="cierre-preview"></div>
 <section class="cierre" data-final="0" style="padding: 56px 16px 48px;">
   <p>¿Te suena?<br>Llévanos a tu escenario.</p>
   <a class="mail" href="mailto:booking@losvoyagers.pe">booking@losvoyagers.pe</a>
@@ -743,83 +712,8 @@
   </nav>
 </section>
 
-
-<!-- Propuesta 1 · Fin de la transmisión -->
-<section class="final final-1" data-final="1" hidden aria-labelledby="f1-titulo">
-  <div class="f1-escena" aria-hidden="true">
-    <div class="f1-planeta"></div>
-    <canvas class="f1-combi" width="1040" height="560"></canvas>
-    <div class="f1-bandera"><span>LV</span></div>
-  </div>
-  <div class="f1-texto">
-    <span class="sistema-kicker">Fin de la transmisión</span>
-    <h2 class="f1-titulo" id="f1-titulo">¿Nos llevas a tu escenario?</h2>
-    <p class="f1-sub">La banda ya aterrizó. Escríbenos y armamos la próxima tocada.</p>
-    <div class="f1-botones">
-      <a class="hub-btn principal" style="--c:#ff4fd8" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Escribir para booking</a>
-      <a class="hub-btn" style="--c:#3ff0ff" href="mailto:booking@losvoyagers.pe?subject=Kit%20de%20prensa%20Los%20Voyagers">Pedir kit de prensa</a>
-    </div>
-    <p class="f1-terminal"><span class="f1-tipeo" data-texto="&gt; señal de Los Voyagers · Lima · transmitiendo desde 2023"></span><span class="f1-cursor">_</span></p>
-  </div>
-</section>
-
-<!-- Propuesta 2 · Pase de backstage -->
-<section class="final final-2" data-final="2" hidden aria-labelledby="f2-titulo">
-  <div class="f2-colgante">
-    <div class="f2-cinta" aria-hidden="true"></div>
-    <article class="f2-pase">
-      <header class="f2-cabeza"><span>All access</span><span>Tour 2026</span></header>
-      <img src="fotos/banda-calle.jpg" alt="Los Voyagers de noche en una esquina de Lima" loading="lazy">
-      <h3>Los Voyagers</h3>
-      <dl class="f2-datos">
-        <div><dt>Desde</dt><dd>Lima, Perú</dd></div>
-        <div><dt>Género</dt><dd>Rock alternativo</dd></div>
-        <div><dt>Banda</dt><dd>4 integrantes</dd></div>
-        <div><dt>Singles</dt><dd>Vuelvo · Decidido</dd></div>
-      </dl>
-      <footer class="f2-pie"><div class="f2-qr" id="f2-qr" role="img" aria-label="Código QR que abre este EPK"></div><span>Escanéame<br>y abre el EPK</span></footer>
-    </article>
-  </div>
-  <div class="f2-texto">
-    <span class="sistema-kicker">Backstage</span>
-    <h2 class="f1-titulo" id="f2-titulo">Tu pase para tenernos en vivo</h2>
-    <p class="f1-sub">Productores, venues y festivales: escaneen el pase o escríbannos directo.</p>
-    <div class="f1-botones"><a class="hub-btn principal" style="--c:#ff4fd8" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Contratar a la banda</a></div>
-  </div>
-</section>
-
-<!-- Propuesta 3 · Cartel de gira -->
-<section class="final final-3" data-final="3" hidden aria-labelledby="f3-titulo">
-  <div class="f3-cartel">
-    <span class="f3-sello">Rock desde Lima</span>
-    <h2 class="f3-titulo" id="f3-titulo">Próximas<br>fechas</h2>
-    <ol class="f3-fechas">
-      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Lima · fecha por anunciar</span><span class="f3-estado">Pronto</span></li>
-      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Por anunciar</span><span class="f3-estado">Pronto</span></li>
-      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Tu escenario</span><span class="f3-estado">Disponible</span></li>
-    </ol>
-    <a class="hub-btn principal f3-boton" style="--c:#ffd84a" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Contrata a la banda</a>
-  </div>
-</section>
-
-<nav class="vista-previa" id="vista-previa" hidden aria-label="Vista previa del cierre">
-  <span>Cierre:</span>
-  <a href="?final=0#cierre-preview">Actual</a>
-  <a href="?final=1#cierre-preview">1 · Transmisión</a>
-  <a href="?final=2#cierre-preview">2 · Pase</a>
-  <a href="?final=3#cierre-preview">3 · Cartel</a>
-</nav>
-
 <footer>© Los Voyagers — Lima</footer>
 </div>
-
-<nav class="vista-mezcla" id="vista-mezcla" hidden aria-label="Vista previa de mezclas">
-  <span>Mezcla:</span>
-  <a data-m="a">A · Viaje</a>
-  <a data-m="b">B · Tormenta eléctrica</a>
-  <a data-m="c">C · Psicodelia 70</a>
-  <a data-m="d">D · Tormenta psicodélica</a>
-</nav>
 
 <nav class="ruta" aria-label="Ruta del viaje">
   <ol>
@@ -1697,75 +1591,11 @@
   })();
 </script>
 <script>
-  // Vista previa de los cierres: ?final=0 (actual), 1, 2 o 3
-  (function () {
-    const params = new URLSearchParams(location.search);
-    const elegido = params.get("final");
-    const sel = ["0", "1", "2", "3"].includes(elegido) ? elegido : "0";
-    document.querySelectorAll("[data-final]").forEach((s) => { s.hidden = s.dataset.final !== sel; });
-    const barra = document.getElementById("vista-previa");
-    if (elegido !== null && barra) {
-      barra.hidden = false;
-      barra.querySelectorAll("a").forEach((a) => { if (a.getAttribute("href").startsWith("?final=" + sel)) a.setAttribute("aria-current", "true"); });
-    }
-    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // 1 · combi aterrizada + texto de terminal que se escribe solo
-    const f1 = document.querySelector('.final-1:not([hidden])');
-    if (f1) {
-      const cv = f1.querySelector(".f1-combi"), g = cv.getContext("2d");
-      g.setTransform(2, 0, 0, 2, 0, 0);
-      const tipeo = f1.querySelector(".f1-tipeo");
-      let visible = false, t = 0, ultimo = 0, escrito = false;
-      function cuadro(ahora) {
-        if (!visible) return;
-        if (ahora - ultimo > 33) {
-          t += (ahora - ultimo || 33) / 1000; ultimo = ahora;
-          g.clearRect(0, 0, 520, 280);
-          const salto = reducir ? 0 : Math.sin(t * 2.2) * 3;
-          if (window.dibujarCombiEn && !window.dibujarCombiEn(g, 260, 150 + salto, reducir ? 0 : t)) {}
-        }
-        requestAnimationFrame(cuadro);
-      }
-      function escribir() {
-        if (escrito) return; escrito = true;
-        const texto = tipeo.dataset.texto;
-        if (reducir) { tipeo.textContent = texto; return; }
-        let i = 0;
-        const paso = () => { tipeo.textContent = texto.slice(0, ++i); if (i < texto.length) setTimeout(paso, 38); };
-        paso();
-      }
-      new IntersectionObserver((e) => {
-        visible = e[0].isIntersecting;
-        if (visible) { escribir(); requestAnimationFrame(cuadro); }
-      }, { threshold: 0.2 }).observe(f1);
-    }
-
-    // 2 · QR que apunta a esta misma página (se genera con qrcodejs 1.0.0)
-    const qr = document.querySelector('.final-2:not([hidden]) #f2-qr');
-    if (qr) {
-      const sc = document.createElement("script");
-      sc.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
-      sc.onload = () => { new window.QRCode(qr, { text: location.origin + location.pathname, width: 148, height: 148, colorDark: "#06050e", colorLight: "#ffffff" }); };
-      document.body.appendChild(sc);
-    }
-  })();
-</script>
-<script>
   // Mezclas de material: cada una pone un video distinto en cada capa (vista previa con ?mezcla=a|b|c)
   const MEZCLAS = {
-    a: { portada: null, cinta: "nebulosa-plasma", hub: "horizonte", sistema: null, cierre: "andromeda", luces: true,
-         ruta: ["Lima", "Nebulosa", "Horizonte", "Sistema Voyager", "En vivo", "Andrómeda"],
-         kickerHub: "Horizonte de sucesos", kickerSistema: "Sistema Voyager" },
-    b: { portada: "tormenta", cinta: "red-electrica", hub: null, sistema: "horizonte", cierre: "nebulosa-plasma", luces: false,
-         ruta: ["Tormenta sobre Lima", "Alto voltaje", "Señal en claro", "Agujero negro", "En vivo", "Nebulosa"],
-         kickerHub: "Señal en claro", kickerSistema: "El disco es un agujero negro" },
-    c: { portada: "luces-liquidas", cinta: "nebulosa-plasma", hub: "puntos", sistema: "andromeda", cierre: "horizonte", luces: true,
-         ruta: ["Lámpara de lava", "Nebulosa", "Muro de luces", "Andrómeda", "En vivo", "Sin retorno"],
-         kickerHub: "Muro de luces", kickerSistema: "Andrómeda es el sol" },
     d: { portada: ["tormenta", "luces-liquidas"], cinta: "red-electrica", hub: "puntos", sistema: ["andromeda", "horizonte"], cierre: "nebulosa-plasma", luces: true,
          ruta: ["Tormenta psicodélica", "Alto voltaje", "Muro de luces", "Centro de la galaxia", "En vivo", "Nebulosa"],
-         kickerHub: "Muro de luces", kickerSistema: "Un agujero negro en el centro de Andrómeda" }
+         kickerHub: "Muro de luces", kickerSistema: "Centro de la galaxia" }
   };
   const params = new URLSearchParams(location.search);
   const claveMezcla = MEZCLAS[params.get("mezcla")] ? params.get("mezcla") : "d";
@@ -1788,14 +1618,6 @@
   document.getElementById("kicker-sistema").textContent = "Parada 04 · " + MEZCLA.kickerSistema;
   document.querySelectorAll(".ruta span").forEach((el, i) => { el.textContent = "0" + (i + 1) + " · " + MEZCLA.ruta[i]; });
   if (!MEZCLA.luces) { const p = document.querySelector(".tira-pista"); if (p) p.remove(); }
-  if (params.has("mezcla")) {
-    const barra = document.getElementById("vista-mezcla"); barra.hidden = false;
-    barra.querySelectorAll("a").forEach((a) => {
-      const q = new URLSearchParams(location.search); q.set("mezcla", a.dataset.m);
-      a.href = "?" + q.toString();
-      if (a.dataset.m === claveMezcla) a.setAttribute("aria-current", "page");
-    });
-  }
 
   // Videos de fondo: solo cargan y se reproducen cuando están cerca de la pantalla
   (function () {
