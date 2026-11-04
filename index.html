@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <title>Los Voyagers — Escúchanos</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -372,6 +372,187 @@
   .hub-mas a { color: #f2efe6; }
   @media (min-width: 720px) { .hub { padding-left: 48px; padding-right: 48px; } }
   @media (prefers-reduced-motion: reduce) { .hub-embed .cargando::before { animation: none; } }
+
+  /* ===== Propuestas de cierre (vista previa) ===== */
+  .final { position: relative; z-index: 1; display: grid; gap: 32px; align-items: center; padding: 72px 16px 64px; max-width: 1180px; margin: 0 auto; }
+  .final[hidden] { display: none; }
+  @media (min-width: 900px) { .final { grid-template-columns: 1.1fr 1fr; padding-left: 48px; padding-right: 48px; } }
+  .f1-titulo { font-family: var(--display); font-size: clamp(42px, 6.4vw, 84px); line-height: .92; text-transform: uppercase; color: #f2efe6; margin-top: 10px; text-shadow: 0 0 28px rgba(255,79,216,.4); }
+  .f1-sub { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--gris); max-width: 44ch; }
+  .f1-botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .f1-botones .hub-btn { min-width: 220px; }
+  .f1-terminal { margin-top: 26px; font-family: var(--maq); font-size: 14px; color: #3ff0ff; letter-spacing: .03em; }
+  .f1-cursor { animation: parpadeo 1s steps(1) infinite; }
+  @keyframes parpadeo { 50% { opacity: 0; } }
+
+  .f1-escena { position: relative; height: 340px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 72%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(#000 72%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-composite: intersect; }
+  .f1-planeta { position: absolute; left: -20%; right: -20%; top: 62%; height: 200%; border-radius: 50%; border-top: 2px solid #3ff0ff; background: radial-gradient(ellipse at 50% 0%, rgba(157,107,255,.45), rgba(20,10,40,.95) 30%, #07060f 60%); box-shadow: 0 -20px 60px -20px rgba(63,240,255,.6), inset 0 30px 60px -30px rgba(255,79,216,.5); }
+  .f1-combi { position: absolute; left: 50%; top: 24%; width: 520px; height: 280px; translate: -50% 0; }
+  .f1-bandera { position: absolute; left: 74%; top: 40%; width: 2px; height: 70px; background: #e6e6ef; }
+  .f1-bandera span { position: absolute; left: 2px; top: 0; padding: 4px 10px 4px 8px; font-family: var(--display); font-size: 16px; color: #06050e; background: #ff4fd8; clip-path: polygon(0 0, 100% 0, 86% 50%, 100% 100%, 0 100%); animation: ondear 2.4s ease-in-out infinite; transform-origin: left center; }
+  @keyframes ondear { 50% { transform: skewY(-4deg) scaleX(.94); } }
+
+  .f2-colgante { position: relative; display: grid; justify-items: center; padding-top: 70px; }
+  .f2-cinta { position: absolute; top: 0; width: 34px; height: 92px; background: repeating-linear-gradient(135deg, #ff4fd8 0 10px, #9d6bff 10px 20px); clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%); }
+  .f2-pase { position: relative; width: min(100%, 320px); border-radius: 18px; padding: 16px 16px 14px; background: linear-gradient(160deg, #15122a, #0b0917 60%); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); transform-origin: 50% -70px; animation: balanceo 5s ease-in-out infinite; transition: transform .3s ease; }
+  .f2-pase::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px; background: conic-gradient(from var(--ang), #3ff0ff, #ff4fd8, #9d6bff, #ffd84a, #3ff0ff); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: luzBorde 6s linear infinite; pointer-events: none; }
+  .f2-pase::after { content: ""; position: absolute; top: 8px; left: 50%; width: 46px; height: 8px; translate: -50% 0; border-radius: 6px; background: #07060f; box-shadow: inset 0 1px 2px rgba(0,0,0,.8); }
+  .f2-colgante:hover .f2-pase { animation-play-state: paused; transform: rotate(0deg) scale(1.03); }
+  @keyframes balanceo { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+  .f2-cabeza { display: flex; justify-content: space-between; margin-top: 12px; padding: 6px 10px; background: #ff4fd8; color: #06050e; font-family: var(--display); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; border-radius: 6px; }
+  .f2-pase img { width: 100%; height: auto; border-radius: 10px; margin-top: 12px; }
+  .f2-pase h3 { margin-top: 12px; font-family: var(--display); font-size: 34px; line-height: 1; text-transform: uppercase; color: #f2efe6; }
+  .f2-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 10px; }
+  .f2-datos dt { font-family: var(--maq); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #3ff0ff; }
+  .f2-datos dd { font-size: 14px; color: #f2efe6; margin: 2px 0 0; }
+  .f2-pie { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,.2); }
+  .f2-qr { width: 84px; height: 84px; padding: 5px; background: #fff; border-radius: 8px; flex: none; }
+  .f2-qr img, .f2-qr canvas { width: 74px !important; height: 74px !important; display: block; }
+  .f2-pie span { font-family: var(--maq); font-size: 12px; line-height: 1.4; color: var(--gris); }
+
+  .f3-cartel { grid-column: 1 / -1; position: relative; justify-self: center; width: min(100%, 760px); padding: 40px 32px 34px; border-radius: 6px; background: radial-gradient(circle at 1px 1px, rgba(255,216,74,.18) 1px, transparent 1.6px) 0 0 / 9px 9px, linear-gradient(170deg, #1b1430, #0a0814 70%); border: 2px solid #ffd84a; box-shadow: 0 0 0 6px #0a0814, 0 0 0 8px #ff4fd8, 0 30px 70px -20px rgba(0,0,0,.9); transform: rotate(-1deg); }
+  .f3-sello { position: absolute; top: 22px; right: 24px; padding: 6px 12px; border: 2px solid #ff4fd8; color: #ff4fd8; font-family: var(--display); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; transform: rotate(8deg); }
+  .f3-titulo { font-family: var(--display); font-size: clamp(56px, 11vw, 132px); line-height: .84; text-transform: uppercase; color: #ffd84a; letter-spacing: -.01em; text-shadow: 4px 4px 0 #ff4fd8, 8px 8px 0 rgba(63,240,255,.55); }
+  .f3-fechas { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 10px; }
+  .f3-fechas li { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 14px; padding: 14px 18px; background: #f2efe6; color: #06050e; border-radius: 6px; -webkit-mask: radial-gradient(circle 9px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat; transition: transform .2s ease; }
+  .f3-fechas li:hover { transform: translateX(6px) rotate(-.6deg); }
+  .f3-dia { font-family: var(--display); font-size: 24px; }
+  .f3-lugar { font-size: 15px; }
+  .f3-estado { font-family: var(--maq); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 8px; border: 1px dashed #06050e; }
+  .f3-boton { margin-top: 24px; max-width: 320px; }
+
+  .vista-previa { position: fixed; left: 16px; bottom: 16px; z-index: 70; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 12px; background: rgba(8,6,18,.92); border: 1px solid rgba(63,240,255,.5); font-family: var(--maq); font-size: 12px; color: var(--gris); }
+  .vista-previa[hidden] { display: none; }
+  .vista-previa a { padding: 5px 9px; border-radius: 8px; color: #f2efe6; text-decoration: none; border: 1px solid rgba(255,255,255,.15); }
+  .vista-previa a[aria-current="true"] { background: #3ff0ff; color: #06050e; border-color: #3ff0ff; }
+  @media (prefers-reduced-motion: reduce) { .f1-cursor, .f1-bandera span, .f2-pase, .f2-pase::before { animation: none; } }
+
+  /* ===== Viaje: material nuevo (nebulosa, horizonte, luces líquidas, Andrómeda) ===== */
+  /* Las capas de video se funden con modo "screen": el negro desaparece y solo queda la luz */
+  .breakline { z-index: auto; }
+  .cinta-a { z-index: 5; } .cinta-b { z-index: 4; }
+  .capa { position: absolute; pointer-events: none; mix-blend-mode: screen; object-fit: cover; }
+  .capa-cinta { left: 0; top: 50%; width: 100%; height: 520px; translate: 0 -50%; opacity: .7;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent); }
+  .capa-cinta[data-capa="red-electrica"] { opacity: .85; }
+
+  .hub { z-index: auto; }
+  .zona-hub { position: relative; overflow-x: clip; }
+  .hub > .hub-cab, .hub > .hub-tabs, .hub > .hub-panel, .hub > .hub-mas { position: relative; }
+  .capa-hub { left: 50%; top: -90px; width: min(1320px, 170vw); aspect-ratio: 1280 / 496; translate: -50% 0; opacity: .6;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%); }
+  .capa-hub[data-capa="puntos"] { aspect-ratio: 16 / 9; top: -160px; width: min(1500px, 200vw); opacity: .55;
+    -webkit-mask-image: radial-gradient(ellipse 50% 46% at 50% 46%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 50% 46% at 50% 46%, #000 30%, transparent 100%); }
+
+  .tira-cab { padding: 40px 16px 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+  .tira-pista { margin: 0; font-size: 13px; color: var(--gris); }
+  .foto-luz { position: relative; display: block; }
+  .luces { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; opacity: 0; transition: opacity 1.1s ease; pointer-events: none; }
+  .en-vivo { transition: box-shadow .6s ease, border-color .6s ease; }
+  .en-vivo:hover .luces, .en-vivo.encendida .luces { opacity: .55; }
+  .en-vivo:hover, .en-vivo.encendida { border-color: rgba(255,79,216,.6); box-shadow: 0 0 34px -6px rgba(255,79,216,.6), 0 0 60px -20px rgba(63,240,255,.6); }
+
+  .destino { position: relative; overflow-x: clip; }
+  .destino > footer { position: relative; }
+  .destino > .cierre { position: relative; }
+  .tira { position: relative; z-index: 2; }
+  .tira-cab { position: relative; z-index: 2; }
+  .capa-cierre { left: 50%; bottom: 0; width: min(1400px, 190vw); aspect-ratio: 1280 / 648; translate: -50% 0; opacity: .5;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 50%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 50%, transparent 100%); }
+  .capa-cierre[data-capa="horizonte"] { aspect-ratio: 1280 / 496; bottom: 60px; width: min(1300px, 190vw); }
+  .capa-cierre[data-capa="nebulosa-plasma"] { aspect-ratio: 16 / 9; width: 100%; max-width: none; opacity: .45;
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 55%, #000 25%, transparent 100%); mask-image: radial-gradient(ellipse 60% 50% at 50% 55%, #000 25%, transparent 100%); }
+
+  /* Capa de portada (B: rayos detrás del título · C: lámpara de lava) */
+  .portada > .capa { position: absolute; z-index: 0; }
+  .capa-portada { left: 0; top: 0; width: 100%; height: min(820px, 100%); opacity: .8;
+    -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, #000 45%, transparent), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); mask-composite: intersect; }
+  .capa-portada[data-capa="luces-liquidas"] { opacity: .38; }
+  html[data-mezcla="d"] .capa-portada[data-capa="luces-liquidas"] { opacity: .32; }
+  html[data-mezcla="d"] .capa-sistema[data-capa="andromeda"] { opacity: .6; }
+
+  /* Capa del sistema solar, centrada en el vinilo (B: el disco es un agujero negro · C: Andrómeda es el sol) */
+  .capa-sistema { left: 50%; top: 50%; translate: -50% -50%; width: 560px; max-width: 92vw; aspect-ratio: 1280 / 496; opacity: .9;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 70%, transparent 100%); }
+  .capa-sistema[data-capa="andromeda"] { width: 980px; max-width: 150vw; aspect-ratio: 1280 / 648; opacity: .75;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 45%, transparent 100%); }
+  html[data-mezcla="b"] .luces { display: none; }
+  .vista-mezcla { position: fixed; right: 16px; bottom: 16px; z-index: 70; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 12px; background: rgba(8,6,18,.92); border: 1px solid rgba(255,79,216,.55); font-family: var(--maq); font-size: 12px; color: var(--gris); }
+  .vista-mezcla a { color: #f2efe6; text-decoration: none; padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(242,239,230,.25); cursor: pointer; }
+  .vista-mezcla a[aria-current] { background: #ff4fd8; color: #111; border-color: #ff4fd8; }
+
+  /* Al acercarte el agujero negro te jala y Andrómeda crece en el horizonte */
+  @supports (animation-timeline: view()) {
+    .capa-hub { animation: jalar linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    .capa-cierre { animation: acercarse linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }
+    .capa-cinta { animation: atravesar linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+  }
+  @supports (animation-timeline: view()) { .capa-hub[data-capa="puntos"] { animation-name: muro; } }
+  @keyframes muro { from { scale: 1.12; opacity: .45; } 45% { scale: 1; opacity: 1; } to { scale: .94; opacity: .45; } }
+  @keyframes jalar { from { scale: .72; opacity: .12; } 45% { scale: 1; opacity: .62; } to { scale: 1.25; opacity: .15; } }
+  @keyframes acercarse { from { scale: .45; opacity: 0; } to { scale: 1; opacity: .55; } }
+  @keyframes atravesar { from { opacity: .2; } 50% { opacity: .75; } to { opacity: .2; } }
+
+  /* Ruta del viaje: seis paradas, de Lima a Andrómeda */
+  .ruta { display: none; }
+  @media (min-width: 1180px) and (hover: hover) {
+    .ruta { display: block; position: fixed; right: 18px; top: 50%; translate: 0 -50%; z-index: 40; font-family: var(--maq); }
+    .ruta ol { list-style: none; margin: 0; padding: 4px 0; position: relative; display: grid; gap: 26px; }
+    .ruta ol::before { content: ""; position: absolute; right: 4px; top: 8px; bottom: 8px; width: 1px; background: rgba(242,239,230,.18); }
+    .ruta ol::after { content: ""; position: absolute; right: 4px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(#3ff0ff, #9d6bff, #ff4fd8); transform-origin: top; scale: 1 var(--avance, 0); }
+    .ruta a { display: flex; flex-direction: row-reverse; align-items: center; justify-content: flex-start; gap: 10px; text-decoration: none; color: var(--gris); }
+    .ruta i { position: relative; z-index: 1; width: 9px; height: 9px; border-radius: 50%; background: #0e0e0e; border: 1px solid rgba(242,239,230,.5); transition: background .4s, box-shadow .4s, scale .4s; }
+    .ruta span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; padding: 3px 7px; border-radius: 6px; background: rgba(8,6,18,.85); opacity: 0; translate: 6px 0; transition: opacity .35s, translate .35s; }
+    .ruta:hover span, .ruta a:focus-visible span, .ruta.anuncia a.aqui span { opacity: 1; translate: 0 0; }
+    .ruta a.aqui { color: #f2efe6; }
+    .ruta a.aqui i { background: #ff4fd8; border-color: #ff4fd8; box-shadow: 0 0 0 4px rgba(255,79,216,.18), 0 0 14px #ff4fd8; scale: 1.25; }
+    .ruta a.pasada i { background: #3ff0ff; border-color: #3ff0ff; }
+    .ruta a:hover i { scale: 1.35; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .capa { animation: none; }
+    .luces { display: none; }
+  }
+
+  /* ===== Rayos que chocan: caen detrás de la portada y revientan a tempo (130 BPM) sobre las cintas ===== */
+  .portada > .rayos { position: absolute; z-index: 0; }
+  .rayos { inset: 0 0 50px 0; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
+  .rayos-suelo { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(63,240,255,.5) 20%, rgba(255,79,216,.5) 80%, transparent); box-shadow: 0 0 14px 1px rgba(157,107,255,.45); }
+  .rayo { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; }
+  .rayo-haz { position: absolute; left: 0; top: 0; width: 2px; height: calc(var(--t) * 100%); border-radius: 2px;
+    background: linear-gradient(to bottom, transparent, var(--cola) 55%, var(--c) 93%, #fff);
+    box-shadow: 0 0 7px 1px color-mix(in srgb, var(--c) 70%, transparent);
+    translate: 0 -100%; animation: rayoCae var(--P) linear var(--d0) infinite; will-change: translate; }
+  .rayo-golpe { position: absolute; left: 1px; bottom: 0; width: 0; height: 0; }
+  .rayo-flash { position: absolute; left: -40px; bottom: -12px; width: 80px; height: 24px; border-radius: 50%; background: radial-gradient(closest-side, #fff, var(--c) 45%, transparent); opacity: 0; animation: rayoFlash var(--P) ease-out var(--dg) infinite; }
+  .rayo-linea { position: absolute; left: -100px; bottom: -1px; width: 200px; height: 2px; background: linear-gradient(90deg, transparent, var(--c), #fff, var(--c), transparent); opacity: 0; animation: rayoLinea var(--P) ease-out var(--dg) infinite; }
+  .chispa { position: absolute; left: -1px; bottom: 0; width: 2px; height: 10px; border-radius: 2px; background: linear-gradient(#fff, var(--c)); box-shadow: 0 0 6px 1px var(--c); opacity: 0; transform-origin: 50% 100%; animation: chispa var(--P) cubic-bezier(.15,.7,.3,1) var(--dg) infinite; }
+  @keyframes rayoCae { from { translate: 0 -100%; } to { translate: 0 calc(100% / var(--t)); } }
+  @keyframes rayoFlash { 0% { opacity: 1; scale: .3; } 5% { opacity: .95; scale: 1.4; } 16% { opacity: 0; scale: 1.9; } 100% { opacity: 0; scale: 1.9; } }
+  @keyframes rayoLinea { 0% { opacity: 1; scale: .08 1; } 9% { opacity: .85; scale: 1 1; } 24% { opacity: 0; scale: 1.35 1; } 100% { opacity: 0; scale: 1.35 1; } }
+  @keyframes chispa { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0); } 20% { opacity: 0; transform: rotate(var(--a)) translateY(calc(-1 * var(--v))); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(calc(-1 * var(--v))); } }
+  .rayos.quieto *, .rayos.quieto *::before { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { .rayos * { animation-play-state: paused !important; } }
+
+  /* ===== Nebulosa del hub: nubes de gas en una franja diagonal, filamentos, polvo y estrellas en cruz ===== */
+  .nebula { position: absolute; left: 0; right: 0; top: 24%; bottom: -60px; pointer-events: none; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); mask-composite: intersect; }
+  .nube { position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 1.25; transform: translate(-50%, -50%); border-radius: 50%; mix-blend-mode: screen;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--c1) 62%, transparent), color-mix(in srgb, var(--c2) 32%, transparent) 55%, transparent);
+    animation: nubeDeriva var(--dur) ease-in-out var(--del) infinite, nubeHincha var(--hin) ease-in-out var(--del) infinite alternate; }
+  .nebula-filamentos, .nebula-polvo { position: absolute; inset: -20%; -webkit-mask-image: linear-gradient(to bottom right, transparent 22%, #000 44%, #000 56%, transparent 78%); mask-image: linear-gradient(to bottom right, transparent 22%, #000 44%, #000 56%, transparent 78%); }
+  .nebula-filamentos { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.006 0.013' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.6 0 0 0 0 0.98 -3.4 0 0 0 1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); background-size: 700px 700px; mix-blend-mode: screen; opacity: .32; }
+  .nebula-polvo { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='500'%3E%3Cfilter id='d' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.022' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.055 0 0 0 0 0.05 0 0 0 0 0.07 4.2 0 0 0 -2.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E"); background-size: 900px 500px; transform: rotate(-32deg); opacity: .75; }
+  .estrella-cruz { position: absolute; left: var(--x); top: var(--y); width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 6px 1px var(--c); animation: titila var(--tw) ease-in-out var(--del) infinite alternate; }
+  .estrella-cruz::before, .estrella-cruz::after { content: ""; position: absolute; left: 50%; top: 50%; width: 26px; height: 1px; translate: -50% -50%; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 80%, #fff), transparent); }
+  .estrella-cruz::after { rotate: 90deg; }
+  @keyframes nubeDeriva { 0%, 100% { translate: 0 0; } 50% { translate: var(--dx) var(--dy); } }
+  @keyframes nubeHincha { from { scale: .9; } to { scale: 1.1; } }
+  @keyframes titila { from { opacity: .35; scale: .8; } to { opacity: 1; scale: 1.15; } }
+  .nebula.quieto * { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { .nube, .estrella-cruz { animation: none; } }
 </style>
 </head>
 <body>
@@ -393,7 +574,9 @@
   </nav>
 </header>
 
-<section class="portada">
+<section class="portada" id="inicio">
+  <div class="rayos" aria-hidden="true"><div class="rayos-suelo"></div></div>
+  <video class="capa capa-portada" muted loop playsinline preload="none" aria-hidden="true"></video>
   <canvas class="constelacion" aria-hidden="true"></canvas>
   <div class="titulo-fila">
     <div>
@@ -421,15 +604,19 @@
   <p class="garabato">elige tu plataforma y escúchanos</p>
 </section>
 
-<div class="breakline" aria-hidden="true">
+<div class="breakline" id="nebulosa" aria-hidden="true">
+  <video class="capa capa-cinta" muted loop playsinline preload="none" aria-hidden="true"></video>
   <div class="cinta cinta-b"><div>Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ </div></div>
   <div class="cinta cinta-a"><div>Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ </div></div>
 </div>
 
 
+<div class="zona-hub">
+  <div class="nebula" aria-hidden="true"><div class="nebula-filamentos"></div><div class="nebula-polvo"></div></div>
 <section class="hub" id="escuchar" aria-labelledby="hub-titulo">
+  <video class="capa capa-hub" muted loop playsinline preload="none" aria-hidden="true"></video>
   <div class="hub-cab">
-    <span class="sistema-kicker">Rutas rápidas</span>
+    <span class="sistema-kicker" id="kicker-hub">Parada 03 · Horizonte de sucesos</span>
     <h2 id="hub-titulo" class="sistema-titulo">Escúchanos donde quieras</h2>
     <p class="sistema-sub">Dale play aquí mismo, guarda las canciones en tu biblioteca y síguenos en tu app.</p>
   </div>
@@ -499,15 +686,17 @@
 
   <p class="hub-mas">También en Deezer: <a href="https://www.deezer.com/album/827098931" target="_blank" rel="noopener">Vuelvo</a> · <a href="https://www.deezer.com/album/1036594372" target="_blank" rel="noopener">Decidido</a></p>
 </section>
+</div>
 
-<div class="cosmos">
+<div class="cosmos" id="planetas">
   <video class="fondo-video" src="fondos/planetas.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
 <div class="sistema-cab">
-    <span class="sistema-kicker">Sistema Voyager · de Lima al espacio</span>
+    <span class="sistema-kicker" id="kicker-sistema">Parada 04 · Sistema Voyager</span>
     <h2 class="sistema-titulo">Elige tu planeta</h2>
     <p class="sistema-sub">Cada planeta es una plataforma. Tócalo y escúchanos. El disco del centro suena.</p>
   </div>
 <section class="sistema" id="sistema" aria-label="Sistema solar de plataformas">
+  <video class="capa capa-sistema" muted loop playsinline preload="none" aria-hidden="true"></video>
   <button class="sol vinilo" id="vinilo" type="button" aria-label="Reproducir Vuelvo">
     <span class="vinilo-disco"><span class="vinilo-etiqueta">LV</span></span>
     <span class="vinilo-play" aria-hidden="true">▶</span>
@@ -529,14 +718,21 @@
 </section>
 </div>
 
+<div class="tira-cab" id="en-vivo">
+  <span class="sistema-kicker">Parada 05 · En vivo</span>
+  <p class="tira-pista">Pasa por las fotos en vivo y se prenden las luces del escenario.</p>
+</div>
 <section class="tira" aria-label="Fotos de la banda">
-  <figure class="tira-item"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo" loading="lazy"><figcaption>John · en vivo</figcaption></figure>
-  <figure class="tira-item"><img decoding="async" src="fotos/banda-en-vivo.jpg" alt="Dos guitarras y batería en vivo" loading="lazy"><figcaption>Guitarras · en vivo</figcaption></figure>
+  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo" loading="lazy"><video class="luces" data-src="fondos/luces-liquidas.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>John · en vivo</figcaption></figure>
+  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/banda-en-vivo.jpg" alt="Dos guitarras y batería en vivo" loading="lazy"><video class="luces" data-src="fondos/luces-liquidas.mp4" data-inicio="6" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>Guitarras · en vivo</figcaption></figure>
   <figure class="tira-item"><img decoding="async" src="fotos/banda-noche-lima.jpg" alt="Los cuatro de pie en una calle de Lima de noche" loading="lazy"><figcaption>Lima · de noche</figcaption></figure>
   <figure class="tira-item"><img decoding="async" src="fotos/kiosko.jpg" alt="Los cuatro frente a un kiosko de revistas en Lima" loading="lazy"><figcaption>Kiosko · Lima</figcaption></figure>
 </section>
 
-<section class="cierre" style="padding: 56px 16px 48px;">
+<div class="destino" id="destino">
+<video class="capa capa-cierre" muted loop playsinline preload="none" aria-hidden="true"></video>
+<div id="cierre-preview"></div>
+<section class="cierre" data-final="0" style="padding: 56px 16px 48px;">
   <p>¿Te suena?<br>Llévanos a tu escenario.</p>
   <a class="mail" href="mailto:booking@losvoyagers.pe">booking@losvoyagers.pe</a>
   <nav class="plata" aria-label="Todas las plataformas">
@@ -547,7 +743,94 @@
   </nav>
 </section>
 
+
+<!-- Propuesta 1 · Fin de la transmisión -->
+<section class="final final-1" data-final="1" hidden aria-labelledby="f1-titulo">
+  <div class="f1-escena" aria-hidden="true">
+    <div class="f1-planeta"></div>
+    <canvas class="f1-combi" width="1040" height="560"></canvas>
+    <div class="f1-bandera"><span>LV</span></div>
+  </div>
+  <div class="f1-texto">
+    <span class="sistema-kicker">Fin de la transmisión</span>
+    <h2 class="f1-titulo" id="f1-titulo">¿Nos llevas a tu escenario?</h2>
+    <p class="f1-sub">La banda ya aterrizó. Escríbenos y armamos la próxima tocada.</p>
+    <div class="f1-botones">
+      <a class="hub-btn principal" style="--c:#ff4fd8" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Escribir para booking</a>
+      <a class="hub-btn" style="--c:#3ff0ff" href="mailto:booking@losvoyagers.pe?subject=Kit%20de%20prensa%20Los%20Voyagers">Pedir kit de prensa</a>
+    </div>
+    <p class="f1-terminal"><span class="f1-tipeo" data-texto="&gt; señal de Los Voyagers · Lima · transmitiendo desde 2023"></span><span class="f1-cursor">_</span></p>
+  </div>
+</section>
+
+<!-- Propuesta 2 · Pase de backstage -->
+<section class="final final-2" data-final="2" hidden aria-labelledby="f2-titulo">
+  <div class="f2-colgante">
+    <div class="f2-cinta" aria-hidden="true"></div>
+    <article class="f2-pase">
+      <header class="f2-cabeza"><span>All access</span><span>Tour 2026</span></header>
+      <img src="fotos/banda-calle.jpg" alt="Los Voyagers de noche en una esquina de Lima" loading="lazy">
+      <h3>Los Voyagers</h3>
+      <dl class="f2-datos">
+        <div><dt>Desde</dt><dd>Lima, Perú</dd></div>
+        <div><dt>Género</dt><dd>Rock alternativo</dd></div>
+        <div><dt>Banda</dt><dd>4 integrantes</dd></div>
+        <div><dt>Singles</dt><dd>Vuelvo · Decidido</dd></div>
+      </dl>
+      <footer class="f2-pie"><div class="f2-qr" id="f2-qr" role="img" aria-label="Código QR que abre este EPK"></div><span>Escanéame<br>y abre el EPK</span></footer>
+    </article>
+  </div>
+  <div class="f2-texto">
+    <span class="sistema-kicker">Backstage</span>
+    <h2 class="f1-titulo" id="f2-titulo">Tu pase para tenernos en vivo</h2>
+    <p class="f1-sub">Productores, venues y festivales: escaneen el pase o escríbannos directo.</p>
+    <div class="f1-botones"><a class="hub-btn principal" style="--c:#ff4fd8" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Contratar a la banda</a></div>
+  </div>
+</section>
+
+<!-- Propuesta 3 · Cartel de gira -->
+<section class="final final-3" data-final="3" hidden aria-labelledby="f3-titulo">
+  <div class="f3-cartel">
+    <span class="f3-sello">Rock desde Lima</span>
+    <h2 class="f3-titulo" id="f3-titulo">Próximas<br>fechas</h2>
+    <ol class="f3-fechas">
+      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Lima · fecha por anunciar</span><span class="f3-estado">Pronto</span></li>
+      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Por anunciar</span><span class="f3-estado">Pronto</span></li>
+      <li><span class="f3-dia">??.??</span><span class="f3-lugar">Tu escenario</span><span class="f3-estado">Disponible</span></li>
+    </ol>
+    <a class="hub-btn principal f3-boton" style="--c:#ffd84a" href="mailto:booking@losvoyagers.pe?subject=Booking%20Los%20Voyagers">Contrata a la banda</a>
+  </div>
+</section>
+
+<nav class="vista-previa" id="vista-previa" hidden aria-label="Vista previa del cierre">
+  <span>Cierre:</span>
+  <a href="?final=0#cierre-preview">Actual</a>
+  <a href="?final=1#cierre-preview">1 · Transmisión</a>
+  <a href="?final=2#cierre-preview">2 · Pase</a>
+  <a href="?final=3#cierre-preview">3 · Cartel</a>
+</nav>
+
 <footer>© Los Voyagers — Lima</footer>
+</div>
+
+<nav class="vista-mezcla" id="vista-mezcla" hidden aria-label="Vista previa de mezclas">
+  <span>Mezcla:</span>
+  <a data-m="a">A · Viaje</a>
+  <a data-m="b">B · Tormenta eléctrica</a>
+  <a data-m="c">C · Psicodelia 70</a>
+  <a data-m="d">D · Tormenta psicodélica</a>
+</nav>
+
+<nav class="ruta" aria-label="Ruta del viaje">
+  <ol>
+    <li><a href="#inicio" data-parada="inicio"><i></i><span>01 · Lima</span></a></li>
+    <li><a href="#nebulosa" data-parada="nebulosa"><i></i><span>02 · Nebulosa</span></a></li>
+    <li><a href="#escuchar" data-parada="escuchar"><i></i><span>03 · Horizonte</span></a></li>
+    <li><a href="#planetas" data-parada="planetas"><i></i><span>04 · Sistema Voyager</span></a></li>
+    <li><a href="#en-vivo" data-parada="en-vivo"><i></i><span>05 · En vivo</span></a></li>
+    <li><a href="#destino" data-parada="destino"><i></i><span>06 · Andrómeda</span></a></li>
+  </ol>
+</nav>
 
 <audio id="reproductor" preload="none"></audio>
 
@@ -616,6 +899,7 @@
     });
     c.before(capas[0], capas[1]);
     const ctx = c.getContext("2d");
+    const ctxFondo = ctx;
     const CIAN = "#3ff0ff", MAGENTA = "#ff4fd8", VIOLETA = "#9d6bff";
     let W = 0, H = 0, estrellas = [];
     function crearEstrellas() {
@@ -756,7 +1040,7 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(crearSpriteVan);
 
     // La banda dentro de la combi, haciendo headbanging a ~130 BPM
-    function dibujarBanda(tiempo) {
+    function dibujarBanda(tiempo, ctx) {
       const colores = [MAGENTA, CIAN, VIOLETA, AMARILLO];
       const pulso = tiempo * 13.6;
       VENTANAS.forEach(([x, y, w, h], i) => {
@@ -800,7 +1084,7 @@
       ctx.restore();
     }
 
-    function dibujarVan(x, y, tiempo) {
+    function dibujarVan(x, y, tiempo, ctx = ctxFondo) {
       if (!spriteVan) return;
       ctx.save();
       ctx.translate(x, y);
@@ -820,7 +1104,7 @@
       ctx.quadraticCurveTo(-98 - largo * 0.6, 20, -98, 20); ctx.closePath(); ctx.fill();
       // Carrocería y banda
       ctx.drawImage(spriteVan, -VAN_W / 2, -VAN_H / 2 - 10, VAN_W, VAN_H);
-      dibujarBanda(tiempo);
+      dibujarBanda(tiempo, ctx);
       // Ruedas con llanta cromada que giran
       const giro = tiempo * 6;
       [[-60, 22], [60, 22]].forEach(([wx, wy]) => {
@@ -833,6 +1117,8 @@
       });
       ctx.restore();
     }
+
+    window.dibujarCombiEn = (destino, x, y, tiempo) => { if (spriteVan) dibujarVan(x, y, tiempo, destino); return !!spriteVan; };
 
     let t = 0, ultimo = performance.now();
     function cuadro(ahora) {
@@ -1408,6 +1694,219 @@
     const rot = document.getElementById("rot");
     if (rot) atajo(rot, () => rot.textContent);
     document.querySelectorAll(".planeta").forEach((a) => atajo(a, () => (a.querySelector(".planeta-nombre") || {}).textContent));
+  })();
+</script>
+<script>
+  // Vista previa de los cierres: ?final=0 (actual), 1, 2 o 3
+  (function () {
+    const params = new URLSearchParams(location.search);
+    const elegido = params.get("final");
+    const sel = ["0", "1", "2", "3"].includes(elegido) ? elegido : "0";
+    document.querySelectorAll("[data-final]").forEach((s) => { s.hidden = s.dataset.final !== sel; });
+    const barra = document.getElementById("vista-previa");
+    if (elegido !== null && barra) {
+      barra.hidden = false;
+      barra.querySelectorAll("a").forEach((a) => { if (a.getAttribute("href").startsWith("?final=" + sel)) a.setAttribute("aria-current", "true"); });
+    }
+    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // 1 · combi aterrizada + texto de terminal que se escribe solo
+    const f1 = document.querySelector('.final-1:not([hidden])');
+    if (f1) {
+      const cv = f1.querySelector(".f1-combi"), g = cv.getContext("2d");
+      g.setTransform(2, 0, 0, 2, 0, 0);
+      const tipeo = f1.querySelector(".f1-tipeo");
+      let visible = false, t = 0, ultimo = 0, escrito = false;
+      function cuadro(ahora) {
+        if (!visible) return;
+        if (ahora - ultimo > 33) {
+          t += (ahora - ultimo || 33) / 1000; ultimo = ahora;
+          g.clearRect(0, 0, 520, 280);
+          const salto = reducir ? 0 : Math.sin(t * 2.2) * 3;
+          if (window.dibujarCombiEn && !window.dibujarCombiEn(g, 260, 150 + salto, reducir ? 0 : t)) {}
+        }
+        requestAnimationFrame(cuadro);
+      }
+      function escribir() {
+        if (escrito) return; escrito = true;
+        const texto = tipeo.dataset.texto;
+        if (reducir) { tipeo.textContent = texto; return; }
+        let i = 0;
+        const paso = () => { tipeo.textContent = texto.slice(0, ++i); if (i < texto.length) setTimeout(paso, 38); };
+        paso();
+      }
+      new IntersectionObserver((e) => {
+        visible = e[0].isIntersecting;
+        if (visible) { escribir(); requestAnimationFrame(cuadro); }
+      }, { threshold: 0.2 }).observe(f1);
+    }
+
+    // 2 · QR que apunta a esta misma página (se genera con qrcodejs 1.0.0)
+    const qr = document.querySelector('.final-2:not([hidden]) #f2-qr');
+    if (qr) {
+      const sc = document.createElement("script");
+      sc.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+      sc.onload = () => { new window.QRCode(qr, { text: location.origin + location.pathname, width: 148, height: 148, colorDark: "#06050e", colorLight: "#ffffff" }); };
+      document.body.appendChild(sc);
+    }
+  })();
+</script>
+<script>
+  // Mezclas de material: cada una pone un video distinto en cada capa (vista previa con ?mezcla=a|b|c)
+  const MEZCLAS = {
+    a: { portada: null, cinta: "nebulosa-plasma", hub: "horizonte", sistema: null, cierre: "andromeda", luces: true,
+         ruta: ["Lima", "Nebulosa", "Horizonte", "Sistema Voyager", "En vivo", "Andrómeda"],
+         kickerHub: "Horizonte de sucesos", kickerSistema: "Sistema Voyager" },
+    b: { portada: "tormenta", cinta: "red-electrica", hub: null, sistema: "horizonte", cierre: "nebulosa-plasma", luces: false,
+         ruta: ["Tormenta sobre Lima", "Alto voltaje", "Señal en claro", "Agujero negro", "En vivo", "Nebulosa"],
+         kickerHub: "Señal en claro", kickerSistema: "El disco es un agujero negro" },
+    c: { portada: "luces-liquidas", cinta: "nebulosa-plasma", hub: "puntos", sistema: "andromeda", cierre: "horizonte", luces: true,
+         ruta: ["Lámpara de lava", "Nebulosa", "Muro de luces", "Andrómeda", "En vivo", "Sin retorno"],
+         kickerHub: "Muro de luces", kickerSistema: "Andrómeda es el sol" },
+    d: { portada: ["tormenta", "luces-liquidas"], cinta: "red-electrica", hub: "puntos", sistema: ["andromeda", "horizonte"], cierre: "nebulosa-plasma", luces: true,
+         ruta: ["Tormenta psicodélica", "Alto voltaje", "Muro de luces", "Centro de la galaxia", "En vivo", "Nebulosa"],
+         kickerHub: "Muro de luces", kickerSistema: "Un agujero negro en el centro de Andrómeda" }
+  };
+  const params = new URLSearchParams(location.search);
+  const claveMezcla = MEZCLAS[params.get("mezcla")] ? params.get("mezcla") : "d";
+  const MEZCLA = MEZCLAS[claveMezcla];
+  document.documentElement.dataset.mezcla = claveMezcla;
+  ["portada", "cinta", "hub", "sistema", "cierre"].forEach((capa) => {
+    const v = document.querySelector(".capa-" + capa);
+    if (!v) return;
+    const mats = [].concat(MEZCLA[capa] || []);
+    if (!mats.length) { v.remove(); return; }
+    let previo = null;
+    mats.forEach((mat, i) => {
+      const el = i === 0 ? v : v.cloneNode(false);
+      if (previo) previo.after(el);
+      el.dataset.src = "fondos/" + mat + ".mp4"; el.poster = "fondos/" + mat + ".jpg"; el.dataset.capa = mat; el.classList.add("vid-lazy");
+      previo = el;
+    });
+  });
+  document.getElementById("kicker-hub").textContent = "Parada 03 · " + MEZCLA.kickerHub;
+  document.getElementById("kicker-sistema").textContent = "Parada 04 · " + MEZCLA.kickerSistema;
+  document.querySelectorAll(".ruta span").forEach((el, i) => { el.textContent = "0" + (i + 1) + " · " + MEZCLA.ruta[i]; });
+  if (!MEZCLA.luces) { const p = document.querySelector(".tira-pista"); if (p) p.remove(); }
+  if (params.has("mezcla")) {
+    const barra = document.getElementById("vista-mezcla"); barra.hidden = false;
+    barra.querySelectorAll("a").forEach((a) => {
+      const q = new URLSearchParams(location.search); q.set("mezcla", a.dataset.m);
+      a.href = "?" + q.toString();
+      if (a.dataset.m === claveMezcla) a.setAttribute("aria-current", "page");
+    });
+  }
+
+  // Videos de fondo: solo cargan y se reproducen cuando están cerca de la pantalla
+  (function () {
+    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const cargar = (v) => {
+      if (v.src || !v.dataset.src) return;
+      v.src = v.dataset.src;
+      if (v.dataset.inicio) v.addEventListener("loadedmetadata", () => { v.currentTime = +v.dataset.inicio; }, { once: true });
+    };
+    const fondos = document.querySelectorAll("video.vid-lazy, video.fondo-video");
+    if (reducir) { fondos.forEach((v) => { v.removeAttribute("autoplay"); v.pause(); }); }
+    else if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        const v = e.target;
+        if (e.isIntersecting) { cargar(v); v.play().catch(() => {}); } else if (!v.paused) v.pause();
+      }), { rootMargin: "240px 0px" });
+      fondos.forEach((v) => io.observe(v));
+    }
+
+    // Luces líquidas sobre las fotos en vivo: se prenden al pasar el cursor, o solas en pantallas táctiles
+    if (reducir || !MEZCLA.luces) return;
+    const vivos = document.querySelectorAll(".en-vivo");
+    const prender = (f, si) => {
+      const v = f.querySelector(".luces");
+      clearTimeout(f._apagar);
+      if (si) { cargar(v); v.play().catch(() => {}); f.classList.add("encendida"); }
+      else { f.classList.remove("encendida"); f._apagar = setTimeout(() => v.pause(), 1200); }
+    };
+    if (matchMedia("(hover: hover)").matches) {
+      vivos.forEach((f) => { f.addEventListener("mouseenter", () => prender(f, true)); f.addEventListener("mouseleave", () => prender(f, false)); });
+    } else if ("IntersectionObserver" in window) {
+      const io2 = new IntersectionObserver((es) => es.forEach((e) => prender(e.target, e.isIntersecting)), { threshold: 0.6 });
+      vivos.forEach((f) => io2.observe(f));
+    }
+  })();
+
+  // Ruta del viaje: marca la parada actual y la línea avanza con el scroll
+  (function () {
+    const ruta = document.querySelector(".ruta");
+    if (!ruta || getComputedStyle(ruta).display === "none") return;
+    const enlaces = [...ruta.querySelectorAll("a")];
+    const paradas = enlaces.map((a) => document.getElementById(a.dataset.parada));
+    let actual = -1, pendiente = false;
+    const marcar = () => {
+      pendiente = false;
+      const medio = innerHeight * 0.5;
+      let idx = 0;
+      paradas.forEach((el, i) => { if (el && el.getBoundingClientRect().top < medio) idx = i; });
+      if (scrollY + innerHeight >= document.documentElement.scrollHeight - 4) idx = paradas.length - 1;
+      if (idx !== actual) {
+        if (actual !== -1) { ruta.classList.add("anuncia"); clearTimeout(ruta._t); ruta._t = setTimeout(() => ruta.classList.remove("anuncia"), 2200); }
+        actual = idx;
+        enlaces.forEach((a, i) => { a.classList.toggle("aqui", i === idx); a.classList.toggle("pasada", i < idx); if (i === idx) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });
+      }
+      const max = document.documentElement.scrollHeight - innerHeight;
+      ruta.style.setProperty("--avance", max > 0 ? (scrollY / max).toFixed(3) : 0);
+    };
+    addEventListener("scroll", () => { if (!pendiente) { pendiente = true; requestAnimationFrame(marcar); } }, { passive: true });
+    addEventListener("resize", marcar);
+    marcar();
+  })();
+</script>
+<script>
+  // Rayos: posiciones y tiempos fijos por índice; cada impacto cae en un pulso de 130 BPM
+  (function () {
+    const caja = document.querySelector(".rayos");
+    if (!caja) return;
+    const pulso = 60 / 130;
+    const n = innerWidth < 700 ? 8 : 14;
+    const azar = (k) => { const v = Math.sin(k * 12.9898) * 43758.5453; return v - Math.floor(v); };
+    const colores = [["#3ff0ff", "#9d6bff"], ["#ff4fd8", "#9d6bff"], ["#9d6bff", "#3ff0ff"], ["#3ff0ff", "#ff4fd8"], ["#ff4fd8", "#ffd84a"], ["#9d6bff", "#ff4fd8"]];
+    let html = "";
+    for (let i = 0; i < n; i++) {
+      const x = ((i + 0.5) / n) * 100 + (azar(i + 1) - 0.5) * (70 / n);
+      const t = 0.12 + azar(i + 31) * 0.16;
+      const P = pulso * [8, 10, 12][Math.floor(azar(i + 57) * 3)];
+      const dg = -pulso * Math.floor(azar(i + 83) * (P / pulso));
+      const d0 = dg - P / (1 + t);
+      const [c, cola] = colores[i % colores.length];
+      let chispas = "";
+      for (let j = 0; j < 6; j++) chispas += `<b class="chispa" style="--a:${Math.round(-75 + azar(i * 7 + j + 101) * 150)}deg;--v:${Math.round(18 + azar(i * 7 + j + 211) * 34)}px"></b>`;
+      html += `<span class="rayo" style="--x:${x.toFixed(2)}%;--t:${t.toFixed(3)};--P:${P.toFixed(3)}s;--d0:${d0.toFixed(3)}s;--dg:${dg.toFixed(3)}s;--c:${c};--cola:${cola}"><i class="rayo-haz"></i><span class="rayo-golpe"><i class="rayo-flash"></i><i class="rayo-linea"></i>${chispas}</span></span>`;
+    }
+    caja.insertAdjacentHTML("beforeend", html);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => es.forEach((e) => caja.classList.toggle("quieto", !e.isIntersecting))).observe(caja);
+    }
+  })();
+</script>
+<script>
+  // Nebulosa del hub: siete nubes en una franja que sube de abajo-izquierda a arriba-derecha, composición fija
+  (function () {
+    const caja = document.querySelector(".nebula");
+    if (!caja) return;
+    const azar = (k) => { const v = Math.sin(k * 78.233) * 43758.5453; return v - Math.floor(v); };
+    const col = ["#ff4fd8", "#9d6bff", "#3ff0ff", "#ff8fa8"];
+    const n = 7;
+    let html = "";
+    for (let i = 0; i < n; i++) {
+      const p = (i + 0.5) / n;
+      const x = 6 + p * 88 + (azar(i + 3) - 0.5) * 12;
+      const y = 86 - p * 72 + (azar(i + 9) - 0.5) * 18;
+      const w = 26 + azar(i + 17) * 18;
+      html += `<div class="nube" style="--x:${x.toFixed(1)}%;--y:${y.toFixed(1)}%;--w:${w.toFixed(1)}%;--c1:${col[i % 4]};--c2:${col[(i + 1) % 4]};--dx:${Math.round((azar(i + 23) - 0.5) * 120)}px;--dy:${Math.round((azar(i + 29) - 0.5) * 70)}px;--dur:${Math.round(40 + azar(i + 37) * 30)}s;--hin:${(7 + azar(i + 41) * 3).toFixed(1)}s;--del:${(-azar(i + 43) * 40).toFixed(1)}s"></div>`;
+    }
+    for (let i = 0; i < 6; i++) {
+      const p = azar(i + 61);
+      html += `<i class="estrella-cruz" style="--x:${(8 + p * 84).toFixed(1)}%;--y:${(84 - p * 70 + (azar(i + 67) - 0.5) * 22).toFixed(1)}%;--c:${col[i % 3]};--tw:${(2.5 + azar(i + 71) * 3).toFixed(1)}s;--del:${(-azar(i + 73) * 4).toFixed(1)}s"></i>`;
+    }
+    caja.insertAdjacentHTML("afterbegin", html);
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => es.forEach((e) => caja.classList.toggle("quieto", !e.isIntersecting))).observe(caja);
   })();
 </script>
 </body>
