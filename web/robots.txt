@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://los-voyagers.vercel.app/sitemap.xml

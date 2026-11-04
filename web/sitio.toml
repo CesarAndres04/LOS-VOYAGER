@@ -1,0 +1,281 @@
+# Textos de la página de presentación de Los Voyagers. Edita aquí y regenera la página:
+#   uv run pipeline/build_web.py
+#
+# Los "mensaje" de cada canción son BORRADORES escritos a partir de las letras y de
+# CONTEXT TO VOYAGERS/esencia_primer_disco.md. La banda debe cambiarlos por sus propias palabras.
+# Colores, tempo, tonalidad, energía y letra sincronizada salen solos de los datos del proyecto.
+
+# ─── Posicionamiento: lo que leen Google y las vistas previas de WhatsApp/X (ver PLAN_WEB.md) ──
+# Cambiar `url` cuando haya dominio propio y volver a generar la página.
+[sitio]
+url = "https://los-voyagers.vercel.app"
+titulo = "Los Voyagers — Rock peruano desde Lima | Vuelvo y Decidido"
+descripcion = "Los Voyagers es una banda de rock alternativo de Lima, Perú. Escucha «Decidido» y «Vuelvo» en Spotify, Apple Music y YouTube. Perderse y volver."
+titulo_social = "Los Voyagers — Rock peruano desde Lima"
+descripcion_social = "Banda de rock de Lima, Perú. Singles «Vuelvo» y «Decidido». Perderse y volver."
+descripcion_banda = "Banda de rock de Lima, Perú. Cuatro integrantes; rock alternativo, indie y rock latino en español."
+desambiguacion = "Banda de rock peruana de Lima (Los Voyagers, en plural). No confundir con las sondas Voyager de la NASA, la película «Voyagers» (2021), la banda australiana Voyager ni el proyecto «Los Voyager»."
+generos = ["Rock", "Rock alternativo", "Indie rock", "Rock latino", "Rock en español"]
+imagen = "og.jpg"
+imagen_alt = "Portada del fanzine de Los Voyagers, banda de rock peruano de Lima, impresa sobre papel fotocopiado"
+linktree = "https://linktr.ee/losvoyagers"
+
+[banda]
+nombre = "Los Voyagers"
+lema = "Rock peruano desde Lima"
+saludo = "Perderse y volver."
+manifiesto = "Alguien se pierde tan lejos que ya no puede volver. Lo único que vuelve es su voz."
+presentacion = "Somos Los Voyagers, una banda de rock de Lima. Como la Voyager 1, que lleva casi 50 años alejándose y aun así sigue mandando su señal, cada canción nuestra es un mensaje lanzado sin saber si va a llegar. Hablamos de perderse, de volver y de decidir. Toda la bulla 🚀"
+# BORRADOR para que la banda lo reescriba. Solo usa hechos publicados (ver banda/INVENTARIO.md).
+bio = "Somos cuatro y somos de Lima. Tocamos por primera vez en octubre de 2023 y desde entonces subimos ensayos, covers y tocadas a TikTok: del Bar El Dragón, en Barranco, a la vereda. En 2025 salió Vuelvo; en 2026, Decidido. Lo que viene se está escribiendo. Toda la bulla 🚀"
+cinta = ["Rock peruano", "Desde Lima", "Perderse y volver", "Toda la bulla 🚀", "Indie · alternativo · rock latino"]
+datos = [["17·10·25", "despegue: Vuelvo"], ["Lima", "Perú"], ["2", "singles"], ["4", "integrantes"]]
+
+# Botones grandes del inicio (en este orden).
+[[inicio]]
+texto = "Escuchar en Spotify"
+url = "https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l"
+[[inicio]]
+texto = "Ver en YouTube"
+url = "https://www.youtube.com/@LosVoyagers?sub_confirmation=1"
+[[inicio]]
+texto = "Seguir en TikTok"
+url = "https://www.tiktok.com/@losvoyagers"
+
+# ─── Canciones publicadas: una sección grande por canción, en este orden ───────────────────
+# motivo: "orbita" (algo que atrae y no suelta) o "senal" (ondas que se alejan).
+[[cancion]]
+id = "vuelvo"
+numero = "01"
+fecha = "17.10.2025"
+publicado = "2025-10-17"
+isrc = "QT3F22599457"
+upc = "199740328205"
+fase = "Atracción gravitatoria"
+fragmento = [43.6, 22.0]
+fragmento_texto = "coro"
+motivo = "orbita"
+cita = ["Siempre que vuelvo aquí", "Siento que no pertenezco"]
+mensaje = "Vuelvo es volver una y otra vez a un lugar, y a alguien, donde ya no perteneces. Es pura gravedad: el cuerpo que te amarra es el mismo que te desarma, y aunque ya no puedas más, vuelves. Es nuestra letra más triste, pero está en tono mayor y suena fuerte, porque así se siente: caer y seguir girando."
+spotify = "7IpJkuCf6n0QJLOCswal4q"
+youtube = "T1SDRPZFOKY"
+video_texto = "Ver el videoclip"
+video_imagen = "assets/vuelvo_clip.jpg"
+rutas = [
+  ["Spotify", "https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q"],
+  ["Apple Music", "https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914"],
+  ["Deezer", "https://www.deezer.com/album/827098931"],
+  ["YouTube", "https://www.youtube.com/watch?v=T1SDRPZFOKY"],
+]
+
+
+# Epígrafe: cita de dominio público verificada (ver CONTEXT TO VOYAGERS/referencias_literarias.md).
+[cancion.epigrafe]
+texto = ["Esta noche desciendo del caballo,", "ante la puerta de la casa, donde", "me despedí con el cantar del gallo.", "Está cerrada y nadie responde."]
+autor = "César Vallejo"
+obra = "Trilce, LXI"
+anio = "1922"
+lectura = "En Vallejo, el que vuelve encuentra la puerta cerrada y a nadie que responda. Es lo que dice «Siempre que vuelvo aquí / siento que no pertenezco»: el lugar ya no te contiene."
+
+[[cancion]]
+id = "decidido"
+numero = "02"
+fecha = "14.08.2026"
+publicado = "2026-08-14"
+isrc = "QT6FG2670347"
+upc = "882197006030"
+fase = "Apagar para seguir"
+fragmento = [25.4, 22.0]
+fragmento_texto = "coro"
+motivo = "senal"
+cita = ["Pero ya está decidido"]
+mensaje = "Decidido es pelear para olvidar. Temer que los caminos se separen y, aun así, decidir. Como la Voyager 1, que apaga instrumentos para poder seguir avanzando, soltar también es una forma de seguir. La letra termina a los 2:06; lo que queda son dos minutos de banda: la señal alejándose."
+spotify = "1PkFrKaeXV9bHYA51lHPke"
+instrumentos = "La Voyager 1 llevaba 10 instrumentos de ciencia. Para seguir viajando, la NASA los apaga en un orden decidido hace años: hoy solo quedan 2 encendidos."
+rutas = [
+  ["Spotify", "https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke"],
+  ["Apple Music", "https://music.apple.com/pe/album/decidido/6794141871?i=6794141872"],
+  ["Deezer", "https://www.deezer.com/album/1036594372"],
+  ["TikTok", "https://www.tiktok.com/@losvoyagers/video/7675491756414094613"],
+]
+
+
+[cancion.epigrafe]
+texto = ["Ὁ ἀρνηθεὶς δὲν μετανοιώνει. Ἄν ρωτιοῦνταν πάλι,", "ὄχι θὰ ξαναέλεγε. Κι' ὅμως τὸν καταβάλλει", "ἐκεῖνο τ' ὄχι — τὸ σωστὸ — εἰς ὅλην τὴν ζωή του."]
+lengua = "el"
+traduccion = ["El que se negó no se arrepiente. Si le preguntaran otra vez,", "volvería a decir no. Y sin embargo lo abate", "aquel no —el correcto— toda su vida."]
+autor = "C. P. Cavafis"
+obra = "Che fece …. il gran rifiuto"
+obra_lengua = "it"
+anio = "1901"
+lectura = "«Pero ya está decidido», repetido como quien se lo confirma a sí mismo, y aun así «a veces pienso aún en estar contigo». Cavafis llama a ese no «el correcto» y lo deja pesar toda la vida."
+
+# ─── El regreso: lo que viene, sin anunciar nombres ─────────────────────────────────────
+# La Voyager 1 nunca vuelve; Los Voyagers sí. La cápsula de la banda baja hacia la Tierra: salió con el debut
+# (Vuelvo) y aterriza con el LP. Su posición en el dibujo es el avance real entre esas dos fechas.
+[lp]
+titulo = "Los Voyagers 1"
+tipo = "LP"
+frase = "La Voyager 1 nunca va a volver. Nosotros sí."
+texto = "Mandamos la cápsula de vuelta a la Tierra. Adentro vamos los cuatro, con lo que grabamos allá arriba. Mientras bajamos, sintoniza lo que ya llegó."
+debut = "2025-10-17T00:00:00-05:00"
+debut_texto = "despegue · Vuelvo · 17.10.2025"
+# FECHA REFERENCIAL: cambiarla cuando la banda fije el lanzamiento del LP.
+reentrada = "2027-10-17T00:00:00-05:00"
+reentrada_texto = "aterrizaje · LP · fecha referencial"
+visualizer = "Visualizer del LP · en producción"
+
+# ─── Bitácora: solo hechos publicados (ver banda/INVENTARIO.md) ─────────────────────────
+[bitacora]
+hitos = [
+  ["oct 2023", "Aparece @losvoyagers en TikTok y llega la primera tocada", "https://www.tiktok.com/@losvoyagers/video/7295936690642783493"],
+  ["feb 2024", "Se abre el canal de YouTube", "https://www.youtube.com/@LosVoyagers"],
+  ["ene 2025", "«fusión cromática» en SoundCloud", "https://soundcloud.com/los-voyagers"],
+  ["17 oct 2025", "Sale Vuelvo, el primer single", "https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q"],
+  ["14 nov 2025", "Videoclip de Vuelvo", "https://www.youtube.com/watch?v=T1SDRPZFOKY"],
+  ["jul 2026", "Bar El Dragón, Barranco", "https://www.tiktok.com/@losvoyagers/video/7658760285129493780"],
+  ["jul–ago 2026", "Serie «EP 1–3» en TikTok", "https://www.tiktok.com/@losvoyagers/video/7668469140071451924"],
+  ["14 ago 2026", "Sale Decidido, el segundo single", "https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke"],
+]
+
+# ─── Un día-luz: la metáfora de la Voyager 1 (datos de la NASA, ver CONTEXT TO VOYAGERS/contex.md) ───
+[senal]
+texto = "La Voyager 1 salió en 1977 y nunca va a volver. Está tan lejos que su señal tarda casi un día entero en llegar a la Tierra, y aun así sigue llegando. Así se sienten nuestras canciones: irse lejos, perderse, y que lo único que vuelva sea la voz."
+datos = [
+  ["1977", "sale la Voyager 1; nunca va a volver"],
+  ["24 h", "tarda su señal en llegar a la Tierra"],
+  ["173", "veces la distancia Tierra–Sol: eso es un día-luz"],
+  ["2", "instrumentos siguen encendidos para seguir viajando"],
+]
+dia_luz = "2026-11-18T10:16:07Z"
+
+
+# ─── Epígrafes de las hojas sin canción ──────────────────────────────────────────────────
+[epigrafes.mensaje]
+texto = ["vox tantum atque ossa supersunt:", "vox manet […]", "omnibus auditur: sonus est, qui vivit in illa."]
+lengua = "la"
+traduccion = ["solo le quedan la voz y los huesos:", "la voz permanece […]", "todos la oyen: es un sonido lo que vive en ella."]
+autor = "Ovidio"
+obra = "Metamorfosis, III (el mito de Eco)"
+anio = "c. 8 d. C."
+lectura = "Eco se consume hasta que no le queda cuerpo, solo voz. Así existe hoy la Voyager 1 para nosotros: ya no se ve, solo se oye."
+
+[epigrafes.banda]
+texto = ["Mais les vrais voyageurs sont ceux-là seuls qui partent", "Pour partir ; cœurs légers, semblables aux ballons,", "[…] Et, sans savoir pourquoi, disent toujours : Allons !"]
+lengua = "fr"
+traduccion = ["Pero los verdaderos viajeros son solo los que parten", "por partir; corazones ligeros, semejantes a globos,", "[…] y, sin saber por qué, dicen siempre: ¡Vamos!"]
+autor = "Charles Baudelaire"
+obra = "Le Voyage, I (Les Fleurs du mal)"
+obra_lengua = "fr"
+anio = "1861"
+lectura = "En francés, voyager es viajar. Los verdaderos viajeros parten por partir y, «sin saber por qué», siguen: el mismo «¿Por qué será?» de Vuelvo."
+
+[epigrafes.senal]
+texto = ["And you O my soul where you stand,", "Surrounded, detached, in measureless oceans of space,", "[…] Till the gossamer thread you fling catch somewhere, O my soul."]
+lengua = "en"
+traduccion = ["Y tú, alma mía, ahí donde estás,", "rodeada, desprendida, en océanos inmensurables de espacio,", "[…] hasta que el hilo de gasa que arrojas se prenda en algún sitio, oh alma mía."]
+autor = "Walt Whitman"
+obra = "A Noiseless Patient Spider"
+obra_lengua = "en"
+anio = "1868"
+lectura = "Un alma suelta en el espacio que no deja de lanzar hilos hasta que uno se prenda. Como la sonda: sola, apagando instrumentos, sin dejar de transmitir."
+
+# ─── Diccionario de a bordo: etimologías y lecturas (fuentes al final de la lista) ───────
+# amarrar y vereda se verificaron por el extracto del DLE; confirmarlas a mano en dle.rae.es.
+[diccionario]
+titulo = "Palabras para perderse y volver"
+intro = "Estas canciones se pueden leer como un solo viaje en cuatro tiempos. Primero, perderse: alguien se encuentra de pronto frente a una puerta que nadie abre, como en Vallejo. Después, volver, que no es llegar sino dar la vuelta: en latín, volver era hacer rodar, y en griego la misma palabra significa girar y regresar. Luego, decidir, que viene de cortar: el no que, como escribió Cavafis, es el correcto y aun así pesa toda la vida. Y al final, la voz, lo único que sobrevive a la distancia: la de Eco cuando ya no le queda cuerpo, el hilo que la araña de Whitman lanza al vacío y el nombre mismo de nuestra ciudad, Lima, que en quechua quiere decir «el que habla»."
+fuentes = [
+  ["RAE, DLE", "https://dle.rae.es/"],
+  ["Etymonline", "https://www.etymonline.com/es/"],
+  ["Garcilaso, Comentarios reales (1609)", "https://archive.org/details/loscomentariosre02vega"],
+  ["Cerrón-Palomino sobre Rímac y Lima", "https://revistas.pucp.edu.pe/index.php/lexis/article/download/4946/4941"],
+  ["Wikisource", "https://es.wikisource.org/"],
+]
+
+[[diccionario.entradas]]
+palabra = "viaje"
+cat = "m."
+origen = "Del lat. viatĭcum, ‘provisión para el camino’. Del mismo origen, el francés voyage y voyager, ‘viajar’."
+def = "Lo que uno lleva encima para no perderse del todo. Unos viajeros cargan pan; nosotros, canciones."
+disco = "el nombre de la banda"
+
+[[diccionario.entradas]]
+palabra = "volver"
+cat = "intr."
+origen = "Del lat. volvĕre, ‘hacer rodar, voltear’. En griego, γυρίζω significa a la vez ‘girar’ y ‘regresar’."
+def = "Dar la vuelta: describir una órbita y pasar otra vez por el mismo punto."
+disco = "Vuelvo"
+
+[[diccionario.entradas]]
+palabra = "nostalgia"
+cat = "f."
+origen = "Del gr. nóstos, ‘regreso a casa’, y álgos, ‘dolor’. La inventó en 1688 Johannes Hofer, estudiante de medicina suizo, para nombrar el mal de los soldados lejos de su tierra."
+def = "El dolor del regreso. A veces duele no poder volver; a veces, volver y ya no pertenecer."
+disco = "Vuelvo"
+
+[[diccionario.entradas]]
+palabra = "amarrar"
+cat = "tr."
+origen = "Del fr. amarrer, y este del neerl. medio aanmarren, ‘atar’. Se dice de asegurar una embarcación en el puerto."
+def = "Palabra de marineros: lo contrario de zarpar. «A tu cuerpo / que me amarra / y me desarma»."
+disco = "Vuelvo"
+
+[[diccionario.entradas]]
+palabra = "decidir"
+cat = "tr."
+origen = "Del lat. decidĕre, ‘cortar’, ‘resolver’."
+def = "Cortar. El corte es limpio y aun así duele: el no correcto que pesa toda la vida."
+disco = "Decidido"
+
+[[diccionario.entradas]]
+palabra = "hola"
+cat = "interj."
+origen = "De origen incierto; los lingüistas todavía lo discuten."
+def = "La primera palabra de una confesión, y nadie sabe de dónde viene. Como el «futuro incierto» al que se le dice hola."
+
+[[diccionario.entradas]]
+palabra = "eco"
+cat = "m."
+origen = "Del lat. echo, y este del gr. ēchṓ, ‘sonido’. En Ovidio, la ninfa que se consume de amor hasta que solo queda su voz."
+def = "Una voz sin cuerpo que solo puede repetir las últimas palabras que oye: una voz condenada al «otra vez»."
+disco = "el manifiesto"
+
+[[diccionario.entradas]]
+palabra = "planeta"
+cat = "m."
+origen = "Del gr. planḗtēs, ‘errante, vagabundo’. Dante llama al sol «pianeta / che mena dritto altrui per ogne calle»: el errante que guía."
+def = "Una estrella que se perdió. Y aun así, la que guía."
+disco = "Un día-luz"
+
+[[diccionario.entradas]]
+palabra = "Lima"
+cat = "n. p."
+origen = "Del quechua rimaq, ‘el que habla’. El Inca Garcilaso (1609): «El nombre Rimac es participio de presente, quiere decir el que habla»."
+def = "Una ciudad que se llama «el que habla». En el quechua de la costa la r sonaba l: el nombre nos llegó cambiado, como una señal con ruido."
+disco = "la voz"
+
+[[diccionario.entradas]]
+palabra = "vereda"
+cat = "f."
+origen = "Del lat. medieval vereda, ‘camino’, y este del lat. verēdus, ‘caballo de posta’."
+def = "Antes de ser la orilla de la pista, fue el camino de los mensajeros: una vía hecha para que llegue una señal."
+disco = "la calle de nuestras letras"
+
+[[diccionario.entradas]]
+palabra = "sueño"
+cat = "m."
+origen = "Del lat. somnus, ‘el acto de dormir’, y somnium, ‘lo soñado’. El español juntó las dos palabras en una."
+def = "El que duerme y el que imagina, en la misma palabra. Calderón: «soñemos, alma, soñemos / otra vez»."
+
+# ─── Canales: todas las rutas para escuchar y seguir a la banda ─────────────────────────
+[canales]
+lista = [
+  ["Spotify", "Escuchar", "Los Voyagers", "https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l", "#1ed760"],
+  ["YouTube", "Ver", "@LosVoyagers", "https://www.youtube.com/@LosVoyagers?sub_confirmation=1", "#ff4e45"],
+  ["TikTok", "Seguir", "@losvoyagers", "https://www.tiktok.com/@losvoyagers", "#25f4ee"],
+  ["Instagram", "Seguir", "@los.voyagers", "https://www.instagram.com/los.voyagers/", "#c13584"],
+  ["Apple Music", "Escuchar", "Los Voyagers", "https://music.apple.com/pe/artist/los-voyagers/1799073274", "#fa5a6e"],
+  ["Deezer", "Escuchar", "Los Voyagers", "https://www.deezer.com/artist/305204441", "#a238ff"],
+  ["SoundCloud", "Escuchar", "los-voyagers", "https://soundcloud.com/los-voyagers", "#ff7a1a"],
+]

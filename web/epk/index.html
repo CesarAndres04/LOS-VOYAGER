@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Los Voyagers — Escúchanos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #efece3;
+    --tinta: #111;
+    --amarillo: #f5d142;
+    --rosa: #e8559a;
+    --gris: #6d6b65;
+    --display: "Anton", Impact, sans-serif;
+    --maq: "Special Elite", "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --papel: #0e0e0e; --tinta: #f2efe6; --gris: #b8b5ad; }
+  }
+  :root[data-theme="dark"] { --papel: #0e0e0e; --tinta: #f2efe6; --gris: #b8b5ad; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--papel); color: var(--tinta); }
+  body { font-family: var(--maq); overflow-x: hidden; }
+  img { display: block; height: auto; max-width: 100%; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+  /* Cinta adhesiva y foto tipo Polaroid */
+  .polaroid { background: #fff; padding: 8px 8px 26px; box-shadow: 0 6px 14px rgba(0,0,0,.18); position: relative; }
+  .polaroid::before { content: ""; position: absolute; top: -10px; left: 50%; width: 64px; height: 18px; transform: translateX(-50%) rotate(-3deg); background: rgba(245,209,66,.85); }
+  .polaroid span { position: absolute; left: 10px; bottom: 6px; font-family: var(--maq); font-size: 12px; color: #222; }
+
+  .barra { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-family: var(--display); font-size: 18px; letter-spacing: .02em; text-transform: uppercase; background: color-mix(in srgb, var(--papel) 62%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid color-mix(in srgb, var(--tinta) 10%, transparent); }
+  .barra a { text-decoration: none; border-bottom: 2px solid currentColor; }
+
+  /* Órbita: plataformas como satélites alrededor del botón de play */
+  .orbita { position: relative; width: 84px; height: 84px; flex: none; margin: 8px 6px 8px 0; }
+  .orbita .centro { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: var(--amarillo); color: #111; display: grid; place-items: center; font-size: 16px; text-decoration: none; border: 0; box-shadow: 3px 3px 0 var(--tinta); }
+  .orbita .anillo { position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed color-mix(in srgb, var(--tinta) 60%, transparent); will-change: transform; cursor: grab; }
+  .orbita:active { cursor: grabbing; }
+  .orbita .centro::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 1px solid var(--amarillo); animation: pulso 2.6s ease-out infinite; pointer-events: none; }
+  .orbita .anillo::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--tinta) 12%, transparent); }
+  .sat { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: var(--papel); color: var(--tinta); border: 2px solid var(--c, var(--tinta)); display: grid; place-items: center; font-family: var(--maq); font-size: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 3px 8px rgba(0,0,0,.25); transition: box-shadow .25s ease; }
+  .sat::after { content: attr(data-label); position: absolute; top: calc(100% + 8px); left: 50%; translate: -50% 0; white-space: nowrap; font-size: 11px; letter-spacing: .04em; padding: 3px 8px; background: var(--tinta); color: var(--papel); opacity: 0; transform: translateY(-4px); transition: opacity .2s ease, transform .2s ease; pointer-events: none; }
+  .sat:hover::after, .sat:focus-visible::after { opacity: 1; transform: none; }
+  .sat:hover, .sat:focus-visible { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c, var(--tinta)) 28%, transparent), 0 0 22px var(--c, var(--tinta)); outline: none; }
+  .barra .sat { border: 2px solid var(--c, var(--tinta)); }
+  .sat:hover { background: var(--tinta); color: var(--papel); }
+  .s1 { top: -15px; left: calc(50% - 15px); }
+  .s2 { right: -15px; top: calc(50% - 15px); }
+  .s3 { bottom: -15px; left: calc(50% - 15px); }
+  .s4 { left: -15px; top: calc(50% - 15px); }
+  .orbita:hover .anillo, .orbita:hover .sat { animation-play-state: paused; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  @keyframes contra { to { transform: rotate(-360deg); } }
+  @media (prefers-reduced-motion: reduce) { .orbita .anillo, .sat { animation: none; } }
+  @media (max-width: 480px) { .orbita { width: 72px; height: 72px; } .sat { width: 26px; height: 26px; font-size: 11px; } .s1 { top: -13px; left: calc(50% - 13px); } .s2 { right: -13px; top: calc(50% - 13px); } .s3 { bottom: -13px; left: calc(50% - 13px); } .s4 { left: -13px; top: calc(50% - 13px); } }
+
+  /* Portada */
+  .portada { position: relative; padding: 8px 16px 40px; overflow: hidden; background-image: radial-gradient(color-mix(in srgb, var(--tinta) 14%, transparent) 1px, transparent 1.5px); background-size: 46px 46px; }
+  .portada h1 { font-family: var(--display); font-size: clamp(64px, 19vw, 230px); line-height: .86; text-transform: uppercase; margin-top: 10px; }
+  .portada h1 em { font-style: normal; color: var(--rosa); }
+  .portada .sub { margin-top: 14px; font-size: 15px; }
+  .collage { position: relative; height: 420px; margin: 22px 0 0; }
+  .collage .polaroid { position: absolute; width: 180px; --r: 0deg; transform: rotate(var(--r)); animation: aparece .9s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0s); }
+  .collage .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 2; }
+  .collage .p1 { left: 2%; top: 0; --r: -6deg; --d: .1s; }
+  .collage .p2 { left: 30%; top: 60px; width: 210px; --r: 3deg; --d: .25s; }
+  .collage .p3 { right: 2%; top: 10px; width: 170px; --r: -2deg; --d: .4s; }
+  .collage .p4 { left: 14%; top: 250px; width: 170px; --r: 4deg; --d: .55s; }
+  .collage .p5 { right: 10%; top: 230px; width: 200px; --r: -4deg; --d: .7s; }
+  .collage .polaroid img { width: 100%; height: auto; }
+  /* Capa de fondo interactiva (estrellas, estela del mouse, estrellas fugaces) */
+  header, main, section, footer { position: relative; z-index: 1; }
+
+  /* Sistema solar de plataformas, con galaxia WebGL de fondo */
+  .cosmos { position: relative; overflow: hidden; padding: 24px 0 60px; min-height: 560px; }
+  .cosmos > canvas { z-index: 0; }
+  .sistema { position: relative; width: min(100%, 560px); aspect-ratio: 1; margin: 48px auto 72px; padding: 0; }
+  .sol { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, var(--amarillo) 55%, #d9a300); display: grid; place-items: center; color: #111; text-decoration: none; font-size: 22px;  z-index: 2; }
+  @keyframes latido { 50% { box-shadow: 0 0 56px rgba(245,209,66,.75); } }
+  .orb { position: absolute; left: 50%; top: 50%; width: var(--d); height: var(--d); translate: -50% -50%; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--tinta) 35%, transparent); animation: gira var(--t, 40s) linear infinite; }
+  .o1 { --d: 56%; } .o2 { --d: 80%; } .o3 { --d: 100%; }
+  .planeta { position: absolute; top: -19px; left: calc(50% - 19px); width: 38px; height: 38px; border-radius: 50%; background: var(--papel); border: 2px solid var(--c, var(--tinta)); display: grid; place-items: center; font-family: var(--maq); font-size: 11px; font-weight: 700; color: var(--tinta); text-decoration: none; animation: contra var(--t, 40s) linear infinite; box-shadow: 0 0 0 0 var(--c); transition: box-shadow .3s ease; }
+  .planeta.opuesto { top: auto; bottom: -19px; }
+  .planeta:hover, .planeta:focus-visible { box-shadow: 0 0 18px 4px color-mix(in srgb, var(--c) 60%, transparent); outline: none; }
+  .voyager { position: absolute; top: -22px; left: calc(50% - 22px); width: 44px; height: 44px; color: var(--tinta); animation: contra var(--t, 40s) linear infinite; }
+  .voyager svg { width: 44px; height: 44px; display: block; }
+  .voyager::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--rosa); animation: pulso 2.6s ease-out infinite; }
+  .voyager span { position: absolute; top: 48px; left: 50%; translate: -50% 0; white-space: nowrap; font-size: 11px; letter-spacing: .06em; color: var(--gris); }
+  @keyframes pulso { from { transform: scale(.6); opacity: .9; } to { transform: scale(1.9); opacity: 0; } }
+  .sistema:hover .orb, .sistema:hover .planeta, .sistema:hover .voyager { animation-play-state: paused; }
+  .sistema:has(.planeta:hover) .sol { box-shadow: 0 0 90px rgba(245,209,66,.9); }
+  .casete { transition: transform .4s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+  .pie-sistema { position: absolute; left: 0; right: 0; bottom: -34px; text-align: center; font-size: 12px; color: var(--gris); }
+  @media (prefers-reduced-motion: reduce) { .sol, .orb, .planeta, .voyager, .voyager::after { animation: none; } }
+
+  /* Portada editorial: rejilla de 12 columnas, sin rotaciones ni cinta */
+  .galeria-hero { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 28px; align-items: end; }
+  .g { margin: 0; border-top: 1px solid color-mix(in srgb, var(--tinta) 30%, transparent); padding-top: 10px; }
+  .g img { width: 100%; height: auto; display: block; }
+  .g figcaption { margin-top: 10px; font-family: var(--maq); font-size: 11px; letter-spacing: .04em; color: var(--gris); }
+  .g1 { grid-column: 1 / span 6; max-width: 540px; }
+  .g2 { grid-column: 9 / span 4; max-width: 440px; justify-self: end; align-self: end; margin-bottom: 36px; }
+  .g3 { grid-column: 2 / span 7; max-width: 680px; margin-top: 8px; }
+  .gv { grid-column: 7 / span 4; width: 100%; max-width: 480px; justify-self: start; align-self: start; }
+  .gv .facade { position: relative; aspect-ratio: 16 / 9; background: #000; cursor: pointer; overflow: hidden; }
+  .gv .facade img, .gv iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+  .gv .facade span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 44px; color: #fff; text-shadow: 0 0 18px rgba(0,0,0,.6); transition: transform .3s ease; }
+  .gv .facade:hover span, .gv .facade:focus-visible span { transform: scale(1.08); }
+  .gv .facade:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 3px; }
+  .gv .video-marco { position: relative; aspect-ratio: 16 / 9; }
+  @media (max-width: 720px) { .g1, .g2, .g3 { grid-column: 1 / -1; } .g2 { margin-bottom: 0; } }
+
+  /* Un solo fondo continuo para toda la página (sin cortes entre secciones) */
+  body::before { content: ""; position: fixed; inset: 0; background: url('fondos/cielo-fondo.jpg') center / cover no-repeat; z-index: -3; pointer-events: none; }
+  body::after { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 35%, transparent 20%, color-mix(in srgb, var(--papel) 75%, transparent) 100%); z-index: -2; pointer-events: none; }
+  .fondo-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: .55; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); mask-composite: intersect; }
+  .cierre > *:not(.fondo-video) { position: relative; z-index: 1; }
+  .cierre { overflow: hidden; }
+  .cosmos > canvas { z-index: 1; }
+
+  /* Fondos fotográficos vivos: imagen lenta que respira y responde al mouse */
+  .fondo-vivo { position: relative; isolation: isolate; overflow: hidden; color: #f2efe6; }
+  .fondo-vivo::before { content: ""; position: absolute; inset: -4%; background-image: var(--img); background-size: cover; background-position: center; z-index: -2; translate: var(--px, 0px) calc(var(--py, 0px) + var(--sy, 0px)); transition: translate .7s cubic-bezier(.2,.7,.2,1); animation: respira 26s ease-in-out infinite alternate; filter: saturate(var(--sat, .45)) brightness(.9); }
+  .fondo-vivo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--papel) 0%, color-mix(in srgb, var(--papel) 40%, transparent) 30%, color-mix(in srgb, var(--papel) 40%, transparent) 70%, var(--papel) 100%); z-index: -1; pointer-events: none; }
+  @keyframes respira { from { transform: scale(1); } to { transform: scale(1.07); } }
+  @media (prefers-reduced-motion: reduce) { .fondo-vivo::before { animation: none; transition: none; } }
+
+  /* Animaciones de entrada (inspiradas en react-bits: BlurText y FadeContent) */
+  .bw { display: inline-block; }
+  html.js .bw { opacity: 0; filter: blur(10px); transform: translateY(.35em); animation: palabra .8s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * .12s + .15s); }
+  @keyframes palabra { to { opacity: 1; filter: blur(0); transform: none; } }
+  html.js .reveal { opacity: 0; translate: 0 26px; transition: opacity .8s ease, translate .8s cubic-bezier(.2,.7,.2,1); }
+  html.js .reveal.visible { opacity: 1; translate: 0 0; }
+  @media (prefers-reduced-motion: reduce) { html.js .bw { animation: none; opacity: 1; filter: none; transform: none; } html.js .reveal { opacity: 1; translate: none; transition: none; } }
+  @keyframes aparece { from { opacity: 0; transform: translateY(24px) rotate(calc(var(--r) - 8deg)); } to { opacity: 1; transform: rotate(var(--r)); } }
+  @media (prefers-reduced-motion: reduce) { .collage .polaroid { animation: none; } }
+
+  .dale {
+    margin-top: 26px; display: inline-flex; align-items: center; gap: 12px;
+    background: var(--amarillo); color: #111; font-family: var(--display); font-size: clamp(28px, 6vw, 44px);
+    padding: 14px 26px 12px; text-transform: uppercase; transform: rotate(-2deg); box-shadow: 6px 6px 0 var(--tinta);
+  }
+  .dale:hover { transform: rotate(0deg) scale(1.02); }
+  .dale .tri { width: 0; height: 0; border-left: 22px solid #111; border-top: 13px solid transparent; border-bottom: 13px solid transparent; }
+  .garabato { font-family: var(--maq); font-size: 15px; margin-top: 14px; color: var(--rosa); transform: rotate(-1deg); }
+
+  /* Franja */
+  .franja { background: var(--tinta); color: var(--papel); overflow: hidden; white-space: nowrap; padding: 10px 0; font-family: var(--display); font-size: 26px; text-transform: uppercase; }
+  .franja div { display: inline-block; padding-left: 100%; animation: corre 22s linear infinite; }
+  @keyframes corre { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) { .franja div { animation: none; padding-left: 16px; } }
+
+  /* Casetes */
+  .casetes { padding: 48px 16px 24px; display: grid; gap: 28px; }
+  .casete {
+    border: 3px solid var(--tinta); padding: 16px; display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: center;
+    background: color-mix(in srgb, var(--papel) 92%, var(--amarillo));
+    transform: rotate(-1deg);
+  }
+  .casete:nth-child(2) { transform: rotate(1.2deg); background: color-mix(in srgb, var(--papel) 92%, var(--rosa)); }
+  .casete img { width: 110px; height: 110px; object-fit: cover; border: 2px solid var(--tinta); }
+  .casete h2 { font-family: var(--display); font-size: clamp(34px, 8vw, 58px); line-height: .9; text-transform: uppercase; }
+  .casete .play { margin-top: 10px; display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 20px; text-transform: uppercase; border: 2px solid var(--tinta); padding: 6px 14px 4px; }
+  .casete .play[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
+  .plata { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .plata a { font-size: 12px; text-decoration: none; border: 1px solid var(--tinta); padding: 4px 9px; display: inline-flex; align-items: center; gap: 6px; }
+  .plata a::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--tinta)); }
+  .p-sp { --c: #1db954; } .p-ap { --c: #fa2d55; } .p-yt { --c: #ff0000; } .p-tt { --c: #25f4ee; } .p-dz { --c: #a238ff; }
+
+  /* Fotos pequeñas */
+  .fotos { padding: 40px 16px 56px; display: flex; flex-wrap: wrap; gap: 18px 14px; justify-content: center; }
+  .fotos .polaroid { width: 230px; }
+  .fotos .polaroid:nth-child(odd) { transform: rotate(-3deg); }
+  .fotos .polaroid:nth-child(even) { transform: rotate(2.5deg); margin-top: 22px; }
+  .fotos .polaroid img { width: 100%; height: auto; }
+  .fotos .polaroid:hover { transform: rotate(0) scale(1.04); }
+  .fotos .polaroid { transition: transform .25s ease; }
+
+  /* Cierre */
+  .cierre { padding: 40px 16px 36px; border-top: 3px solid var(--tinta); }
+  .cierre p { font-family: var(--display); font-size: clamp(36px, 9vw, 72px); line-height: .92; text-transform: uppercase; }
+  .cierre a.mail { display: inline-block; margin-top: 18px; font-size: 16px; background: var(--rosa); color: #111; padding: 8px 12px; text-decoration: none; transform: rotate(-1deg); }
+  .cierre .plata { margin-top: 26px; }
+  footer { padding: 0 16px 28px; font-size: 12px; color: var(--gris); }
+
+  @media (min-width: 720px) {
+    .barra, .portada, .casetes, .fotos, .cierre { padding-left: 48px; padding-right: 48px; }
+    .casetes { grid-template-columns: 1fr 1fr; }
+    .fotos .polaroid { width: 300px; }
+    .collage { height: 560px; }
+    .collage .polaroid { width: 240px; }
+    .collage .p2 { width: 300px; top: 80px; }
+    .collage .p3 { width: 240px; }
+    .collage .p4 { width: 250px; top: 340px; }
+    .collage .p5 { width: 280px; top: 320px; }
+  }
+
+  /* ===== Rendimiento: estrellas en capas compuestas, scroll suave ===== */
+  .estrellas { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-repeat: repeat; background-size: 512px 512px; }
+  .estrellas.b { background-position: 137px 211px; opacity: .8; }
+  @keyframes titila { from { opacity: .45; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .estrellas { animation: none; } }
+  html { scroll-behavior: smooth; }
+
+
+  /* ===== Dock de plataformas (react-bits: Magnet + StarBorder + ClickSpark + RotatingText) ===== */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .dock { display: flex; align-items: center; gap: 22px; }
+  .dock-texto { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.05; text-transform: none; }
+  .dock-label { font-family: var(--maq); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--gris); }
+  .barra .rot { border: 0; text-decoration: none; display: inline-flex; overflow: hidden; height: 1.15em; font-family: var(--display); font-size: 30px; text-transform: uppercase; color: var(--rc, #1ed760); text-shadow: 0 0 6px color-mix(in srgb, var(--rc, #1ed760) 45%, transparent); transition: color .3s ease; }
+  .rot-palabra { display: inline-flex; }
+  .rot-palabra span { display: inline-block; animation: rotEntra .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 28ms); }
+  .rot-palabra span.sal { animation: rotSale .3s cubic-bezier(.5,0,.8,.2) both; animation-delay: calc(var(--i) * 18ms); }
+  @keyframes rotEntra { from { transform: translateY(110%); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes rotSale { to { transform: translateY(-110%); opacity: 0; } }
+
+  .dock-iconos { list-style: none; display: flex; gap: 14px; margin: 0; padding: 0; }
+  @property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+  .barra .plat { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; color: var(--c); text-decoration: none; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--c) 18%, #0b0917), #0b0917 70%); }
+  .plat::before { content: ""; position: absolute; inset: -1px; border-radius: 50%; background: conic-gradient(from var(--ang), transparent 0 62%, var(--c) 82%, transparent 100%); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); animation: luzBorde 3.2s linear infinite; opacity: .75; pointer-events: none; }
+  .dock-iconos li:nth-child(2) .plat::before { animation-delay: -.8s; }
+  .dock-iconos li:nth-child(3) .plat::before { animation-delay: -1.6s; }
+  .dock-iconos li:nth-child(4) .plat::before { animation-delay: -2.4s; }
+  @keyframes luzBorde { to { --ang: 360deg; } }
+  .plat::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent); pointer-events: none; }
+  .plat-in { display: grid; place-items: center; width: 28px; height: 28px; will-change: transform; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .plat svg { width: 28px; height: 28px; display: block; }
+  .plat:hover, .plat:focus-visible, .plat.activo { box-shadow: 0 0 22px -2px var(--c), 0 0 0 1px var(--c); outline: none; }
+  .plat:hover::before, .plat.activo::before { opacity: 1; animation-duration: 1.4s; }
+  .plat-tip { position: absolute; top: calc(100% + 8px); left: 50%; translate: -50% 0; white-space: nowrap; font-family: var(--maq); font-size: 11px; letter-spacing: .06em; text-transform: none; padding: 4px 9px; color: #06050e; background: var(--c); opacity: 0; transform: translateY(-4px); transition: opacity .2s ease, transform .2s ease; pointer-events: none; }
+  .plat:hover .plat-tip, .plat:focus-visible .plat-tip { opacity: 1; transform: none; }
+  .chispas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+  @media (max-width: 640px) { .dock-texto { display: none; } .barra .plat { width: 46px; height: 46px; } .dock-iconos { gap: 10px; } }
+  @media (prefers-reduced-motion: reduce) { .plat::before, .rot-palabra span { animation: none; } .plat-in { transition: none; } }
+
+  /* ===== Constelación interactiva en la portada ===== */
+  .constelacion { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .portada > *:not(.constelacion) { position: relative; z-index: 1; }
+
+  /* ===== Neón: fondo negro, cian, azul y morado ===== */
+  .titulo-fila { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: end; }
+  @media (min-width: 900px) { .titulo-fila { grid-template-columns: minmax(0, 1fr) minmax(300px, 420px); } }
+  .titulo-fila .gv { grid-column: auto; width: 100%; max-width: none; justify-self: stretch; align-self: end; margin-bottom: 14px; }
+  .titulo-fila .gv .facade { box-shadow: 0 0 34px -8px rgba(63,240,255,.55); }
+
+  .tira { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 16px 28px; scrollbar-width: thin; scrollbar-color: var(--cian-x, #3ff0ff) transparent; }
+  .tira-item { flex: none; margin: 0; padding: 8px; scroll-snap-align: start; background: rgba(8,6,18,.6); border: 1px solid rgba(63,240,255,.35); box-shadow: 0 0 26px -8px rgba(63,240,255,.55); }
+  .tira-item img { height: 360px; width: auto; max-width: none; display: block; }
+  .tira-item figcaption { margin-top: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gris); }
+  @media (min-width: 720px) { .tira { padding-left: 48px; padding-right: 48px; } }
+
+  .orb { border: 1px dashed rgba(63,240,255,.45); box-shadow: 0 0 26px -8px rgba(63,240,255,.5), inset 0 0 40px -14px rgba(157,107,255,.5); }
+  .planeta { background: #0b0917; color: #fff; box-shadow: 0 0 14px -2px var(--c), inset 0 0 10px -4px var(--c); }
+  .sol { background: radial-gradient(circle at 35% 35%, #fff, #ff4fd8 45%, #7b2cff 85%); box-shadow: 0 0 60px rgba(255,79,216,.6), 0 0 120px rgba(63,240,255,.25); color: #fff; }
+  .sistema:has(.planeta:hover) .sol { box-shadow: 0 0 110px rgba(255,79,216,.9), 0 0 160px rgba(63,240,255,.4); }
+
+  .casete { background: rgba(8,6,18,.72) !important; border: 1px solid rgba(63,240,255,.5); box-shadow: 0 0 30px -10px rgba(63,240,255,.55), inset 0 0 40px -20px rgba(63,240,255,.4); padding: 22px; transform: rotate(-.6deg); }
+  .casete:nth-child(2) { background: rgba(10,6,18,.72) !important; border-color: rgba(255,79,216,.55); box-shadow: 0 0 30px -10px rgba(255,79,216,.55), inset 0 0 40px -20px rgba(255,79,216,.4); transform: rotate(.6deg); }
+  .casete img { border: 0; box-shadow: 0 0 28px -4px rgba(63,240,255,.7); }
+  .casete:nth-child(2) img { box-shadow: 0 0 28px -4px rgba(255,79,216,.7); }
+  .casete h2 { text-shadow: 0 0 18px rgba(63,240,255,.55); }
+  .casete:nth-child(2) h2 { text-shadow: 0 0 18px rgba(255,79,216,.55); }
+  .casete .play { border: 1px solid rgba(63,240,255,.8); color: #3ff0ff; }
+  .casete:nth-child(2) .play { border-color: rgba(255,79,216,.8); color: #ff4fd8; }
+  .casete .play[aria-pressed="true"] { background: #3ff0ff; color: #06050e; box-shadow: 0 0 22px rgba(63,240,255,.6); }
+  .casete:nth-child(2) .play[aria-pressed="true"] { background: #ff4fd8; box-shadow: 0 0 22px rgba(255,79,216,.6); }
+  .eq { display: none; align-items: flex-end; gap: 3px; height: 14px; width: 14px; }
+  .play[aria-pressed="true"] .eq { display: inline-flex; }
+  .eq i { display: block; width: 3px; height: 100%; transform-origin: bottom; background: currentColor; animation: eqb .9s ease-in-out infinite alternate; }
+  .eq i:nth-child(2) { animation-delay: -.3s; }
+  .eq i:nth-child(3) { animation-delay: -.6s; }
+  @keyframes eqb { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { .eq i { animation: none; height: 60%; } }
+
+  /* ===== Sistema Voyager remasterizado ===== */
+  .sistema-cab { position: relative; z-index: 2; text-align: center; padding: 48px 16px 0; }
+  .sistema-kicker { font-family: var(--maq); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #3ff0ff; }
+  .sistema-titulo { font-family: var(--display); font-size: clamp(40px, 7vw, 76px); line-height: .95; text-transform: uppercase; margin-top: 8px; color: #f2efe6; text-shadow: 0 0 26px rgba(255,79,216,.45); }
+  .sistema-sub { margin-top: 10px; font-size: 14px; color: var(--gris); }
+  .sistema { margin-top: 56px; width: min(100%, 660px); }
+
+  .sol.vinilo { width: 104px; height: 104px; padding: 0; border: 0; cursor: pointer; color: #fff; background: none; box-shadow: 0 0 60px rgba(255,79,216,.55), 0 0 120px rgba(63,240,255,.22); transition: box-shadow .4s ease; }
+  .vinilo-disco { position: absolute; inset: 0; border-radius: 50%; background: repeating-radial-gradient(circle, #0d0d11 0 2px, #1d1d25 2px 3.5px); box-shadow: inset 0 0 0 2px #2c2c36, 0 0 0 2px rgba(255,79,216,.6); animation: giraVinilo 6s linear infinite; }
+  .vinilo-disco::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 30deg, transparent 0 18%, rgba(255,255,255,.2) 24%, transparent 30% 68%, rgba(255,255,255,.13) 74%, transparent 80%); }
+  .vinilo-etiqueta { position: absolute; inset: 31%; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-size: 13px; color: #fff; background: radial-gradient(circle at 35% 35%, #ffb3ec, #ff4fd8 45%, #7b2cff 100%); box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
+  .vinilo-play { position: absolute; inset: 0; display: grid; place-items: center; font-size: 20px; color: #fff; text-shadow: 0 0 12px #000, 0 0 4px #000; opacity: 0; transition: opacity .2s ease; }
+  .vinilo:hover .vinilo-play, .vinilo:focus-visible .vinilo-play, .vinilo.sonando .vinilo-play { opacity: 1; }
+  .vinilo:focus-visible { outline: 2px solid #3ff0ff; outline-offset: 6px; }
+  .vinilo.sonando { box-shadow: 0 0 90px rgba(255,79,216,.9), 0 0 170px rgba(63,240,255,.45); }
+  .vinilo.sonando .vinilo-disco { animation-duration: 1.6s; }
+  @keyframes giraVinilo { to { transform: rotate(360deg); } }
+
+  .planeta { top: -26px; left: calc(50% - 26px); width: 52px; height: 52px; border: 1.5px solid var(--c); color: var(--c); text-decoration: none;
+    background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--c) 38%, #1c1a26), #0b0917 72%);
+    box-shadow: 0 0 20px -2px var(--c), inset -7px -9px 14px rgba(0,0,0,.65), inset 4px 4px 10px color-mix(in srgb, var(--c) 30%, transparent); }
+  .planeta.opuesto { top: auto; bottom: -26px; }
+  .planeta-in { display: grid; place-items: center; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .planeta svg { width: 26px; height: 26px; display: block; }
+  .planeta:hover .planeta-in, .planeta:focus-visible .planeta-in { transform: scale(1.18); }
+  .planeta:hover, .planeta:focus-visible { box-shadow: 0 0 34px 2px var(--c), inset -7px -9px 14px rgba(0,0,0,.65); outline: none; }
+  .planeta-nombre { position: absolute; top: calc(100% + 7px); left: 50%; translate: -50% 0; white-space: nowrap; font-family: var(--maq); font-size: 11px; letter-spacing: .06em; color: var(--c); text-shadow: 0 0 8px rgba(0,0,0,.9); pointer-events: none; }
+  .planeta:hover .planeta-nombre::before, .planeta:focus-visible .planeta-nombre::before { content: "▶ "; }
+  .planeta.con-anillo::after { content: ""; position: absolute; inset: 38% -34%; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c) 75%, transparent); border-top-color: transparent; transform: rotate(-18deg); pointer-events: none; }
+  .voyager span { top: 50px; }
+  @media (prefers-reduced-motion: reduce) { .vinilo-disco { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <span>Los Voyagers</span>
+  <nav class="dock" aria-label="Escucha a Los Voyagers">
+    <div class="dock-texto">
+      <span class="dock-label">Escúchanos en</span>
+      <a class="rot" id="rot" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="rot-palabra">Spotify</span></a>
+      <span class="sr-only">Spotify, Apple Music, YouTube y TikTok</span>
+    </div>
+    <ul class="dock-iconos">
+      <li><a class="plat" style="--c:#1ed760" data-nombre="Spotify" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener" aria-label="Escuchar en Spotify"><span class="plat-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M6.8 9.4c3.6-1.1 7.7-.8 10.8 1M7.4 12.6c3.1-.8 6.4-.5 9 .9M8.1 15.6c2.5-.6 5-.4 7 .7" stroke="#0b0917" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span><span class="plat-tip">Spotify</span></a></li>
+      <li><a class="plat" style="--c:#fa3c64" data-nombre="Apple Music" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" target="_blank" rel="noopener" aria-label="Escuchar en Apple Music"><span class="plat-in"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="currentColor"/><path d="M15.6 6.4v8.4a2.1 2.1 0 1 1-1.5-2V8.7l-4.6 1.1v6.4a2.1 2.1 0 1 1-1.5-2V8.6z" fill="#0b0917"/></svg></span><span class="plat-tip">Apple Music</span></a></li>
+      <li><a class="plat" style="--c:#ff3b3b" data-nombre="YouTube" href="https://www.youtube.com/@LosVoyagers" target="_blank" rel="noopener" aria-label="Ver en YouTube"><span class="plat-in"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.5" width="20" height="13" rx="4" fill="currentColor"/><path d="M10 9v6l5.2-3z" fill="#0b0917"/></svg></span><span class="plat-tip">YouTube</span></a></li>
+      <li><a class="plat" style="--c:#3ff0ff" data-nombre="TikTok" href="https://www.tiktok.com/@losvoyagers" target="_blank" rel="noopener" aria-label="Seguir en TikTok"><span class="plat-in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 3h3.1c.2 1.8 1.6 3.2 3.4 3.4v3.1a6.4 6.4 0 0 1-3.4-1.1V15a5.6 5.6 0 1 1-5.6-5.6l.9.1v3.2a2.5 2.5 0 1 0 1.6 2.3z" fill="currentColor"/></svg></span><span class="plat-tip">TikTok</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="portada">
+  <canvas class="constelacion" aria-hidden="true"></canvas>
+  <div class="titulo-fila">
+    <div>
+    <h1><span class="bw" style="--i:0">Los</span><br><span class="bw" style="--i:1">Voy</span><em class="bw" style="--i:2">agers</em></h1>
+  <p class="sub">Rock desde Lima. Perderse y volver.</p>
+    </div>
+  <figure class="g gv">
+      <div class="facade" id="facade-video" role="button" tabindex="0" aria-label="Reproducir el videoclip de Vuelvo">
+        <img decoding="async" src="https://i.ytimg.com/vi/T1SDRPZFOKY/hqdefault.jpg" alt="Portada del videoclip de Vuelvo" loading="lazy">
+        <span aria-hidden="true">▶</span>
+      </div>
+      <figcaption>04 · Vuelvo, videoclip</figcaption>
+    </figure>
+  </div>
+
+  <div class="galeria-hero">
+    <figure class="g g1"><img decoding="async" src="fotos/kiosko.jpg" alt="La banda frente a un kiosko de revistas en Lima"><figcaption>01 · Kiosko, Lima</figcaption></figure>
+    <figure class="g g2"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo"><figcaption>02 · En vivo</figcaption></figure>
+    <figure class="g g3"><img decoding="async" src="fotos/banda-calle.jpg" alt=""><figcaption>03 · Noche, centro de Lima</figcaption></figure>
+  </div>
+
+  <button class="dale" id="dale" aria-controls="escucha">
+    <span class="tri" aria-hidden="true"></span> Dale play
+  </button>
+  <p class="garabato">toca el botón y escucha Vuelvo</p>
+</section>
+
+<div class="franja" aria-hidden="true"><div>Spotify • Apple Music • YouTube • Deezer • TikTok • Dale play • Escúchanos • Spotify • Apple Music • YouTube • Deezer • TikTok • Dale play • Escúchanos •</div></div>
+
+<main class="casetes" id="escucha">
+  <article class="casete">
+    <img decoding="async" src="../assets/vuelvo-450.webp" alt="Portada de Vuelvo">
+    <div>
+      <h2>Vuelvo</h2>
+      <button class="play" data-audio="../assets/audio/vuelvo-fragmento.mp3" aria-pressed="false">▶ Escuchar</button>
+      <nav class="plata" aria-label="Escuchar Vuelvo">
+        <a class="p-sp" href="https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q">Spotify</a>
+        <a class="p-ap" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914">Apple Music</a>
+        <a class="p-yt" href="https://www.youtube.com/watch?v=T1SDRPZFOKY">YouTube</a>
+        <a class="p-dz" href="https://www.deezer.com/album/827098931">Deezer</a>
+      </nav>
+    </div>
+  </article>
+
+  <article class="casete">
+    <img decoding="async" src="../assets/decidido-450.webp" alt="Portada de Decidido">
+    <div>
+      <h2>Decidido</h2>
+      <button class="play" data-audio="../assets/audio/decidido-fragmento.mp3" aria-pressed="false">▶ Escuchar</button>
+      <nav class="plata" aria-label="Escuchar Decidido">
+        <a class="p-sp" href="https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke">Spotify</a>
+        <a class="p-ap" href="https://music.apple.com/pe/album/decidido/6794141871?i=6794141872">Apple Music</a>
+        <a class="p-tt" href="https://www.tiktok.com/@losvoyagers/video/7675491756414094613">TikTok</a>
+        <a class="p-dz" href="https://www.deezer.com/album/1036594372">Deezer</a>
+      </nav>
+    </div>
+  </article>
+</main>
+
+<div class="cosmos">
+  <video class="fondo-video" src="fondos/planetas.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+<div class="sistema-cab">
+    <span class="sistema-kicker">Sistema Voyager · de Lima al espacio</span>
+    <h2 class="sistema-titulo">Elige tu planeta</h2>
+    <p class="sistema-sub">Cada planeta es una plataforma. Tócalo y escúchanos. El disco del centro suena.</p>
+  </div>
+<section class="sistema" id="sistema" aria-label="Sistema solar de plataformas">
+  <button class="sol vinilo" id="vinilo" type="button" aria-label="Reproducir Vuelvo">
+    <span class="vinilo-disco"><span class="vinilo-etiqueta">LV</span></span>
+    <span class="vinilo-play" aria-hidden="true">▶</span>
+  </button>
+  <div class="orb o1" style="--t:34s">
+    <a class="planeta " style="--c:#1ed760" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener" aria-label="Escuchar en Spotify"><span class="planeta-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M6.8 9.4c3.6-1.1 7.7-.8 10.8 1M7.4 12.6c3.1-.8 6.4-.5 9 .9M8.1 15.6c2.5-.6 5-.4 7 .7" stroke="#0b0917" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></span><span class="planeta-nombre">Spotify</span></a>
+    <a class="planeta opuesto" style="--c:#3ff0ff" href="https://www.tiktok.com/@losvoyagers" target="_blank" rel="noopener" aria-label="Seguir en TikTok"><span class="planeta-in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.8 3h3.1c.2 1.8 1.6 3.2 3.4 3.4v3.1a6.4 6.4 0 0 1-3.4-1.1V15a5.6 5.6 0 1 1-5.6-5.6l.9.1v3.2a2.5 2.5 0 1 0 1.6 2.3z" fill="currentColor"/></svg></span><span class="planeta-nombre">TikTok</span></a>
+  </div>
+  <div class="orb o2" style="--t:52s">
+    <a class="planeta con-anillo" style="--c:#fa3c64" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" target="_blank" rel="noopener" aria-label="Escuchar en Apple Music"><span class="planeta-in"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="currentColor"/><path d="M15.6 6.4v8.4a2.1 2.1 0 1 1-1.5-2V8.7l-4.6 1.1v6.4a2.1 2.1 0 1 1-1.5-2V8.6z" fill="#0b0917"/></svg></span><span class="planeta-nombre">Apple Music</span></a>
+    <a class="planeta opuesto" style="--c:#ff3b3b" href="https://www.youtube.com/@LosVoyagers" target="_blank" rel="noopener" aria-label="Ver en YouTube"><span class="planeta-in"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5.5" width="20" height="13" rx="4" fill="currentColor"/><path d="M10 9v6l5.2-3z" fill="#0b0917"/></svg></span><span class="planeta-nombre">YouTube</span></a>
+  </div>
+  <div class="orb o3" style="--t:80s">
+    <div class="voyager" title="Voyager 1">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M22 15V5M22 29v10M15 22H5M29 22h10" stroke="currentColor" stroke-width="1"/><circle cx="22" cy="4" r="2.6" fill="var(--rosa)"/><circle cx="4" cy="22" r="1.8" fill="currentColor"/><circle cx="40" cy="22" r="1.8" fill="currentColor"/></svg>
+      <span>Voyager 1</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<section class="tira" aria-label="Fotos de la banda">
+  <figure class="tira-item"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo" loading="lazy"><figcaption>John · en vivo</figcaption></figure>
+  <figure class="tira-item"><img decoding="async" src="fotos/banda-en-vivo.jpg" alt="Dos guitarras y batería en vivo" loading="lazy"><figcaption>Guitarras · en vivo</figcaption></figure>
+  <figure class="tira-item"><img decoding="async" src="fotos/banda-noche-lima.jpg" alt="Los cuatro de pie en una calle de Lima de noche" loading="lazy"><figcaption>Lima · de noche</figcaption></figure>
+  <figure class="tira-item"><img decoding="async" src="fotos/kiosko.jpg" alt="Los cuatro frente a un kiosko de revistas en Lima" loading="lazy"><figcaption>Kiosko · Lima</figcaption></figure>
+</section>
+
+<section class="cierre" style="padding: 56px 16px 48px;">
+  <p>¿Te suena?<br>Llévanos a tu escenario.</p>
+  <a class="mail" href="mailto:booking@losvoyagers.pe">booking@losvoyagers.pe</a>
+  <nav class="plata" aria-label="Todas las plataformas">
+    <a class="p-sp" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l">Spotify</a>
+    <a class="p-yt" href="https://www.youtube.com/@LosVoyagers">YouTube</a>
+    <a class="p-tt" href="https://www.tiktok.com/@losvoyagers">TikTok</a>
+    <a class="p-ap" href="https://linktr.ee/losvoyagers">Todos los links</a>
+  </nav>
+</section>
+
+<footer>© Los Voyagers — Lima</footer>
+
+<audio id="reproductor" preload="none"></audio>
+
+<script>
+  (function () {
+    const audio = document.getElementById("reproductor");
+    const botones = Array.from(document.querySelectorAll("[data-audio]"));
+    const dale = document.getElementById("dale");
+
+    function marcar(boton, activo) {
+      boton.setAttribute("aria-pressed", String(activo));
+      boton.innerHTML = activo ? '<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Pausa' : "▶ Escuchar";
+    }
+    function reproducir(boton) {
+      const src = boton.dataset.audio;
+      if (audio.dataset.src === src && !audio.paused) { audio.pause(); return; }
+      botones.forEach((b) => marcar(b, false));
+      cambiando = true;
+      audio.dataset.src = src;
+      audio.src = src;
+      audio.play().then(() => { cambiando = false; }).catch(() => { cambiando = false; });
+      marcar(boton, true);
+    }
+    let cambiando = false;
+    botones.forEach((b) => {
+      b.addEventListener("click", () => reproducir(b));
+    });
+    audio.addEventListener("pause", () => { if (!cambiando) botones.forEach((b) => marcar(b, false)); });
+    audio.addEventListener("ended", () => botones.forEach((b) => marcar(b, false)));
+    dale.addEventListener("click", () => reproducir(botones[0]));
+  })();
+</script>
+
+<script>
+  (function () {
+    document.documentElement.classList.add("js");
+    const objetivos = document.querySelectorAll(".casete, .fotos .polaroid, .cierre > *, .bio, .temas li");
+    objetivos.forEach((el) => el.classList.add("reveal"));
+    if (!("IntersectionObserver" in window)) { objetivos.forEach((el) => el.classList.add("visible")); return; }
+    const observador = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); observador.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    objetivos.forEach((el) => observador.observe(el));
+  })();
+</script>
+<script src="js/galaxia.js"></script>
+<script>
+  (function () {
+    const cosmos = document.querySelector(".cosmos");
+    if (cosmos && window.montarGalaxia) window.montarGalaxia(cosmos, { velocidad: 0.5, rotacion: 0.08, brillo: 0.3, interaccion: true });
+  })();
+</script>
+<script>
+  (function () {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const c = document.createElement("canvas");
+    c.setAttribute("aria-hidden", "true");
+    c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0";
+    document.body.prepend(c);
+    // Campo de estrellas: un tile generado una vez y dos capas que titilan por opacidad (compuesto por el navegador)
+    function tileEstrellas(semilla) {
+      const cv = document.createElement("canvas"); cv.width = 512; cv.height = 512;
+      const g = cv.getContext("2d");
+      const paleta = ["#ffffff", "#ffffff", "#3ff0ff", "#ff4fd8", "#9d6bff"];
+      let r = semilla;
+      const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+      for (let i = 0; i < 260; i++) {
+        g.globalAlpha = 0.3 + rnd() * 0.6;
+        g.fillStyle = paleta[Math.floor(rnd() * paleta.length)];
+        g.beginPath(); g.arc(rnd() * 512, rnd() * 512, 0.4 + rnd() * 1.3, 0, 6.283); g.fill();
+      }
+      return cv.toDataURL("image/png");
+    }
+    const capas = [1, 7919].map((sem, i) => {
+      const d = document.createElement("div");
+      d.className = "estrellas" + (i ? " b" : "");
+      d.setAttribute("aria-hidden", "true");
+      d.style.backgroundImage = "url(" + tileEstrellas(sem) + ")";
+      return d;
+    });
+    c.before(capas[0], capas[1]);
+    const ctx = c.getContext("2d");
+    const CIAN = "#3ff0ff", MAGENTA = "#ff4fd8", VIOLETA = "#9d6bff";
+    let W = 0, H = 0, estrellas = [];
+    function crearEstrellas() {
+      const n = Math.min(220, Math.round((W * H) / 5000));
+      const paleta = ["#ffffff", "#ffffff", CIAN, MAGENTA, VIOLETA];
+      estrellas = Array.from({ length: n }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        r: 0.4 + Math.random() * 1.4, fase: Math.random() * 6.28,
+        vel: 0.5 + Math.random() * 2, base: 0.25 + Math.random() * 0.5,
+        col: paleta[Math.floor(Math.random() * paleta.length)]
+      }));
+    }
+    function ajustar() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      W = window.innerWidth; H = window.innerHeight;
+      c.width = W * dpr; c.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      crearEstrellas();
+    }
+    ajustar();
+    window.addEventListener("resize", ajustar);
+
+    // Constelación (Osa Menor simplificada), en fracciones de la pantalla
+    const CONSTELACION = [[0.07,0.16],[0.12,0.13],[0.17,0.17],[0.19,0.24],[0.13,0.27],[0.07,0.24],[0.10,0.19]];
+    const UNIONES = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[6,1],[6,4]];
+
+    const raton = { x: 0.5, y: 0.5 };
+    const estela = [];
+    const fugaces = [];
+    const sat = { t: 0 };
+    const van = { x: -300, yf: 0.58, vel: 95, humo: [], ruta: [], notas: [], ultimaNota: 0 };
+    let previo = null, ultimoHumo = 0;
+
+    window.addEventListener("pointermove", (e) => {
+      raton.x = e.clientX / W; raton.y = e.clientY / H;
+      if (previo) {
+        const dx = e.clientX - previo.x, dy = e.clientY - previo.y;
+        const d = Math.hypot(dx, dy);
+        if (d > 2) {
+          const n = Math.min(3, Math.ceil(d / 8));
+          for (let i = 0; i < n; i++) {
+            estela.push({ x: e.clientX + (Math.random() - 0.5) * 3, y: e.clientY + (Math.random() - 0.5) * 3,
+              vx: -dx * 0.03 + (Math.random() - 0.5) * 0.5, vy: -dy * 0.03 + (Math.random() - 0.5) * 0.5, vida: 1, col: i % 2 ? CIAN : MAGENTA });
+          }
+          if (estela.length > 140) estela.splice(0, estela.length - 140);
+        }
+      }
+      previo = { x: e.clientX, y: e.clientY };
+    }, { passive: true });
+
+    function lanzarFugaz() {
+      fugaces.push({ x: Math.random() * W * 0.8, y: -30 + Math.random() * H * 0.25, vx: 8 + Math.random() * 5, vy: 3.5 + Math.random() * 3, vida: 1, cola: [] });
+    }
+    setInterval(() => { if (!document.hidden && Math.random() < 0.6) lanzarFugaz(); }, 4500);
+
+    function glow() {}
+
+    // Combi de gira de la banda, versión rock: carrocería negra con llamas de hot-rod, Flying V en el techo,
+    // la banda haciendo headbanging y fuego en el propulsor. La carrocería se pre-renderiza una vez.
+    const VAN_W = 260, VAN_H = 160, VAN_ESC = 2;
+    const ROJO = "#ff2d2d", NARANJA = "#ff7a1a", AMARILLO = "#ffd84a";
+    const VENTANAS = [[-90, -34, 30, 22], [-54, -34, 30, 22], [-18, -34, 30, 22], [18, -34, 30, 22]];
+    let spriteVan = null;
+    function crearSpriteVan() {
+      const cv = document.createElement("canvas");
+      cv.width = VAN_W * VAN_ESC; cv.height = VAN_H * VAN_ESC;
+      const g = cv.getContext("2d");
+      g.scale(VAN_ESC, VAN_ESC);
+      g.translate(VAN_W / 2, VAN_H / 2 + 10);
+      g.lineJoin = "round"; g.lineCap = "round";
+      const neon = (col, blur) => { g.shadowColor = col; g.shadowBlur = blur; };
+      const caja = (x, y, w, h, r) => { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); };
+
+      // Techo: parrilla, guitarra Flying V y amplificador con rejilla
+      g.strokeStyle = "#c9c9d6"; g.lineWidth = 1.6; neon(CIAN, 6);
+      g.beginPath(); g.moveTo(-74, -46); g.lineTo(54, -46);
+      [-64, -14, 44].forEach((px) => { g.moveTo(px, -46); g.lineTo(px, -40); });
+      g.stroke();
+      g.fillStyle = ROJO; g.strokeStyle = "#ffffff"; g.lineWidth = 1.2; neon(ROJO, 12);
+      g.beginPath(); g.moveTo(-70, -48); g.lineTo(-40, -55); g.lineTo(-70, -62); g.lineTo(-58, -55); g.closePath(); g.fill(); g.stroke();
+      g.strokeStyle = "#f2efe6"; g.lineWidth = 2.4; neon(ROJO, 6);
+      g.beginPath(); g.moveTo(-44, -55); g.lineTo(-6, -55); g.stroke();
+      g.fillStyle = "#f2efe6"; g.fillRect(-8, -58, 7, 6);
+      g.fillStyle = "#0d0d10"; g.strokeStyle = "#c9c9d6"; g.lineWidth = 1.4; neon(NARANJA, 6);
+      caja(10, -63, 32, 16, 2); g.fill(); g.stroke();
+      g.shadowBlur = 0; g.strokeStyle = "rgba(255,255,255,.25)"; g.lineWidth = 0.8;
+      g.beginPath(); for (let k = 0; k < 6; k++) { g.moveTo(13 + k * 5, -60); g.lineTo(13 + k * 5, -50); } g.stroke();
+      g.fillStyle = AMARILLO; g.fillRect(14, -62.2, 6, 1.4);
+
+      // Carrocería negra
+      const cuerpo = new Path2D();
+      cuerpo.moveTo(-98, 20); cuerpo.lineTo(-98, -20);
+      cuerpo.quadraticCurveTo(-98, -40, -78, -40); cuerpo.lineTo(58, -40);
+      cuerpo.quadraticCurveTo(80, -40, 88, -18); cuerpo.quadraticCurveTo(96, 2, 96, 20);
+      cuerpo.closePath();
+      const tono = g.createLinearGradient(0, -40, 0, 22);
+      tono.addColorStop(0, "#26222e"); tono.addColorStop(0.5, "#141218"); tono.addColorStop(1, "#08070a");
+      g.fillStyle = tono; g.strokeStyle = MAGENTA; g.lineWidth = 2.4; neon(MAGENTA, 18);
+      g.fill(cuerpo); g.stroke(cuerpo);
+
+      // Llamas de hot-rod saliendo del frente hacia atrás
+      g.save(); g.clip(cuerpo);
+      const fuego = g.createLinearGradient(96, 0, -30, 0);
+      fuego.addColorStop(0, AMARILLO); fuego.addColorStop(0.45, NARANJA); fuego.addColorStop(1, ROJO);
+      g.fillStyle = fuego; neon(NARANJA, 10);
+      g.beginPath();
+      g.moveTo(98, -10);
+      g.quadraticCurveTo(50, -12, -4, -3); g.quadraticCurveTo(30, 0, 44, 2);
+      g.quadraticCurveTo(28, 6, 12, 9); g.quadraticCurveTo(36, 10, 50, 11);
+      g.quadraticCurveTo(30, 14, -10, 15); g.quadraticCurveTo(30, 18, 60, 17);
+      g.quadraticCurveTo(44, 20, 30, 22); g.lineTo(98, 22); g.closePath(); g.fill();
+      g.shadowBlur = 0; g.strokeStyle = "rgba(255,255,255,.6)"; g.lineWidth = 0.8; g.stroke();
+      g.restore();
+      g.strokeStyle = MAGENTA; g.lineWidth = 2.4; neon(MAGENTA, 12); g.stroke(cuerpo);
+
+      // Ventanas y parabrisas
+      g.fillStyle = "rgba(255,45,45,.07)"; g.strokeStyle = "#c9c9d6"; g.lineWidth = 1.4; neon(CIAN, 6);
+      VENTANAS.forEach(([x, y, w, h]) => { caja(x, y, w, h, 4); g.fill(); g.stroke(); });
+      g.beginPath(); g.moveTo(54, -34); g.lineTo(70, -34); g.quadraticCurveTo(82, -33, 86, -14); g.lineTo(54, -14); g.closePath(); g.fill(); g.stroke();
+
+      // Nombre de la banda en cursiva, con contorno rojo
+      g.save(); g.transform(1, 0, -0.22, 1, 0, 0);
+      g.font = '15px "Anton", Impact, sans-serif';
+      g.lineWidth = 3; g.strokeStyle = ROJO; neon(ROJO, 10); g.strokeText("LOS VOYAGERS", -88, 14);
+      g.shadowBlur = 0; g.fillStyle = "#ffffff"; g.fillText("LOS VOYAGERS", -88, 14);
+      g.restore();
+
+      // Detalles cromados: parachoques, faro y antena
+      g.strokeStyle = "#e6e6ef"; g.lineWidth = 2.6; neon("#ffffff", 6);
+      g.beginPath(); g.moveTo(-101, 20); g.lineTo(-88, 20); g.moveTo(84, 20); g.lineTo(99, 20); g.stroke();
+      g.fillStyle = "#fff8d0"; neon("#fff8d0", 14); g.beginPath(); g.arc(90, 4, 4, 0, 6.283); g.fill();
+      g.strokeStyle = "#c9c9d6"; g.lineWidth = 1; neon(ROJO, 6);
+      g.beginPath(); g.moveTo(70, -40); g.lineTo(78, -64); g.stroke();
+      g.fillStyle = ROJO; g.beginPath(); g.arc(78, -64, 2.2, 0, 6.283); g.fill();
+      spriteVan = cv;
+    }
+    crearSpriteVan();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(crearSpriteVan);
+
+    // La banda dentro de la combi, haciendo headbanging a ~130 BPM
+    function dibujarBanda(tiempo) {
+      const colores = [MAGENTA, CIAN, VIOLETA, AMARILLO];
+      const pulso = tiempo * 13.6;
+      VENTANAS.forEach(([x, y, w, h], i) => {
+        ctx.save();
+        ctx.beginPath(); ctx.rect(x + 1, y + 1, w - 2, h - 2); ctx.clip();
+        const cx = x + w / 2, base = y + h;
+        const fase = Math.sin(pulso + i * 0.9);
+        const baja = Math.max(0, fase) * 3.4;
+        ctx.fillStyle = colores[i];
+        ctx.beginPath(); ctx.moveTo(cx - 10, base); ctx.quadraticCurveTo(cx - 10, base - 7, cx, base - 7);
+        ctx.quadraticCurveTo(cx + 10, base - 7, cx + 10, base); ctx.closePath(); ctx.fill();
+        ctx.save(); ctx.translate(cx, base - 12 + baja); ctx.rotate(fase * 0.28);
+        ctx.beginPath(); ctx.arc(0, 0, 4.8, 0, 6.283); ctx.fill();
+        if (i === 0) {
+          // melena que se sacude
+          ctx.beginPath();
+          ctx.moveTo(-4.5, -3); ctx.quadraticCurveTo(-10, 3 + baja, -7 - fase * 2, 11); ctx.lineTo(-2.5, 3);
+          ctx.moveTo(4.5, -3); ctx.quadraticCurveTo(10, 3 + baja, 7 - fase * 2, 11); ctx.lineTo(2.5, 3);
+          ctx.fill();
+        } else if (i === 1) {
+          ctx.fillRect(-5.2, -6.6, 10.4, 2.8); ctx.fillRect(0, -5.4, 8.5, 1.6);
+        } else if (i === 2) {
+          ctx.beginPath(); ctx.moveTo(-2.5, -4); ctx.lineTo(0, -10); ctx.lineTo(2.5, -4); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = "#08070a"; ctx.fillRect(-4.3, -1.2, 8.6, 2.3);
+        }
+        ctx.restore();
+        if (i === 3) {
+          // baterista: los palillos golpean al ritmo
+          const golpe = Math.sin(pulso * 2) * 0.6;
+          ctx.strokeStyle = colores[i]; ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(cx - 6, base - 3); ctx.lineTo(cx - 6 - Math.cos(1 + golpe) * 9, base - 3 - Math.sin(1 + golpe) * 9);
+          ctx.moveTo(cx + 6, base - 3); ctx.lineTo(cx + 6 + Math.cos(1 - golpe) * 9, base - 3 - Math.sin(1 - golpe) * 9);
+          ctx.stroke();
+        }
+        ctx.restore();
+      });
+      // Mano de rock saliendo por la ventana trasera
+      ctx.save(); ctx.translate(-104, -30 + Math.max(0, Math.sin(pulso)) * 2); ctx.rotate(-0.25);
+      ctx.font = "16px sans-serif"; ctx.fillText("🤘", -8, 6);
+      ctx.restore();
+    }
+
+    function dibujarVan(x, y, tiempo) {
+      if (!spriteVan) return;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-0.05 + Math.sin(tiempo * 1.3) * 0.015);
+      // Haz del faro
+      const haz = ctx.createLinearGradient(92, 0, 250, 0);
+      haz.addColorStop(0, "rgba(255,248,208,.3)"); haz.addColorStop(1, "rgba(255,248,208,0)");
+      ctx.fillStyle = haz;
+      ctx.beginPath(); ctx.moveTo(92, 4); ctx.lineTo(250, -28); ctx.lineTo(250, 44); ctx.closePath(); ctx.fill();
+      // Propulsor de fuego
+      const largo = 44 + Math.sin(tiempo * 34) * 8 + Math.random() * 6;
+      const llama = ctx.createLinearGradient(-98, 0, -98 - largo, 0);
+      llama.addColorStop(0, "rgba(255,255,255,.95)"); llama.addColorStop(0.2, "rgba(255,216,74,.95)");
+      llama.addColorStop(0.55, "rgba(255,122,26,.85)"); llama.addColorStop(1, "rgba(255,45,45,0)");
+      ctx.fillStyle = llama;
+      ctx.beginPath(); ctx.moveTo(-98, 2); ctx.quadraticCurveTo(-98 - largo * 0.6, 2, -98 - largo, 11);
+      ctx.quadraticCurveTo(-98 - largo * 0.6, 20, -98, 20); ctx.closePath(); ctx.fill();
+      // Carrocería y banda
+      ctx.drawImage(spriteVan, -VAN_W / 2, -VAN_H / 2 - 10, VAN_W, VAN_H);
+      dibujarBanda(tiempo);
+      // Ruedas con llanta cromada que giran
+      const giro = tiempo * 6;
+      [[-60, 22], [60, 22]].forEach(([wx, wy]) => {
+        ctx.fillStyle = "#050507"; ctx.strokeStyle = "#e6e6ef"; ctx.lineWidth = 2.6;
+        ctx.beginPath(); ctx.arc(wx, wy, 13.5, 0, 6.283); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = ROJO; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(wx, wy, 7.5, 0, 6.283);
+        for (let k = 0; k < 5; k++) { const ang = giro + k * 1.2566; ctx.moveTo(wx, wy); ctx.lineTo(wx + Math.cos(ang) * 7.5, wy + Math.sin(ang) * 7.5); }
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+
+    let t = 0, ultimo = performance.now();
+    function cuadro(ahora) {
+      // Fondo a 30 fps: basta para las estrellas y ahorra CPU/GPU para el scroll.
+      if (ahora - ultimo < 32) { requestAnimationFrame(cuadro); return; }
+      const dt = Math.min(0.05, (ahora - ultimo) / 1000); ultimo = ahora; t += dt;
+      ctx.clearRect(0, 0, W, H);
+      ctx.shadowBlur = 0;
+
+      const vy = van.yf * H + Math.sin(t * 2) * 6 + (raton.y - 0.5) * -30;
+
+      // Constelación en neón
+      ctx.strokeStyle = CIAN; ctx.lineWidth = 1; glow(CIAN, 8); ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      UNIONES.forEach(([a, b]) => { ctx.moveTo(CONSTELACION[a][0] * W, CONSTELACION[a][1] * H); ctx.lineTo(CONSTELACION[b][0] * W, CONSTELACION[b][1] * H); });
+      ctx.stroke();
+      CONSTELACION.forEach(([x, y], i) => {
+        const col = i % 2 ? MAGENTA : CIAN;
+        ctx.globalAlpha = 0.6 + 0.4 * Math.sin(t * 2 + i);
+        ctx.fillStyle = col; glow(col, 14);
+        ctx.beginPath(); ctx.arc(x * W, y * H, 2.6, 0, 6.283); ctx.fill();
+      });
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+
+      // Satélite con luz parpadeante
+      sat.t += dt * 0.03;
+      const k = sat.t % 1;
+      const sx = -80 + k * (W + 160), sy = H * 0.12 + k * H * 0.22;
+      ctx.save(); ctx.translate(sx, sy); ctx.rotate(0.35);
+      ctx.fillStyle = "#d9f9ff"; glow(CIAN, 10); ctx.fillRect(-4, -3, 8, 6);
+      ctx.strokeStyle = CIAN; ctx.lineWidth = 1; ctx.strokeRect(-16, -5, 10, 10); ctx.strokeRect(6, -5, 10, 10);
+      ctx.globalAlpha = Math.sin(t * 6) > 0.2 ? 1 : 0.15;
+      ctx.fillStyle = MAGENTA; glow(MAGENTA, 12); ctx.beginPath(); ctx.arc(0, -8, 2, 0, 6.283); ctx.fill();
+      ctx.restore(); ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+
+      // Minivan viajando: deja un rastro de neón
+      van.x += van.vel * dt;
+      if (van.x > W + 300) { van.x = -300; van.yf = 0.45 + Math.random() * 0.3; van.ruta.length = 0; }
+      // Rastro de la combi: cinta de neón ondulante + chispas + notas musicales
+      const ex = van.x - 140, ey = vy + 11;
+      van.ruta.push({ x: ex, y: ey + Math.sin(t * 4) * 8 });
+      if (van.ruta.length > 95) van.ruta.shift();
+      for (const p of van.ruta) p.x -= 40 * dt;
+      const nRuta = van.ruta.length;
+      if (nRuta > 2) {
+        ctx.lineCap = "round"; ctx.lineJoin = "round";
+        [[30, 0.14, MAGENTA], [18, 0.3, ROJO], [9, 0.62, NARANJA], [4, 0.9, AMARILLO], [1.4, 1, "#ffffff"]].forEach(([ancho, alfa, col]) => {
+          ctx.strokeStyle = col;
+          for (let i = 1; i < nRuta; i++) {
+            const k = i / nRuta;
+            ctx.globalAlpha = alfa * k; ctx.lineWidth = ancho * k;
+            ctx.beginPath(); ctx.moveTo(van.ruta[i - 1].x, van.ruta[i - 1].y); ctx.lineTo(van.ruta[i].x, van.ruta[i].y); ctx.stroke();
+          }
+        });
+      }
+      // Chispas en forma de estrella que se dispersan
+      if (ahora - ultimoHumo > 45) {
+        ultimoHumo = ahora;
+        for (let q = 0; q < 2; q++) van.humo.push({ x: ex, y: ey, vx: -20 - Math.random() * 50, vy: (Math.random() - 0.5) * 44, vida: 1, tam: 2 + Math.random() * 3.5, col: [AMARILLO, NARANJA, ROJO, "#ffffff"][Math.floor(Math.random() * 4)] });
+      }
+      for (let i = van.humo.length - 1; i >= 0; i--) {
+        const h = van.humo[i]; h.x += h.vx * dt; h.y += h.vy * dt; h.vida -= dt * 0.7;
+        if (h.vida <= 0) { van.humo.splice(i, 1); continue; }
+        const r = h.tam * h.vida;
+        ctx.globalAlpha = h.vida; ctx.strokeStyle = h.col; ctx.fillStyle = h.col; ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(h.x - r, h.y); ctx.lineTo(h.x + r, h.y); ctx.moveTo(h.x, h.y - r); ctx.lineTo(h.x, h.y + r); ctx.stroke();
+        ctx.beginPath(); ctx.arc(h.x, h.y, r * 0.35, 0, 6.283); ctx.fill();
+      }
+      // Notas musicales que salen flotando de la combi
+      if (ahora - van.ultimaNota > 650) {
+        van.ultimaNota = ahora;
+        van.notas.push({ x: ex + 10, y: ey - 6, vx: -25 - Math.random() * 20, vy: -18 - Math.random() * 18, vida: 1, giro: (Math.random() - 0.5) * 0.6,
+          glifo: ["\u266A", "\u266B", "\u26A1", "\uD83E\uDD18"][Math.floor(Math.random() * 4)], col: [CIAN, MAGENTA, AMARILLO, ROJO][Math.floor(Math.random() * 4)] });
+      }
+      ctx.font = '20px "Apple Symbols", "Segoe UI Symbol", sans-serif';
+      for (let i = van.notas.length - 1; i >= 0; i--) {
+        const nt = van.notas[i]; nt.x += nt.vx * dt; nt.y += nt.vy * dt; nt.vida -= dt * 0.45;
+        if (nt.vida <= 0) { van.notas.splice(i, 1); continue; }
+        ctx.save(); ctx.translate(nt.x, nt.y + Math.sin(nt.vida * 8) * 3); ctx.rotate(nt.giro * (1 - nt.vida));
+        ctx.globalAlpha = Math.min(1, nt.vida * 1.4) * 0.35; ctx.fillStyle = nt.col; ctx.font = '32px "Apple Symbols", "Segoe UI Symbol", sans-serif'; ctx.fillText(nt.glifo, -9, 9);
+        ctx.globalAlpha = Math.min(1, nt.vida * 1.4); ctx.font = '24px "Apple Symbols", "Segoe UI Symbol", sans-serif'; ctx.fillText(nt.glifo, -7, 7);
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+      dibujarVan(van.x, vy + Math.sin(t * 3) * 1.5, t);
+
+      // Estela del mouse en neón
+      for (let i = estela.length - 1; i >= 0; i--) {
+        const p = estela[i]; p.x += p.vx; p.y += p.vy; p.vida -= 0.03;
+        if (p.vida <= 0) estela.splice(i, 1);
+      }
+      ctx.lineCap = "round";
+      for (let i = 1; i < estela.length; i++) {
+        const a = estela[i - 1], b = estela[i], v = Math.min(a.vida, b.vida);
+        ctx.globalAlpha = v * 0.7; ctx.strokeStyle = b.col; ctx.lineWidth = v * 2.4; glow(b.col, 10);
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+
+      // Estrellas fugaces
+      for (let i = fugaces.length - 1; i >= 0; i--) {
+        const f = fugaces[i];
+        f.cola.push({ x: f.x, y: f.y }); if (f.cola.length > 28) f.cola.shift();
+        f.x += f.vx; f.y += f.vy; f.vida -= 0.012;
+        ctx.strokeStyle = CIAN; glow(CIAN, 8);
+        for (let j = 1; j < f.cola.length; j++) {
+          const a = f.cola[j - 1], b = f.cola[j], q = j / f.cola.length;
+          ctx.globalAlpha = q * f.vida * 0.9; ctx.lineWidth = q * 2;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+        if (f.vida <= 0 || f.x > W + 60 || f.y > H + 60) fugaces.splice(i, 1);
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+      requestAnimationFrame(cuadro);
+    }
+    requestAnimationFrame(cuadro);
+  })();
+</script>
+<script>
+  (function () {
+    const fachada = document.getElementById("facade-video");
+    if (!fachada) return;
+    function cargar() {
+      const marco = document.createElement("div");
+      marco.className = "video-marco";
+      const iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube-nocookie.com/embed/T1SDRPZFOKY?autoplay=1&rel=0";
+      iframe.title = "Videoclip de Vuelvo";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture";
+      iframe.allowFullscreen = true;
+      marco.appendChild(iframe);
+      fachada.replaceWith(marco);
+    }
+    fachada.addEventListener("click", cargar);
+    fachada.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); cargar(); } });
+  })();
+</script>
+<script>
+  // Órbita del encabezado: gira sola, se pausa al pasar el mouse y se puede arrastrar para girarla.
+  (function () {
+    const orb = document.querySelector(".orbita");
+    if (!orb) return;
+    const anillo = orb.querySelector(".anillo");
+    const sats = Array.from(orb.querySelectorAll(".sat"));
+    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ang = 0, arrastrando = false, movido = false, pausado = false, previo = 0;
+
+    function pintar() {
+      anillo.style.transform = "rotate(" + ang + "deg)";
+      sats.forEach((s) => { s.style.transform = "rotate(" + (-ang) + "deg)"; });
+    }
+    function angulo(e) {
+      const r = orb.getBoundingClientRect();
+      return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI;
+    }
+    orb.addEventListener("pointerdown", (e) => {
+      arrastrando = true; movido = false; previo = angulo(e);
+      orb.setPointerCapture(e.pointerId);
+    });
+    orb.addEventListener("pointermove", (e) => {
+      if (!arrastrando) return;
+      const a = angulo(e);
+      let d = a - previo;
+      if (d > 180) d -= 360; if (d < -180) d += 360;
+      if (Math.abs(d) > 1.5) movido = true;
+      ang += d; previo = a; pintar();
+    });
+    const fin = () => { arrastrando = false; };
+    orb.addEventListener("pointerup", fin);
+    orb.addEventListener("pointercancel", fin);
+    // Si se arrastró, el clic no debe abrir la plataforma.
+    orb.addEventListener("click", (e) => { if (movido) { e.preventDefault(); e.stopPropagation(); movido = false; } }, true);
+    orb.addEventListener("pointerenter", () => { pausado = true; });
+    orb.addEventListener("pointerleave", () => { pausado = false; arrastrando = false; });
+
+    function cuadro() {
+      if (!pausado && !arrastrando && !reducir) { ang += 0.22; pintar(); }
+      requestAnimationFrame(cuadro);
+    }
+    pintar();
+    requestAnimationFrame(cuadro);
+  })();
+</script>
+<script>
+  // Parallax suave: los fondos se mueven un poco con el mouse.
+  (function () {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const fondos = document.querySelectorAll(".fondo-vivo");
+    window.addEventListener("pointermove", (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * -16;
+      const y = (e.clientY / window.innerHeight - 0.5) * -16;
+      fondos.forEach((f) => { f.style.setProperty("--px", x.toFixed(1) + "px"); f.style.setProperty("--py", y.toFixed(1) + "px"); });
+    }, { passive: true });
+  })();
+</script>
+<script>
+  // Capas de profundidad: cada fondo se desplaza un poco distinto al hacer scroll,
+  // y las tarjetas de canción se inclinan siguiendo el cursor.
+  (function () {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const fondos = Array.from(document.querySelectorAll(".fondo-vivo"));
+    let pendiente = false;
+    function alScroll() {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(() => {
+        pendiente = false;
+        const centro = window.innerHeight / 2;
+        fondos.forEach((f) => {
+          const r = f.getBoundingClientRect();
+          const distancia = r.top + r.height / 2 - centro;
+          f.style.setProperty("--sy", (-distancia * 0.06).toFixed(1) + "px");
+        });
+      });
+    }
+    window.addEventListener("scroll", alScroll, { passive: true });
+    alScroll();
+
+    if (!matchMedia("(hover: hover)").matches) return;
+    document.querySelectorAll(".casete").forEach((el) => {
+      const base = el.matches(":nth-child(2)") ? 1.2 : -1;
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = "perspective(900px) rotate(" + base + "deg) rotateX(" + (-y * 6).toFixed(2) + "deg) rotateY(" + (x * 8).toFixed(2) + "deg)";
+      });
+      el.addEventListener("pointerleave", () => { el.style.transform = "rotate(" + base + "deg)"; });
+    });
+  })();
+</script>
+<script>
+  (function () {
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll(".fondo-video").forEach((v) => { v.pause(); v.removeAttribute("autoplay"); });
+  })();
+</script>
+<script>
+  // Rendimiento: los videos solo se reproducen cuando están en pantalla.
+  (function () {
+    if (!("IntersectionObserver" in window)) return;
+    const videos = document.querySelectorAll(".fondo-video");
+    const obs = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (e.isIntersecting) { e.target.play().catch(() => {}); } else { e.target.pause(); }
+      });
+    }, { threshold: 0.01 });
+    videos.forEach((v) => obs.observe(v));
+  })();
+</script>
+<script>
+  // Constelación de la portada: nodos que derivan, se unen por líneas cercanas,
+  // se apartan del cursor y lanzan un pulso al hacer clic. Inspirada en el efecto de "connections" de react-bits (Particles), reescrita en 2D.
+  (function () {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const sec = document.querySelector(".portada");
+    const cv = sec && sec.querySelector(".constelacion");
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    const CIAN = "#3ff0ff", MAG = "#ff4fd8";
+    const DIST = 130, RADIO_RAT = 150;
+    let W = 0, H = 0, dpr = 1, nodos = [], pulsos = [];
+    let raton = null, visible = true, ultimo = 0;
+
+    function construir() {
+      const r = sec.getBoundingClientRect();
+      W = r.width; H = r.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.min(64, Math.round((W * H) / 16000));
+      nodos = Array.from({ length: n }, (_, i) => {
+        const x = Math.random() * W, y = Math.random() * H;
+        return { x, y, hx: x, hy: y, vx: 0, vy: 0, r: 1.2 + Math.random() * 1.6, fase: Math.random() * 6.28, col: i % 3 === 0 ? MAG : CIAN };
+      });
+    }
+    construir();
+    window.addEventListener("resize", construir);
+
+    window.addEventListener("pointermove", (e) => {
+      const r = sec.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      raton = (x >= 0 && x <= W && y >= 0 && y <= H) ? { x, y } : null;
+    }, { passive: true });
+    sec.addEventListener("pointerleave", () => { raton = null; });
+    sec.addEventListener("pointerdown", (e) => {
+      const r = sec.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      pulsos.push({ x, y, edad: 0 });
+      nodos.forEach((n) => {
+        const dx = n.x - x, dy = n.y - y, d = Math.hypot(dx, dy) || 1;
+        if (d < 260) { const f = (260 - d) / 260 * 3.2; n.vx += dx / d * f; n.vy += dy / d * f; }
+      });
+    });
+
+    const io = new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible && !enCurso) bucle(); }, { threshold: 0 });
+    io.observe(sec);
+    let enCurso = false;
+
+    function cuadro(ahora) {
+      enCurso = false;
+      if (!visible || document.hidden) return;
+      if (ahora - ultimo < 33) { bucle(); return; }
+      const dt = Math.min(0.05, (ahora - ultimo) / 1000 || 0.033); ultimo = ahora;
+      ctx.clearRect(0, 0, W, H);
+
+      // Física suave: volver a su sitio, deriva y repulsión del cursor
+      for (const n of nodos) {
+        n.vx += (n.hx - n.x) * 0.004 + Math.sin(ahora / 1800 + n.fase) * 0.02;
+        n.vy += (n.hy - n.y) * 0.004 + Math.cos(ahora / 2100 + n.fase) * 0.02;
+        if (raton) {
+          const dx = n.x - raton.x, dy = n.y - raton.y, d = Math.hypot(dx, dy) || 1;
+          if (d < RADIO_RAT) { const f = (RADIO_RAT - d) / RADIO_RAT * 0.5; n.vx += dx / d * f; n.vy += dy / d * f; }
+        }
+        n.vx *= 0.92; n.vy *= 0.92;
+        n.x += n.vx; n.y += n.vy;
+      }
+
+      // Líneas entre nodos cercanos; cerca del cursor se encienden en magenta
+      ctx.lineWidth = 1;
+      for (let i = 0; i < nodos.length; i++) {
+        for (let j = i + 1; j < nodos.length; j++) {
+          const a = nodos[i], b = nodos[j];
+          const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+          if (d > DIST) continue;
+          const cerca = raton && Math.hypot((a.x + b.x) / 2 - raton.x, (a.y + b.y) / 2 - raton.y) < RADIO_RAT;
+          ctx.globalAlpha = (1 - d / DIST) * (cerca ? 1 : 0.6);
+          ctx.strokeStyle = cerca ? MAG : CIAN;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+
+      // Nodos que titilan
+      for (const n of nodos) {
+        ctx.globalAlpha = 0.5 + 0.5 * Math.sin(ahora / 700 + n.fase);
+        ctx.fillStyle = n.col;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.283); ctx.fill();
+      }
+
+      // Pulsos de clic: anillos que se expanden
+      for (let i = pulsos.length - 1; i >= 0; i--) {
+        const p = pulsos[i]; p.edad += dt;
+        const radio = p.edad * 240;
+        ctx.globalAlpha = Math.max(0, 0.8 - p.edad * 0.9);
+        ctx.strokeStyle = MAG; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(p.x, p.y, radio, 0, 6.283); ctx.stroke();
+        if (p.edad > 1) pulsos.splice(i, 1);
+      }
+      ctx.globalAlpha = 1;
+      bucle();
+    }
+    function bucle() { if (enCurso) return; enCurso = true; requestAnimationFrame(cuadro); }
+    bucle();
+  })();
+</script>
+<script>
+  // Dock de plataformas: texto rotatorio sincronizado con los íconos, imán hacia el cursor y chispas al hacer clic.
+  (function () {
+    const dock = document.querySelector(".dock");
+    if (!dock) return;
+    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const plats = Array.from(dock.querySelectorAll(".plat"));
+    const rot = document.getElementById("rot");
+    const palabra = rot.querySelector(".rot-palabra");
+    let activo = 0, pausado = false;
+
+    // RotatingText: cambia la plataforma destacada letra por letra
+    function pintarPalabra(texto, clase) {
+      palabra.innerHTML = "";
+      Array.from(texto).forEach((ch, i) => {
+        const sp = document.createElement("span");
+        sp.textContent = ch === " " ? "\u00a0" : ch;
+        sp.style.setProperty("--i", i);
+        if (clase) sp.className = clase;
+        palabra.appendChild(sp);
+      });
+    }
+    function activar(i) {
+      activo = i;
+      const p = plats[i];
+      plats.forEach((x) => x.classList.toggle("activo", x === p));
+      rot.href = p.href;
+      rot.style.setProperty("--rc", getComputedStyle(p).getPropertyValue("--c"));
+      if (reducir) { palabra.textContent = p.dataset.nombre; return; }
+      palabra.querySelectorAll("span").forEach((sp) => sp.classList.add("sal"));
+      setTimeout(() => pintarPalabra(p.dataset.nombre), 220);
+    }
+    pintarPalabra(plats[0].dataset.nombre);
+    activar(0);
+    setInterval(() => { if (!pausado && !document.hidden) activar((activo + 1) % plats.length); }, 2400);
+    plats.forEach((p, i) => {
+      p.addEventListener("pointerenter", () => { pausado = true; if (activo !== i) activar(i); });
+      p.addEventListener("focus", () => { pausado = true; if (activo !== i) activar(i); });
+      p.addEventListener("pointerleave", () => { pausado = false; });
+      p.addEventListener("blur", () => { pausado = false; });
+    });
+
+    if (reducir) return;
+
+    // Magnet: cada ícono se desplaza hacia el cursor cuando está cerca
+    const PADDING = 46, FUERZA = 3;
+    let px = -1e4, py = -1e4, pendiente = false;
+    window.addEventListener("pointermove", (e) => {
+      px = e.clientX; py = e.clientY;
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(() => {
+        pendiente = false;
+        plats.forEach((p) => {
+          const r = p.getBoundingClientRect();
+          const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+          const fuera = Math.max(Math.abs(px - cx) - r.width / 2, Math.abs(py - cy) - r.height / 2, 0);
+          const inner = p.firstElementChild;
+          if (fuera > PADDING) { inner.style.transform = ""; return; }
+          const t = Math.min(1, Math.max(0, (fuera - PADDING * 0.5) / (PADDING * 0.5)));
+          const tirar = 1 - t * t * (3 - 2 * t);
+          inner.style.transform = "translate3d(" + ((px - cx) / FUERZA * tirar).toFixed(1) + "px," + ((py - cy) / FUERZA * tirar).toFixed(1) + "px,0) scale(" + (1 + 0.12 * tirar).toFixed(3) + ")";
+        });
+      });
+    }, { passive: true });
+
+    // ClickSpark: chispas del color de la plataforma al hacer clic
+    const cv = document.createElement("canvas");
+    cv.className = "chispas"; cv.setAttribute("aria-hidden", "true");
+    document.body.appendChild(cv);
+    const ctx = cv.getContext("2d");
+    let chispas = [], corriendo = false;
+    function ajustar() {
+      const d = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = innerWidth * d; cv.height = innerHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    ajustar(); window.addEventListener("resize", ajustar);
+    function animar(ahora) {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      chispas = chispas.filter((c) => ahora - c.t0 < 520);
+      chispas.forEach((c) => {
+        const k = (ahora - c.t0) / 520, e = k * (2 - k);
+        const dist = e * 34, largo = 14 * (1 - e);
+        const x1 = c.x + dist * Math.cos(c.a), y1 = c.y + dist * Math.sin(c.a);
+        ctx.strokeStyle = c.col; ctx.lineWidth = 2; ctx.globalAlpha = 1 - k;
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1 + largo * Math.cos(c.a), y1 + largo * Math.sin(c.a)); ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+      if (chispas.length) requestAnimationFrame(animar); else { corriendo = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+    }
+    window.lanzarChispas = (x, y, col) => {
+      const t0 = performance.now();
+      for (let i = 0; i < 10; i++) chispas.push({ x, y, a: (Math.PI * 2 * i) / 10 + (Math.random() - 0.5) * 0.3, col, t0 });
+      if (!corriendo) { corriendo = true; requestAnimationFrame(animar); }
+    };
+    plats.forEach((p) => p.addEventListener("pointerdown", (e) => window.lanzarChispas(e.clientX, e.clientY, getComputedStyle(p).getPropertyValue("--c").trim())));
+  })();
+</script>
+<script>
+  // Sistema Voyager: el vinilo del centro reproduce Vuelvo; los planetas lanzan chispas al tocarlos.
+  (function () {
+    const vinilo = document.getElementById("vinilo");
+    const audio = document.getElementById("reproductor");
+    const boton = document.querySelector("[data-audio]");
+    if (vinilo && audio && boton) {
+      const icono = vinilo.querySelector(".vinilo-play");
+      const sync = () => {
+        const suena = !audio.paused;
+        vinilo.classList.toggle("sonando", suena);
+        icono.textContent = suena ? "\u275A\u275A" : "\u25B6";
+        vinilo.setAttribute("aria-label", suena ? "Pausar Vuelvo" : "Reproducir Vuelvo");
+      };
+      vinilo.addEventListener("click", () => boton.click());
+      ["play", "pause", "ended"].forEach((ev) => audio.addEventListener(ev, sync));
+    }
+    document.querySelectorAll(".planeta").forEach((p) => p.addEventListener("pointerdown", (e) => {
+      if (window.lanzarChispas) window.lanzarChispas(e.clientX, e.clientY, getComputedStyle(p).getPropertyValue("--c").trim());
+    }));
+  })();
+</script>
+</body>
+</html>

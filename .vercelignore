@@ -1,0 +1,27 @@
+# Vercel solo publica la página ya generada en web/. Todo lo demás es el proyecto de análisis.
+# El pyproject.toml hacía que Vercel creyera que esto era una app de Python.
+pyproject.toml
+uv.lock
+.python-version
+pipeline/
+songs/
+letras/
+output/
+colores/
+concepto/
+ep/
+banda/
+reports/
+research_notes/
+MATERIAL AUDIOVISUAL/
+REFERENCE TO BAND/
+CONTEXT TO VOYAGERS/
+tracks.toml
+PLAN_WEB.md
+README.md
+# Fuentes de la página (se convierten en web/index.html con pipeline/build_web.py).
+web/index.template.html
+web/sitio.toml
+web/_og.html
+web/assets/vendor/LEEME.md
+animaciones/
