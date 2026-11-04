@@ -155,6 +155,16 @@
   .garabato { font-family: var(--maq); font-size: 15px; margin-top: 14px; color: var(--rosa); transform: rotate(-1deg); }
 
   /* Franja */
+  .breakline { position: relative; z-index: 3; height: 150px; margin: -36px 0 -46px; pointer-events: none; overflow-x: clip; overflow-y: visible; }
+  .cinta { position: absolute; left: -10vw; width: 120vw; top: 50%; padding: 12px 0; overflow: hidden; white-space: nowrap; font-family: var(--display); font-size: 28px; letter-spacing: .02em; text-transform: uppercase; color: #06050e; box-shadow: 0 12px 30px rgba(0,0,0,.55); }
+  .cinta-a { background: #ff4fd8; transform: translateY(-50%) rotate(-3.5deg); z-index: 2; }
+  .cinta-b { background: #3ff0ff; transform: translateY(-50%) rotate(2.6deg); z-index: 1; }
+  .cinta > div { display: inline-block; animation: cintaIzq 40s linear infinite; }
+  .cinta-b > div { animation-name: cintaDer; animation-duration: 48s; }
+  @keyframes cintaIzq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes cintaDer { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  @media (max-width: 640px) { .breakline { height: 110px; margin: -24px 0 -32px; } .cinta { font-size: 20px; padding: 9px 0; } }
+  @media (prefers-reduced-motion: reduce) { .cinta > div { animation: none; } }
   .franja { background: var(--tinta); color: var(--papel); overflow: hidden; white-space: nowrap; padding: 10px 0; font-family: var(--display); font-size: 26px; text-transform: uppercase; }
   .franja div { display: inline-block; padding-left: 100%; animation: corre 22s linear infinite; }
   @keyframes corre { to { transform: translateX(-100%); } }
@@ -405,43 +415,17 @@
     <figure class="g g3"><img decoding="async" src="fotos/banda-calle.jpg" alt=""><figcaption>03 · Noche, centro de Lima</figcaption></figure>
   </div>
 
-  <button class="dale" id="dale" aria-controls="escucha">
+  <button class="dale" id="dale" aria-controls="escuchar">
     <span class="tri" aria-hidden="true"></span> Dale play
   </button>
-  <p class="garabato">toca el botón y escucha Vuelvo</p>
+  <p class="garabato">elige tu plataforma y escúchanos</p>
 </section>
 
-<div class="franja" aria-hidden="true"><div>Spotify • Apple Music • YouTube • Deezer • TikTok • Dale play • Escúchanos • Spotify • Apple Music • YouTube • Deezer • TikTok • Dale play • Escúchanos •</div></div>
+<div class="breakline" aria-hidden="true">
+  <div class="cinta cinta-b"><div>Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ Los Voyagers ✦ Rock desde Lima ✦ Vuelvo ✦ Decidido ✦ Perderse y volver ✦ </div></div>
+  <div class="cinta cinta-a"><div>Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ Spotify ✦ Apple Music ✦ YouTube ✦ TikTok ✦ Dale play ✦ Escúchanos ✦ </div></div>
+</div>
 
-<main class="casetes" id="escucha">
-  <article class="casete">
-    <img decoding="async" src="assets/vuelvo-450.webp" alt="Portada de Vuelvo">
-    <div>
-      <h2>Vuelvo</h2>
-      <button class="play" data-audio="assets/audio/vuelvo-fragmento.mp3" aria-pressed="false">▶ Escuchar</button>
-      <nav class="plata" aria-label="Escuchar Vuelvo">
-        <a class="p-sp" href="https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q">Spotify</a>
-        <a class="p-ap" href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914">Apple Music</a>
-        <a class="p-yt" href="https://www.youtube.com/watch?v=T1SDRPZFOKY">YouTube</a>
-        <a class="p-dz" href="https://www.deezer.com/album/827098931">Deezer</a>
-      </nav>
-    </div>
-  </article>
-
-  <article class="casete">
-    <img decoding="async" src="assets/decidido-450.webp" alt="Portada de Decidido">
-    <div>
-      <h2>Decidido</h2>
-      <button class="play" data-audio="assets/audio/decidido-fragmento.mp3" aria-pressed="false">▶ Escuchar</button>
-      <nav class="plata" aria-label="Escuchar Decidido">
-        <a class="p-sp" href="https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke">Spotify</a>
-        <a class="p-ap" href="https://music.apple.com/pe/album/decidido/6794141871?i=6794141872">Apple Music</a>
-        <a class="p-tt" href="https://www.tiktok.com/@losvoyagers/video/7675491756414094613">TikTok</a>
-        <a class="p-dz" href="https://www.deezer.com/album/1036594372">Deezer</a>
-      </nav>
-    </div>
-  </article>
-</main>
 
 <section class="hub" id="escuchar" aria-labelledby="hub-titulo">
   <div class="hub-cab">
@@ -570,30 +554,16 @@
 <script>
   (function () {
     const audio = document.getElementById("reproductor");
-    const botones = Array.from(document.querySelectorAll("[data-audio]"));
+    const VUELVO = "assets/audio/vuelvo-fragmento.mp3";
+    window.alternarVuelvo = () => {
+      if (audio.dataset.src === VUELVO && !audio.paused) { audio.pause(); return; }
+      if (audio.dataset.src !== VUELVO) { audio.dataset.src = VUELVO; audio.src = VUELVO; }
+      audio.play().catch(() => {});
+    };
     const dale = document.getElementById("dale");
-
-    function marcar(boton, activo) {
-      boton.setAttribute("aria-pressed", String(activo));
-      boton.innerHTML = activo ? '<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Pausa' : "▶ Escuchar";
-    }
-    function reproducir(boton) {
-      const src = boton.dataset.audio;
-      if (audio.dataset.src === src && !audio.paused) { audio.pause(); return; }
-      botones.forEach((b) => marcar(b, false));
-      cambiando = true;
-      audio.dataset.src = src;
-      audio.src = src;
-      audio.play().then(() => { cambiando = false; }).catch(() => { cambiando = false; });
-      marcar(boton, true);
-    }
-    let cambiando = false;
-    botones.forEach((b) => {
-      b.addEventListener("click", () => reproducir(b));
+    if (dale) dale.addEventListener("click", () => {
+      if (!(window.abrirHub && window.abrirHub("spotify"))) document.getElementById("escuchar").scrollIntoView();
     });
-    audio.addEventListener("pause", () => { if (!cambiando) botones.forEach((b) => marcar(b, false)); });
-    audio.addEventListener("ended", () => botones.forEach((b) => marcar(b, false)));
-    dale.addEventListener("click", () => reproducir(botones[0]));
   })();
 </script>
 
@@ -1322,8 +1292,7 @@
   (function () {
     const vinilo = document.getElementById("vinilo");
     const audio = document.getElementById("reproductor");
-    const boton = document.querySelector("[data-audio]");
-    if (vinilo && audio && boton) {
+    if (vinilo && audio && window.alternarVuelvo) {
       const icono = vinilo.querySelector(".vinilo-play");
       const sync = () => {
         const suena = !audio.paused;
@@ -1331,7 +1300,7 @@
         icono.textContent = suena ? "\u275A\u275A" : "\u25B6";
         vinilo.setAttribute("aria-label", suena ? "Pausar Vuelvo" : "Reproducir Vuelvo");
       };
-      vinilo.addEventListener("click", () => boton.click());
+      vinilo.addEventListener("click", () => window.alternarVuelvo());
       ["play", "pause", "ended"].forEach((ev) => audio.addEventListener(ev, sync));
     }
     document.querySelectorAll(".planeta").forEach((p) => p.addEventListener("pointerdown", (e) => {
