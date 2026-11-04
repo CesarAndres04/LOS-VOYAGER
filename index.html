@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0e0e0e">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Los Voyagers — Escúchanos</title>
@@ -10,21 +12,20 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="fondos/via-lactea.jpg" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
+  /* El EPK vive en el espacio: siempre oscuro, aunque el teléfono esté en modo claro */
   :root {
-    --papel: #efece3;
-    --tinta: #111;
+    color-scheme: dark;
+    --papel: #0e0e0e;
+    --tinta: #f2efe6;
     --amarillo: #f5d142;
     --rosa: #e8559a;
-    --gris: #6d6b65;
+    --gris: #b8b5ad;
     --display: "Anton", Impact, sans-serif;
     --maq: "Special Elite", "Courier New", monospace;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --papel: #0e0e0e; --tinta: #f2efe6; --gris: #b8b5ad; }
-  }
-  :root[data-theme="dark"] { --papel: #0e0e0e; --tinta: #f2efe6; --gris: #b8b5ad; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--papel); color: var(--tinta); }
@@ -456,45 +457,6 @@
     .luces { display: none; }
   }
 
-  /* ===== Rayos que chocan: caen detrás de la portada y revientan a tempo (130 BPM) sobre las cintas ===== */
-  .portada > .rayos { position: absolute; z-index: 0; }
-  .rayos { inset: 0 0 50px 0; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
-  .rayos-suelo { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(63,240,255,.5) 20%, rgba(255,79,216,.5) 80%, transparent); box-shadow: 0 0 14px 1px rgba(157,107,255,.45); }
-  .rayo { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; }
-  .rayo-haz { position: absolute; left: 0; top: 0; width: 2px; height: calc(var(--t) * 100%); border-radius: 2px;
-    background: linear-gradient(to bottom, transparent, var(--cola) 55%, var(--c) 93%, #fff);
-    box-shadow: 0 0 7px 1px color-mix(in srgb, var(--c) 70%, transparent);
-    translate: 0 -100%; animation: rayoCae var(--P) linear var(--d0) infinite; will-change: translate; }
-  .rayo-golpe { position: absolute; left: 1px; bottom: 0; width: 0; height: 0; }
-  .rayo-flash { position: absolute; left: -40px; bottom: -12px; width: 80px; height: 24px; border-radius: 50%; background: radial-gradient(closest-side, #fff, var(--c) 45%, transparent); opacity: 0; animation: rayoFlash var(--P) ease-out var(--dg) infinite; }
-  .rayo-linea { position: absolute; left: -100px; bottom: -1px; width: 200px; height: 2px; background: linear-gradient(90deg, transparent, var(--c), #fff, var(--c), transparent); opacity: 0; animation: rayoLinea var(--P) ease-out var(--dg) infinite; }
-  .chispa { position: absolute; left: -1px; bottom: 0; width: 2px; height: 10px; border-radius: 2px; background: linear-gradient(#fff, var(--c)); box-shadow: 0 0 6px 1px var(--c); opacity: 0; transform-origin: 50% 100%; animation: chispa var(--P) cubic-bezier(.15,.7,.3,1) var(--dg) infinite; }
-  @keyframes rayoCae { from { translate: 0 -100%; } to { translate: 0 calc(100% / var(--t)); } }
-  @keyframes rayoFlash { 0% { opacity: 1; scale: .3; } 5% { opacity: .95; scale: 1.4; } 16% { opacity: 0; scale: 1.9; } 100% { opacity: 0; scale: 1.9; } }
-  @keyframes rayoLinea { 0% { opacity: 1; scale: .08 1; } 9% { opacity: .85; scale: 1 1; } 24% { opacity: 0; scale: 1.35 1; } 100% { opacity: 0; scale: 1.35 1; } }
-  @keyframes chispa { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0); } 20% { opacity: 0; transform: rotate(var(--a)) translateY(calc(-1 * var(--v))); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(calc(-1 * var(--v))); } }
-  .rayos.quieto *, .rayos.quieto *::before { animation-play-state: paused; }
-  @media (prefers-reduced-motion: reduce) { .rayos * { animation-play-state: paused !important; } }
-
-  /* ===== Nebulosa del hub: nubes de gas en una franja diagonal, filamentos, polvo y estrellas en cruz ===== */
-  .nebula { position: absolute; left: 0; right: 0; top: 24%; bottom: -60px; pointer-events: none; overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent), linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); mask-composite: intersect; }
-  .nube { position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 1.25; transform: translate(-50%, -50%); border-radius: 50%; mix-blend-mode: screen;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--c1) 62%, transparent), color-mix(in srgb, var(--c2) 32%, transparent) 55%, transparent);
-    animation: nubeDeriva var(--dur) ease-in-out var(--del) infinite, nubeHincha var(--hin) ease-in-out var(--del) infinite alternate; }
-  .nebula-filamentos, .nebula-polvo { position: absolute; inset: -20%; -webkit-mask-image: linear-gradient(to bottom right, transparent 22%, #000 44%, #000 56%, transparent 78%); mask-image: linear-gradient(to bottom right, transparent 22%, #000 44%, #000 56%, transparent 78%); }
-  .nebula-filamentos { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.006 0.013' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.6 0 0 0 0 0.98 -3.4 0 0 0 1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); background-size: 700px 700px; mix-blend-mode: screen; opacity: .32; }
-  .nebula-polvo { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='500'%3E%3Cfilter id='d' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.022' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.055 0 0 0 0 0.05 0 0 0 0 0.07 4.2 0 0 0 -2.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E"); background-size: 900px 500px; transform: rotate(-32deg); opacity: .75; }
-  .estrella-cruz { position: absolute; left: var(--x); top: var(--y); width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 6px 1px var(--c); animation: titila var(--tw) ease-in-out var(--del) infinite alternate; }
-  .estrella-cruz::before, .estrella-cruz::after { content: ""; position: absolute; left: 50%; top: 50%; width: 26px; height: 1px; translate: -50% -50%; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--c) 80%, #fff), transparent); }
-  .estrella-cruz::after { rotate: 90deg; }
-  @keyframes nubeDeriva { 0%, 100% { translate: 0 0; } 50% { translate: var(--dx) var(--dy); } }
-  @keyframes nubeHincha { from { scale: .9; } to { scale: 1.1; } }
-  @keyframes titila { from { opacity: .35; scale: .8; } to { opacity: 1; scale: 1.15; } }
-  .nebula.quieto * { animation-play-state: paused; }
-  @media (prefers-reduced-motion: reduce) { .nube, .estrella-cruz { animation: none; } }
-
   /* ===== Ajustes de pantalla: táctil y celular ===== */
   .con-dedo { display: none; }
   @media (hover: none) { .con-cursor { display: none; } .con-dedo { display: inline; } }
@@ -506,6 +468,7 @@
     .capa-sistema { width: 540px; max-width: none; }
     .capa-sistema[data-capa="andromeda"] { width: 760px; }
     .sistema { width: calc(100% - 48px); }
+    .voyager span { display: none; }
     .planeta { top: -21px; left: calc(50% - 21px); width: 42px; height: 42px; }
     .planeta svg { width: 20px; height: 20px; }
     .capa-cierre[data-capa="nebulosa-plasma"] { width: 260vw; left: 50%; }
@@ -524,6 +487,77 @@
     .ruta a.pasada i { background: #3ff0ff; border-color: #3ff0ff; }
     .ruta a.aqui i { background: #ff4fd8; border-color: #ff4fd8; box-shadow: 0 0 8px #ff4fd8; }
   }
+
+  /* ===== Propuesta E · Silencio: espacio real, grano de película, poco color ===== */
+  .cielo-real, .nebulosa-real, .grano { display: none; }
+  html[data-silencio] .rayos, html[data-silencio] .nebula, html[data-silencio] .cinta-b, html[data-silencio] .cosmos > canvas, html[data-silencio] .tira-pista { display: none; }
+  html[data-silencio] .portada { background-image: none; }
+  html[data-silencio] .cielo-real { display: block; position: absolute; inset: 0 0 auto 0; height: min(1100px, 100%); z-index: 0; pointer-events: none;
+    background: url('fondos/via-lactea.jpg') 60% 20% / cover no-repeat; opacity: .55; animation: cieloLento 90s ease-in-out infinite alternate;
+    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent); mask-image: linear-gradient(to bottom, #000 30%, transparent); }
+  html[data-silencio] .portada > .cielo-real { position: absolute; z-index: 0; }
+  @keyframes cieloLento { from { scale: 1.02; translate: 0 0; } to { scale: 1.1; translate: -1.5% 1%; } }
+  html[data-silencio] .nebulosa-real { display: block; position: absolute; inset: 0; pointer-events: none; background: url('fondos/nebulosa-real.jpg') 50% 40% / cover no-repeat; opacity: .32; animation: cieloLento 120s ease-in-out infinite alternate;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent); }
+  html[data-silencio] .grano { display: block; position: fixed; inset: -60px; z-index: 55; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); background-size: 220px; opacity: .085; mix-blend-mode: overlay; animation: grano .9s steps(5) infinite; }
+  @media (hover: none), (max-width: 900px) { html[data-silencio] .grano { mix-blend-mode: normal; opacity: .05; animation-duration: 1.4s; animation-timing-function: steps(3); } }
+  @keyframes grano { 0% { translate: 0 0; } 20% { translate: -18px 12px; } 40% { translate: 14px -20px; } 60% { translate: -10px -8px; } 80% { translate: 20px 16px; } 100% { translate: 0 0; } }
+  html[data-silencio] body::before { filter: saturate(.55) brightness(.9); }
+  html[data-silencio] .estrellas { filter: saturate(.2); opacity: .7; }
+
+  /* Cinta gaffer: una sola, color hueso, como la del escenario */
+  html[data-silencio] .cinta-a { background: #e7e1d3; color: #121110; transform: translateY(-50%) rotate(-2deg); box-shadow: 0 10px 24px rgba(0,0,0,.6);
+    background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.025) 0 2px, transparent 2px 7px); font-size: 22px; letter-spacing: .08em; }
+  html[data-silencio] .cinta-a > div { animation-duration: 80s; }
+
+  /* Título en penumbra: lo ilumina una luz que pasa */
+  html[data-silencio] .portada h1 .bw { color: transparent; -webkit-text-fill-color: transparent; -webkit-background-clip: text; background-clip: text;
+    background-image: radial-gradient(circle 300px at var(--lx, -400px) var(--ly, 50%), #fffaf0 0%, #d9d2c3 28%, #6e695f 62%, #3a3733 100%); background-color: #3a3733; }
+  html[data-silencio] .portada h1 em.bw { background-image: radial-gradient(circle 300px at var(--lx, -400px) var(--ly, 50%), #ffe3ef 0%, #e8559a 32%, #6b2a49 66%, #3a1d2b 100%); background-color: #3a1d2b; }
+  html[data-silencio] .portada .sub { color: #b8b5ad; letter-spacing: .04em; }
+
+  /* Fotos que se revelan como película y se inclinan como una copia impresa */
+  html[data-silencio] .galeria-hero .g img, html[data-silencio] .tira-item img { filter: grayscale(.9) brightness(.42) contrast(1.15); transition: filter 1.8s cubic-bezier(.2,.7,.2,1); }
+  html[data-silencio] .revelada img { filter: none !important; }
+  html[data-silencio] .galeria-hero .g, html[data-silencio] .tira-item { transition: transform .5s cubic-bezier(.2,.7,.2,1); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+  html[data-silencio] .copia { position: relative; overflow: hidden; }
+  html[data-silencio] .copia::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s;
+    background: linear-gradient(115deg, transparent calc(var(--mx, 50%) - 18%), rgba(255,250,235,.16) var(--mx, 50%), transparent calc(var(--mx, 50%) + 18%)); mix-blend-mode: screen; }
+  html[data-silencio] .copia:hover::after { opacity: 1; }
+  html[data-silencio] .tira-item, html[data-silencio] .tira-item:hover { border-color: rgba(242,239,230,.18); box-shadow: 0 20px 40px -20px rgba(0,0,0,.8); }
+
+  /* Neón contenido: un solo acento */
+  html[data-silencio] .sistema-kicker { color: #b8b5ad; }
+  html[data-silencio] .sistema-titulo { text-shadow: none; }
+  html[data-silencio] .dale { background: #e7e1d3; color: #121110; box-shadow: 6px 6px 0 rgba(232,85,154,.55); }
+  html[data-silencio] .garabato { color: #b8b5ad; }
+  html[data-silencio] .titulo-fila .gv .facade { box-shadow: 0 20px 40px -20px rgba(0,0,0,.9); }
+  html[data-silencio] .orb { border-color: rgba(242,239,230,.18); box-shadow: none; }
+  html[data-silencio] .planeta { box-shadow: none; }
+  html[data-silencio] .sol.vinilo { box-shadow: 0 0 50px rgba(232,85,154,.25); }
+  html[data-silencio] .hub-panel { box-shadow: none; border-color: rgba(242,239,230,.14); background: rgba(10,9,12,.72); }
+  html[data-silencio] .fondo-video { opacity: .4; filter: saturate(.6); }
+  html[data-silencio] .ruta a.aqui i { background: #e8559a; border-color: #e8559a; box-shadow: none; }
+  html[data-silencio] .ruta a.pasada i { background: #b8b5ad; border-color: #b8b5ad; }
+  html[data-silencio] .ruta ol::after { background: #b8b5ad; }
+  @media (prefers-reduced-motion: reduce) { html[data-silencio] .grano, html[data-silencio] .cielo-real, html[data-silencio] .nebulosa-real { animation: none; } }
+
+  /* ===== Propuesta F · Película: el material nuevo revelado en tonos naturales ===== */
+  .portada > .dale-zona { position: relative; z-index: auto; display: inline-block; margin-top: 26px; }
+  .dale-zona > .dale { margin-top: 0; position: relative; z-index: 1; }
+  .capa-dale { inset: -80px -120px; width: calc(100% + 240px); height: calc(100% + 160px); opacity: 0; transition: opacity .6s ease; z-index: 0;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, transparent 100%); }
+  .dale-zona:hover .capa-dale, .dale-zona.encendida .capa-dale { opacity: .75; }
+  .zona-vivo { position: relative; overflow: hidden; }
+  .capa-vivo { inset: 0; width: 100%; height: 100%; opacity: .2; z-index: 0;
+    -webkit-mask-image: radial-gradient(ellipse 55% 60% at 50% 55%, #000 30%, transparent 100%); mask-image: radial-gradient(ellipse 55% 60% at 50% 55%, #000 30%, transparent 100%); }
+  .capa-hub[data-capa="f-hidrogeno"] { aspect-ratio: 16 / 9; top: -120px; width: min(1500px, 200vw);
+    -webkit-mask-image: radial-gradient(ellipse 50% 45% at 50% 45%, #000 25%, transparent 100%); mask-image: radial-gradient(ellipse 50% 45% at 50% 45%, #000 25%, transparent 100%); }
+  html[data-mezcla="f"] .nebulosa-real { display: none; }
+  .capa-sistema[data-capa="f-anillo"] { opacity: .72; }
+  html[data-mezcla="f"] .tira-pista { display: block; }
+  html[data-mezcla="f"] .capa-portada { opacity: .9; }
+  .portada h1 { transition: filter .12s linear; }
 </style>
 </head>
 <body>
@@ -546,8 +580,8 @@
 </header>
 
 <section class="portada" id="inicio">
-  <div class="rayos" aria-hidden="true"><div class="rayos-suelo"></div></div>
-  <video class="capa capa-portada" muted loop playsinline preload="none" aria-hidden="true"></video>
+  <div class="cielo-real" aria-hidden="true"></div>
+    <video class="capa capa-portada" muted loop playsinline preload="none" aria-hidden="true"></video>
   <canvas class="constelacion" aria-hidden="true"></canvas>
   <div class="titulo-fila">
     <div>
@@ -564,14 +598,17 @@
   </div>
 
   <div class="galeria-hero">
-    <figure class="g g1"><img decoding="async" src="fotos/kiosko.jpg" alt="La banda frente a un kiosko de revistas en Lima"><figcaption>01 · Kiosko, Lima</figcaption></figure>
-    <figure class="g g2"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo"><figcaption>02 · En vivo</figcaption></figure>
-    <figure class="g g3"><img decoding="async" src="fotos/banda-calle.jpg" alt=""><figcaption>03 · Noche, centro de Lima</figcaption></figure>
+    <figure class="g g1"><img decoding="async" fetchpriority="high" src="fotos/kiosko.jpg" width="1024" height="1024" alt="La banda frente a un kiosko de revistas en Lima"><figcaption>01 · Kiosko, Lima</figcaption></figure>
+    <figure class="g g2"><img decoding="async" loading="lazy" src="fotos/vocalista-en-vivo.jpg" width="1600" height="1062" alt="Vocalista cantando en vivo"><figcaption>02 · En vivo</figcaption></figure>
+    <figure class="g g3"><img decoding="async" loading="lazy" src="fotos/banda-calle.jpg" width="1024" height="1024" alt=""><figcaption>03 · Noche, centro de Lima</figcaption></figure>
   </div>
 
+  <div class="dale-zona">
+  <video class="capa capa-dale" muted loop playsinline preload="none" aria-hidden="true"></video>
   <button class="dale" id="dale" aria-controls="escuchar">
     <span class="tri" aria-hidden="true"></span> Dale play
   </button>
+  </div>
   <p class="garabato">elige tu plataforma y escúchanos</p>
 </section>
 
@@ -582,7 +619,7 @@
 </div>
 
 <div class="zona-hub">
-  <div class="nebula" aria-hidden="true"><div class="nebula-filamentos"></div><div class="nebula-polvo"></div></div>
+  <div class="nebulosa-real" aria-hidden="true"></div>
 <section class="hub" id="escuchar" aria-labelledby="hub-titulo">
   <video class="capa capa-hub" muted loop playsinline preload="none" aria-hidden="true"></video>
   <div class="hub-cab">
@@ -688,16 +725,19 @@
 </section>
 </div>
 
+<div class="zona-vivo">
+<video class="capa capa-vivo" muted loop playsinline preload="none" aria-hidden="true"></video>
 <div class="tira-cab" id="en-vivo">
   <span class="sistema-kicker">Parada 05 · En vivo</span>
   <p class="tira-pista"><span class="con-cursor">Pasa el cursor por las fotos en vivo y se prenden las luces del escenario.</span><span class="con-dedo">Desliza las fotos en vivo: las luces del escenario se prenden solas.</span></p>
 </div>
 <section class="tira" aria-label="Fotos de la banda">
-  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" alt="Vocalista cantando en vivo" loading="lazy"><video class="luces" data-src="fondos/luces-liquidas.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>John · en vivo</figcaption></figure>
-  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/banda-en-vivo.jpg" alt="Dos guitarras y batería en vivo" loading="lazy"><video class="luces" data-src="fondos/luces-liquidas.mp4" data-inicio="6" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>Guitarras · en vivo</figcaption></figure>
-  <figure class="tira-item"><img decoding="async" src="fotos/banda-noche-lima.jpg" alt="Los cuatro de pie en una calle de Lima de noche" loading="lazy"><figcaption>Lima · de noche</figcaption></figure>
-  <figure class="tira-item"><img decoding="async" src="fotos/kiosko.jpg" alt="Los cuatro frente a un kiosko de revistas en Lima" loading="lazy"><figcaption>Kiosko · Lima</figcaption></figure>
+  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/vocalista-en-vivo.jpg" width="1600" height="1062" alt="Vocalista cantando en vivo" loading="lazy"><video class="luces" data-src="fondos/f-fuga.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>John · en vivo</figcaption></figure>
+  <figure class="tira-item en-vivo"><span class="foto-luz"><img decoding="async" src="fotos/banda-en-vivo.jpg" width="1255" height="832" alt="Dos guitarras y batería en vivo" loading="lazy"><video class="luces" data-src="fondos/f-fuga.mp4" data-inicio="6" muted loop playsinline preload="none" aria-hidden="true"></video></span><figcaption>Guitarras · en vivo</figcaption></figure>
+  <figure class="tira-item"><img decoding="async" src="fotos/banda-noche-lima.jpg" width="1103" height="976" alt="Los cuatro de pie en una calle de Lima de noche" loading="lazy"><figcaption>Lima · de noche</figcaption></figure>
+  <figure class="tira-item"><img decoding="async" src="fotos/kiosko.jpg" width="1024" height="1024" alt="Los cuatro frente a un kiosko de revistas en Lima" loading="lazy"><figcaption>Kiosko · Lima</figcaption></figure>
 </section>
+</div>
 
 <div class="destino" id="destino">
 <video class="capa capa-cierre" muted loop playsinline preload="none" aria-hidden="true"></video>
@@ -726,6 +766,7 @@
   </ol>
 </nav>
 
+<div class="grano" aria-hidden="true"></div>
 <audio id="reproductor" preload="none"></audio>
 
 <script>
@@ -754,13 +795,6 @@
       entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); observador.unobserve(e.target); } });
     }, { threshold: 0.15 });
     objetivos.forEach((el) => observador.observe(el));
-  })();
-</script>
-<script src="js/galaxia.js"></script>
-<script>
-  (function () {
-    const cosmos = document.querySelector(".cosmos");
-    if (cosmos && window.montarGalaxia) window.montarGalaxia(cosmos, { velocidad: 0.5, rotacion: 0.08, brillo: 0.3, interaccion: true });
   })();
 </script>
 <script>
@@ -1048,8 +1082,9 @@
       ctx.fillStyle = MAGENTA; glow(MAGENTA, 12); ctx.beginPath(); ctx.arc(0, -8, 2, 0, 6.283); ctx.fill();
       ctx.restore(); ctx.globalAlpha = 1; ctx.shadowBlur = 0;
 
-      // Minivan viajando: deja un rastro de neón
-      van.x += van.vel * dt;
+      // Minivan viajando: deja un rastro de neón (en "Silencio" pasa sola, pequeña y sin estela)
+      const silencio = "silencio" in document.documentElement.dataset;
+      van.x += van.vel * dt * (silencio ? 0.5 : 1);
       if (van.x > W + 300) { van.x = -300; van.yf = 0.45 + Math.random() * 0.3; van.ruta.length = 0; }
       // Rastro de la combi: cinta de neón ondulante + chispas + notas musicales
       const ex = van.x - 140, ey = vy + 11;
@@ -1057,6 +1092,7 @@
       if (van.ruta.length > 95) van.ruta.shift();
       for (const p of van.ruta) p.x -= 40 * dt;
       const nRuta = van.ruta.length;
+      if (!silencio) {
       if (nRuta > 2) {
         ctx.lineCap = "round"; ctx.lineJoin = "round";
         [[30, 0.14, MAGENTA], [18, 0.3, ROJO], [9, 0.62, NARANJA], [4, 0.9, AMARILLO], [1.4, 1, "#ffffff"]].forEach(([ancho, alfa, col]) => {
@@ -1097,7 +1133,11 @@
         ctx.restore();
       }
       ctx.globalAlpha = 1; ctx.shadowBlur = 0;
-      dibujarVan(van.x, vy + Math.sin(t * 3) * 1.5, t);
+      }
+      if (silencio) {
+        ctx.save(); ctx.translate(van.x, vy); ctx.scale(0.6, 0.6); ctx.globalAlpha = 0.45;
+        dibujarVan(0, Math.sin(t * 3) * 1.5, t); ctx.restore(); ctx.globalAlpha = 1;
+      } else dibujarVan(van.x, vy + Math.sin(t * 3) * 1.5, t);
 
       // Estela del mouse en neón
       for (let i = estela.length - 1; i >= 0; i--) {
@@ -1105,7 +1145,7 @@
         if (p.vida <= 0) estela.splice(i, 1);
       }
       ctx.lineCap = "round";
-      for (let i = 1; i < estela.length; i++) {
+      for (let i = 1; i < (silencio ? 0 : estela.length); i++) {
         const a = estela[i - 1], b = estela[i], v = Math.min(a.vida, b.vida);
         ctx.globalAlpha = v * 0.7; ctx.strokeStyle = b.col; ctx.lineWidth = v * 2.4; glow(b.col, 10);
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
@@ -1593,15 +1633,17 @@
 <script>
   // Mezclas de material: cada una pone un video distinto en cada capa (vista previa con ?mezcla=a|b|c)
   const MEZCLAS = {
-    d: { portada: ["tormenta", "luces-liquidas"], cinta: "red-electrica", hub: "puntos", sistema: ["andromeda", "horizonte"], cierre: "nebulosa-plasma", luces: true,
-         ruta: ["Tormenta psicodélica", "Alto voltaje", "Muro de luces", "Centro de la galaxia", "En vivo", "Nebulosa"],
-         kickerHub: "Muro de luces", kickerSistema: "Centro de la galaxia" }
+    f: { silencio: true, portada: "f-tormenta", cinta: null, hub: "f-hidrogeno", sistema: "f-anillo", cierre: "f-andromeda", vivo: "f-led", dale: "f-corriente",
+         luces: true, lucesSrc: "f-fuga",
+         ruta: ["Tormenta sobre Lima", "La cinta", "Señal", "Horizonte de sucesos", "Escenario", "Andrómeda"],
+         kickerHub: "Señal", kickerSistema: "Horizonte de sucesos" }
   };
   const params = new URLSearchParams(location.search);
-  const claveMezcla = MEZCLAS[params.get("mezcla")] ? params.get("mezcla") : "d";
+  const claveMezcla = MEZCLAS[params.get("mezcla")] ? params.get("mezcla") : "f";
   const MEZCLA = MEZCLAS[claveMezcla];
   document.documentElement.dataset.mezcla = claveMezcla;
-  ["portada", "cinta", "hub", "sistema", "cierre"].forEach((capa) => {
+  if (MEZCLA.silencio) document.documentElement.dataset.silencio = "";
+  ["portada", "cinta", "hub", "sistema", "cierre", "vivo", "dale"].forEach((capa) => {
     const v = document.querySelector(".capa-" + capa);
     if (!v) return;
     const mats = [].concat(MEZCLA[capa] || []);
@@ -1610,10 +1652,11 @@
     mats.forEach((mat, i) => {
       const el = i === 0 ? v : v.cloneNode(false);
       if (previo) previo.after(el);
-      el.dataset.src = "fondos/" + mat + ".mp4"; el.poster = "fondos/" + mat + ".jpg"; el.dataset.capa = mat; el.classList.add("vid-lazy");
+      el.dataset.src = "fondos/" + mat + ".mp4"; el.poster = "fondos/" + mat + ".jpg"; el.dataset.capa = mat; if (capa !== "dale") el.classList.add("vid-lazy");
       previo = el;
     });
   });
+  if (MEZCLA.lucesSrc) document.querySelectorAll(".luces").forEach((v) => { v.dataset.src = "fondos/" + MEZCLA.lucesSrc + ".mp4"; });
   document.getElementById("kicker-hub").textContent = "Parada 03 · " + MEZCLA.kickerHub;
   document.getElementById("kicker-sistema").textContent = "Parada 04 · " + MEZCLA.kickerSistema;
   document.querySelectorAll(".ruta span").forEach((el, i) => { el.textContent = "0" + (i + 1) + " · " + MEZCLA.ruta[i]; });
@@ -1681,54 +1724,90 @@
   })();
 </script>
 <script>
-  // Rayos: posiciones y tiempos fijos por índice; cada impacto cae en un pulso de 130 BPM
+  // Propuesta E · Silencio: luz que recorre el título y fotos que se revelan
   (function () {
-    const caja = document.querySelector(".rayos");
-    if (!caja) return;
-    const pulso = 60 / 130;
-    const n = innerWidth < 700 ? 8 : 14;
-    const azar = (k) => { const v = Math.sin(k * 12.9898) * 43758.5453; return v - Math.floor(v); };
-    const colores = [["#3ff0ff", "#9d6bff"], ["#ff4fd8", "#9d6bff"], ["#9d6bff", "#3ff0ff"], ["#3ff0ff", "#ff4fd8"], ["#ff4fd8", "#ffd84a"], ["#9d6bff", "#ff4fd8"]];
-    let html = "";
-    for (let i = 0; i < n; i++) {
-      const x = ((i + 0.5) / n) * 100 + (azar(i + 1) - 0.5) * (70 / n);
-      const t = 0.12 + azar(i + 31) * 0.16;
-      const P = pulso * [8, 10, 12][Math.floor(azar(i + 57) * 3)];
-      const dg = -pulso * Math.floor(azar(i + 83) * (P / pulso));
-      const d0 = dg - P / (1 + t);
-      const [c, cola] = colores[i % colores.length];
-      let chispas = "";
-      for (let j = 0; j < 6; j++) chispas += `<b class="chispa" style="--a:${Math.round(-75 + azar(i * 7 + j + 101) * 150)}deg;--v:${Math.round(18 + azar(i * 7 + j + 211) * 34)}px"></b>`;
-      html += `<span class="rayo" style="--x:${x.toFixed(2)}%;--t:${t.toFixed(3)};--P:${P.toFixed(3)}s;--d0:${d0.toFixed(3)}s;--dg:${dg.toFixed(3)}s;--c:${c};--cola:${cola}"><i class="rayo-haz"></i><span class="rayo-golpe"><i class="rayo-flash"></i><i class="rayo-linea"></i>${chispas}</span></span>`;
+    if (!("silencio" in document.documentElement.dataset)) return;
+    const reducir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const palabras = [...document.querySelectorAll(".portada h1 .bw")];
+    const portada = document.querySelector(".portada");
+    let px = null, py = null, ultimoMov = 0, pendiente = false;
+    const iluminar = (x, y) => palabras.forEach((el) => { const r = el.getBoundingClientRect(); el.style.setProperty("--lx", (x - r.left) + "px"); el.style.setProperty("--ly", (y - r.top) + "px"); });
+    if (matchMedia("(hover: hover)").matches) {
+      portada.addEventListener("pointermove", (e) => { px = e.clientX; py = e.clientY; ultimoMov = performance.now();
+        if (!pendiente) { pendiente = true; requestAnimationFrame(() => { pendiente = false; iluminar(px, py); }); } });
     }
-    caja.insertAdjacentHTML("beforeend", html);
+    // Sin cursor (o quieto): la luz orbita sola sobre el título, como un satélite que pasa
+    if (!reducir) {
+      let visible = true;
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(palabras[0].closest("h1"));
+      let ultimoCuadro = 0;
+      const orbita = (t) => {
+        if (visible && t - ultimoCuadro > 48 && performance.now() - ultimoMov > 2500) {
+          ultimoCuadro = t;
+          const h = palabras[0].closest("h1").getBoundingClientRect();
+          const a = t / 5200;
+          iluminar(h.left + h.width * (0.5 + Math.cos(a) * 0.55), h.top + h.height * (0.5 + Math.sin(a * 1.3) * 0.45));
+        }
+        requestAnimationFrame(orbita);
+      };
+      requestAnimationFrame(orbita);
+    } else {
+      const h = palabras[0].closest("h1").getBoundingClientRect(); iluminar(h.left + h.width * 0.35, h.top + h.height * 0.4);
+    }
+
+    // F · Película: cada relámpago del video ilumina el título (curva medida cuadro a cuadro, 10 muestras por segundo)
+    const tormenta = document.querySelector('.capa-portada[data-capa="f-tormenta"]');
+    if (tormenta && !reducir) {
+      const RAYOS = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.89,.8,.8,.53,.37,.25,.22,.14,.12,.08,.05,.04,.02,.02,.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,.86,.78,.73,.5,.36,.25,.21,.14,.12,.08,.05,.04,.02,.02,.01,.86,.77,.76,.49,.35,.24,.2,.14,.09,.07,.05,.04,.02,.01,.01,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,.97,.88,.9,.48,.41,.28,.24,.16,.11,.09,.06,.05,.03,.02,.9,.87,.77,.76,.4,.35,.24,.21,.14,.09,.08,.05,.04,.03,.02,.01];
+      const titulo = document.querySelector(".portada h1");
+      let previo = -1;
+      const pulso = () => {
+        if (!tormenta.paused) {
+          const k = RAYOS[Math.floor(tormenta.currentTime * 10) % RAYOS.length] || 0;
+          const q = Math.round(k * 20) / 20;
+          if (q !== previo) {
+            previo = q;
+            titulo.style.filter = q > 0.04 ? `brightness(${(1 + q * 1.4).toFixed(2)}) drop-shadow(0 0 ${Math.round(q * 26)}px rgba(190,210,255,${(q * 0.5).toFixed(2)}))` : "";
+          }
+        }
+        requestAnimationFrame(pulso);
+      };
+      requestAnimationFrame(pulso);
+    }
+
+    // F · "Dale play" enciende el amplificador: corriente blanca detrás del botón
+    const zona = document.querySelector(".dale-zona"), corriente = zona && zona.querySelector(".capa-dale");
+    if (corriente && !reducir) {
+      let apagar;
+      const encender = (si) => {
+        clearTimeout(apagar);
+        if (si) { if (!corriente.src) corriente.src = corriente.dataset.src; corriente.play().catch(() => {}); zona.classList.add("encendida"); }
+        else { zona.classList.remove("encendida"); apagar = setTimeout(() => corriente.pause(), 700); }
+      };
+      if (matchMedia("(hover: hover)").matches) {
+        zona.addEventListener("mouseenter", () => encender(true));
+        zona.addEventListener("mouseleave", () => encender(false));
+      } else {
+        new IntersectionObserver((es) => { if (es[0].isIntersecting) { encender(true); setTimeout(() => encender(false), 2600); } }, { threshold: 0.9 }).observe(zona);
+      }
+    }
+
+    // Fotos: se revelan al entrar en pantalla; con cursor se inclinan y les pasa un brillo
+    const fotos = [...document.querySelectorAll(".galeria-hero .g:not(.gv), .tira-item")];
+    fotos.forEach((f) => f.classList.add("copia"));
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver((es) => es.forEach((e) => caja.classList.toggle("quieto", !e.isIntersecting))).observe(caja);
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("revelada"); io.unobserve(e.target); } }), { threshold: 0.2 });
+      fotos.forEach((f) => io.observe(f));
+    } else fotos.forEach((f) => f.classList.add("revelada"));
+    if (!reducir && matchMedia("(hover: hover)").matches) {
+      fotos.forEach((f) => {
+        f.addEventListener("pointermove", (e) => {
+          const r = f.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+          f.style.setProperty("--ry", ((x - 0.5) * 6).toFixed(2) + "deg"); f.style.setProperty("--rx", ((0.5 - y) * 5).toFixed(2) + "deg"); f.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+        });
+        f.addEventListener("pointerleave", () => { f.style.setProperty("--rx", "0deg"); f.style.setProperty("--ry", "0deg"); });
+      });
     }
-  })();
-</script>
-<script>
-  // Nebulosa del hub: siete nubes en una franja que sube de abajo-izquierda a arriba-derecha, composición fija
-  (function () {
-    const caja = document.querySelector(".nebula");
-    if (!caja) return;
-    const azar = (k) => { const v = Math.sin(k * 78.233) * 43758.5453; return v - Math.floor(v); };
-    const col = ["#ff4fd8", "#9d6bff", "#3ff0ff", "#ff8fa8"];
-    const n = 7;
-    let html = "";
-    for (let i = 0; i < n; i++) {
-      const p = (i + 0.5) / n;
-      const x = 6 + p * 88 + (azar(i + 3) - 0.5) * 12;
-      const y = 86 - p * 72 + (azar(i + 9) - 0.5) * 18;
-      const w = 26 + azar(i + 17) * 18;
-      html += `<div class="nube" style="--x:${x.toFixed(1)}%;--y:${y.toFixed(1)}%;--w:${w.toFixed(1)}%;--c1:${col[i % 4]};--c2:${col[(i + 1) % 4]};--dx:${Math.round((azar(i + 23) - 0.5) * 120)}px;--dy:${Math.round((azar(i + 29) - 0.5) * 70)}px;--dur:${Math.round(40 + azar(i + 37) * 30)}s;--hin:${(7 + azar(i + 41) * 3).toFixed(1)}s;--del:${(-azar(i + 43) * 40).toFixed(1)}s"></div>`;
-    }
-    for (let i = 0; i < 6; i++) {
-      const p = azar(i + 61);
-      html += `<i class="estrella-cruz" style="--x:${(8 + p * 84).toFixed(1)}%;--y:${(84 - p * 70 + (azar(i + 67) - 0.5) * 22).toFixed(1)}%;--c:${col[i % 3]};--tw:${(2.5 + azar(i + 71) * 3).toFixed(1)}s;--del:${(-azar(i + 73) * 4).toFixed(1)}s"></i>`;
-    }
-    caja.insertAdjacentHTML("afterbegin", html);
-    if ("IntersectionObserver" in window) new IntersectionObserver((es) => es.forEach((e) => caja.classList.toggle("quieto", !e.isIntersecting))).observe(caja);
   })();
 </script>
 </body>
