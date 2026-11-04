@@ -1,5 +1,0 @@
-# Fuentes de la página: se editan aquí y se convierten en index.html con pipeline/build_web.py.
-index.template.html
-sitio.toml
-# Composición de la imagen para compartir (og.jpg).
-_og.html
