@@ -1,12 +1,11 @@
-# Los Voyagers — EPK
+# Los Voyagers
 
-Kit de prensa interactivo de Los Voyagers, banda de rock de Lima.
+Página oficial de Los Voyagers, banda de rock de Lima: un visualizer donde la música mueve el cielo.
 Sitio estático: `index.html` en la raíz, sin compilación. Vercel lo publica tal cual.
 
-- `fotos/` fotos de la banda
-- `fondos/` cielo real (Vía Láctea), nebulosa, planetas y los videos de la propuesta
-  «Película» (tormenta, corriente, hidrógeno, anillo, fuga de luz, pantalla LED, Andrómeda)
-- `assets/audio/` fragmento de Vuelvo que suena en el vinilo
-
-La fuente vive en el proyecto principal, en `web/epk/`; este repo recibe una versión
-limpia (sin vistas previas internas) generada con `web/publicar_epk.py`.
+- `index.html`, `vis.css`, `vis.js`: el visualizer (WebGL + Web Audio + GSAP)
+- `video/`: fondos «Galaxia» de Decidido y Vuelvo (hechos con Sinestesia), AV1 `.webm` con respaldo `.mp4`
+- `audio/`: las canciones
+- `imagenes/`, `prensa/`: fotos y kit de prensa
+- `epk-anterior/`: el EPK anterior, que sigue publicado en `/epk-anterior`
+- `fondos/`, `fotos/`, `assets/`: material del EPK anterior y librerías
