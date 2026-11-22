@@ -11,11 +11,11 @@
       fondo: "#020001", frio: "#3765af", calido: "#b4279d",
       tramos: [["verso", 0, 25.44, "#6185bf"], ["coro", 25.44, 55.4, "#6a9ff3"], ["instrumental", 55.4, 68.86, "#bf24a6"], ["verso", 68.86, 84.64, "#668bc5"],
         ["pre-coro", 84.64, 96.32, "#829bc3"], ["coro", 96.32, 126.26, "#6da1f5"], ["instrumental", 126.26, 246.1, "#cc3ab3"]],
-      letra: [[0, "Otra vez por aquí"], [7.56, "Enfrentándome a mi destino"], [14, "Siento que eres mucho para mí"], [20.6, "Temo se separen nuestros caminos"],
-        [25.4, "Pero ya está decidido"], [32.8, "Pero ya está decidido"], [41.8, "Esto va más allá"], [44.7, "De mi comprensión"], [48.4, "La inestabilidad"],
-        [52.1, "De tu falso amor"], [68.9, "Y ahora me ves así"], [73.7, "Peleándome para olvidarla"], [78.1, "Aunque una parte de mí"], [80.4, "Solo piensa en dejarla"],
-        [84.6, "Yo sé que no tiene sentido"], [88, "Nada de lo que te digo"], [92, "A veces pienso aún en estar contigo"], [96.3, "Pero ya está decidido"],
-        [103.6, "Pero ya está decidido"], [113, "Esto va más allá"], [115.7, "De mi comprensión"], [121.1, "La inestabilidad"], [124.7, "De tu falso amor"]],
+      letra: [[0, "Otra vez por aquí"], [7.56, "Enfrentándome a mi destino"], [14, "Siento que eres mucho para mí"], [20.9, "Temo se separen nuestros caminos"],
+        [26.4, "Pero ya está decidido"], [33.4, "Pero ya está decidido"], [42.4, "Esto va más allá"], [45.2, "De mi comprensión"], [49.3, "La inestabilidad"],
+        [52.5, "De tu falso amor"], [70.2, "Y ahora me ves así"], [73.7, "Peleándome para olvidarla"], [77.6, "Aunque una parte de mí"], [80.4, "Solo piensa en dejarla"],
+        [85.0, "Yo sé que no tiene sentido"], [88.6, "Nada de lo que te digo"], [92, "A veces pienso aún en estar contigo"], [97.9, "Pero ya está decidido"],
+        [105.0, "Pero ya está decidido"], [111.6, "Esto va más allá"], [116.1, "De mi comprensión"], [119.8, "La inestabilidad"], [124.0, "De tu falso amor"]],
       gravedad: [],
     },
     vuelvo: {
@@ -24,11 +24,11 @@
       tramos: [["instrumental", 0, 11.54, "#cc8a4a"], ["verso", 11.54, 22.96, "#819bb7"], ["pre-coro", 22.96, 33.86, "#80a7d3"], ["gancho", 33.86, 43.64, "#989d9e"],
         ["coro", 43.64, 79.62, "#5fa3ea"], ["instrumental", 79.62, 142.62, "#af6f2e"], ["coro", 142.62, 175.72, "#65a9f0"], ["instrumental", 175.72, 188.8, "#a3682e"]],
       letra: [[11.54, "Siempre que vuelvo aquí"], [14.04, "Siento que no pertenezco"], [17.5, "Y sigo pensando en ti"], [19.5, "Que pensamiento tan molesto"], [23, "¿Por qué será?"],
-        [25.8, "Que sigues en mi mente"], [28, "¿Por qué será?"], [31.2, "No importa cuanto intente siempre"], [33.9, "Vuelvo"], [35.1, "A tu cuerpo"], [37.7, "Que me amarra"],
+        [25.8, "Que sigues en mi mente"], [28.6, "¿Por qué será?"], [31.2, "No importa cuanto intente siempre"], [33.9, "Vuelvo"], [35.1, "A tu cuerpo"], [37.7, "Que me amarra"],
         [41.5, "Y me desarma"], [43.6, "Habrá una razón"], [48.2, "Para amar así"], [53, "Otra vez"], [54.6, "Habrá alguna solución"], [59.4, "Para mi corazón"],
-        [61.8, "Que ya no puede más"], [66, "Ya no creo que pueda intentar"], [71, "Amar sin confesar"], [75.7, "Que ya no puedo"], [79.6, ""], [142.6, "Habrá una razón"],
-        [144.2, "Para amar así"], [148.3, "Otra vez"], [151.8, "Habrá alguna solución"], [155.4, "Para mi corazón"], [157.8, "Que ya no puede más"],
-        [161.1, "Ya no creo que pueda intentar"], [168.3, "Amar sin confesar"], [171.7, "Que ya no puedo"], [175.7, ""]],
+        [61.8, "Que ya no puede más"], [66, "Ya no creo que pueda intentar"], [72.2, "Amar sin confesar"], [77.0, "Que ya no puedo"], [79.6, ""], [142.6, "Habrá una razón"],
+        [146.0, "Para amar así"], [148.3, "Otra vez"], [151.2, "Habrá alguna solución"], [155.4, "Para mi corazón"], [157.8, "Que ya no puede más"],
+        [162.0, "Ya no creo que pueda intentar"], [168.3, "Amar sin confesar"], [173.0, "Que ya no puedo"], [175.7, ""]],
       // Asistencia gravitatoria: en estos momentos el cielo se curva (Júpiter y Saturno "amarraron" a la sonda y la lanzaron más lejos)
       gravedad: [33.9, 37.7, 59.4, 155.4],
     },
@@ -309,14 +309,14 @@ void main(){
     if (!elPanel.hidden) centrar(b, true);
   }
 
-  // La letra entra letra por letra (desenfoque → nítida). Cada palabra se mantiene junta.
+  // La letra sube palabra por palabra desde una máscara; las palabras se mantienen enteras y cada una entra un poco después de la anterior.
   function mostrarLetra(texto) {
     const poner = () => {
       elLetra.classList.remove("sale");
       let k = 0;
-      elLetra.innerHTML = texto.split(" ").map(p => `<span class="w">${[...p].map(ch => `<span class="c" style="animation-delay:${(k++ * 22)}ms">${ch}</span>`).join("")}</span>`).join(" ");
+      elLetra.innerHTML = texto.split(" ").map(p => `<span class="w"><span class="c" style="animation-delay:${(k++ * 70)}ms">${p}</span></span>`).join(" ");
     };
-    if (elLetra.textContent.trim() && !quieto) { elLetra.classList.add("sale"); setTimeout(poner, 260); } else poner();
+    if (elLetra.textContent.trim() && !quieto) { elLetra.classList.add("sale"); setTimeout(poner, 240); } else poner();
   }
 
   /* ---------- Fondos en video generados con Sinestesia (estilo Galaxia) ---------- */
@@ -423,11 +423,10 @@ void main(){
     if (ahora - ultimoRespiro < 50) return;
     ultimoRespiro = ahora;
     const grande = !elLetra.hidden;
-    const ancho = grande ? 100 + env.g * 25 : 92 + env.g * 33, peso = grande ? 700 + env.m * 200 : 900;
-    const v = `"wdth" ${Math.round(ancho / 2) * 2}, "wght" ${Math.round(peso / 25) * 25}`;
+    const v = grande ? `"wght" ${Math.round((460 + env.g * 260 + env.m * 120) / 20) * 20}` : "";
     if (v === respiroPuesto) return;
     respiroPuesto = v;
-    (grande ? elLetra : elNombre).style.fontVariationSettings = v;
+    if (grande) elLetra.style.fontVariationSettings = v;
   }
 
   /* ---------- Bucle ---------- */
@@ -514,6 +513,9 @@ void main(){
         el.addEventListener("animationend", () => { el.dataset.estado = "Recibida"; el.classList.add("recibida"); }, { once: true });
       } });
     });
+    // Un solo momento de entrada: el nombre sube desde su máscara, línea por línea; los títulos de sección se destapan de abajo hacia arriba al llegar.
+    gsap.from("#nombre span", { yPercent: 108, duration: 1.4, ease: "expo.out", stagger: .14, delay: .1 });
+    $$("h2").forEach(h => gsap.from(h, { clipPath: "inset(0 0 100% 0)", y: 36, duration: 1.1, ease: "expo.out", clearProps: "clipPath,transform", scrollTrigger: { trigger: h, start: "top 90%", once: true } }));
     $$(".sec .caja").forEach(c => gsap.from(c, { y: 48, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: c, start: "top 92%", once: true } }));
     $$(".ruta li").forEach((li, i) => gsap.from(li.querySelector("i"), { "--trazo": 0, duration: .6, delay: i * .12, ease: "power2.out", scrollTrigger: { trigger: "#ruta", start: "top 80%" } }));
   } else {
