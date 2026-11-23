@@ -46,14 +46,14 @@ h2 { color: var(--papel); font-size: clamp(28px, 4.6vw, 80px); line-height: 1.02
 .bitacora .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--cal); }
 
 /* Telemetría: fichas pegadas como stickers */
-.tele dl { border: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tele dl { border: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
 .tele dl div { border: 3px solid var(--papel); border-radius: 18px; padding: 14px 16px; background: rgba(2, 0, 1, .62); box-shadow: 5px 5px 0 var(--fri); }
 .tele dl div:nth-child(2n) { transform: rotate(1.2deg); box-shadow: 5px 5px 0 var(--cal); } .tele dl div:nth-child(2n+1) { transform: rotate(-.8deg); }
 .tele dd { font-family: var(--toon); text-transform: none; letter-spacing: .02em; font-size: 17px; }
 .tele .ancho dd { font-size: clamp(20px, 2.1vw, 30px); }
 
 /* Tripulación: cuatro insignias numeradas */
-.trip { counter-reset: trip; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
+.trip { counter-reset: trip; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 26px; }
 .trip li { counter-increment: trip; position: relative; display: grid; gap: 4px; padding: 16px 14px 14px 52px; border: 3px solid var(--tinta); border-radius: 18px; color: var(--tinta);
   box-shadow: 5px 5px 0 var(--tinta); transition: transform .35s var(--ease); }
 .trip li::before { content: counter(trip); position: absolute; left: 12px; top: 12px; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--tinta); color: var(--papel); font-family: var(--toon); font-size: 14px; }
@@ -76,9 +76,11 @@ body.sonando .bio .corta { animation: latidoGlobo calc(60s / var(--bpm, 120)) ea
   h2 { font-size: clamp(24px, 8vw, 40px); }
   .letra { font-size: clamp(22px, 7.2vw, 38px); }
   .correo { font-size: clamp(18px, 6.2vw, 34px); }
-  .trip { grid-template-columns: 1fr 1fr; } .trip li { padding-left: 48px; }
-  .tele dl { grid-template-columns: 1fr; }
+  .trip { grid-template-columns: minmax(0, 1fr); } .trip li { padding-left: 52px; }
+  .tele dl { grid-template-columns: minmax(0, 1fr); }
   #bitacora .caja { border-radius: 22px; }
+  .pistas { gap: 2px; padding: 3px; } .pistas button { font-size: 12.5px; letter-spacing: .03em; padding: 0 7px; }
+  .btn-letra { padding: 0 12px; }
 }
 @media (prefers-reduced-motion: reduce) { body.sonando #bitacora .caja, body.sonando .bio .corta, .trip li:hover { animation: none; } }
 
@@ -181,3 +183,9 @@ h2::after { content: "✦"; display: inline-block; margin-left: .3em; font-size:
 .marca { white-space: nowrap; }
 .ruta b { font-size: clamp(9.5px, .86vw, 12px); letter-spacing: 0; line-height: 1.2; overflow-wrap: anywhere; }
 @media (max-width: 960px) { .ruta b { font-size: 14px; } }
+
+/* Celular y tableta vertical: las fotos de media columna no tienen alto fijo (la leyenda queda debajo, no encima de lo que sigue) y su leyenda se apila */
+@media (max-width: 960px) {
+  .foto .img { height: auto; }
+  .foto:not(.ancha) figcaption { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

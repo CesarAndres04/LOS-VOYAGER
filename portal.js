@@ -64,7 +64,7 @@
   function medirOrb() {
     const st = $("#stage"), lg = $(".logo", portal); if (!st || !lg) return;
     const a = st.getBoundingClientRect(), l = lg.getBoundingClientRect();
-    orb.cx = l.left + l.width / 2; orb.cy = l.top + l.height / 2; orb.R = a.width * (a.height > a.width ? .29 : .2);
+    orb.cx = l.left + l.width / 2; orb.cy = l.top + l.height / 2; orb.R = a.width * (a.height > a.width ? .33 : .2); orb.lg = l;
   }
   addEventListener("resize", () => { medirOrb(); if (orb.nombre !== (W < 700)) crearOrb(); });
   addEventListener("pointermove", e => { ptr.x = e.clientX; ptr.y = e.clientY; }, { passive: true });
@@ -127,18 +127,24 @@
   function planetasEsfera(dt) {
     if (sp.lock || !stageEl) return;
     const st = stageEl.getBoundingClientRect(), cx = orb.cx - st.left, cy = orb.cy - st.top, vertical = st.height > st.width;
-    const Rs = vertical ? Math.min(st.width * .44, st.height * .3) : Math.min(st.width * .4, st.height * .46), s0 = vertical ? .6 : 1.1, k = sp.k;
+    const Rs = vertical ? Math.min(st.width * .36, st.height * .3) : Math.min(st.width * .4, st.height * .46), s0 = vertical ? .86 : 1.1, k = sp.k, vv = vertical ? 1.5 : 1, L = orb.lg;
     if (!quieto && !orb.arrastra && !sp.foco) { sp.ry += (sp.vy + (sp.quieta ? .02 : .13)) * dt; sp.vy *= Math.exp(-2 * dt); }
     const cr = Math.cos(sp.ry), sr = Math.sin(sp.ry), cxx = Math.cos(sp.rx), sx = Math.sin(sp.rx);
     planetas.forEach((el, i) => {
       const d = dirs[i], x1 = d.x * cr + d.z * sr, z1 = -d.x * sr + d.z * cr, y2 = d.y * cxx - z1 * sx, z2 = d.y * sx + z1 * cxx;
       const pe = 1 / (1 - z2 * .22), w = el.offsetWidth, h = el.offsetHeight, esc = s0 * pe * (.82 + .18 * z2) * (.3 + .7 * k);
-      el.style.left = (cx + x1 * Rs * pe * k - w / 2).toFixed(1) + "px"; el.style.top = (cy + y2 * Rs * pe * k - h / 2).toFixed(1) + "px";
+      const ey = y2 * Rs * pe * k * vv;
+      el.style.left = (cx + x1 * Rs * pe * k - w / 2).toFixed(1) + "px"; el.style.top = (cy + ey - h / 2).toFixed(1) + "px";
       el.style.scale = esc.toFixed(3); el.style.setProperty("--s", esc.toFixed(3));
       const f = Math.max(0, Math.min(1, (z2 + 1) / 2));
       el.style.opacity = ((.3 + .7 * Math.pow(f, .7)) * Math.min(1, k * 1.6)).toFixed(3);
       el.style.zIndex = 10 + Math.round(z2 * 10); el.style.pointerEvents = z2 > -.15 ? "auto" : "none";
-      el.style.setProperty("--ef", Math.max(0, Math.min(1, (z2 - .1) * 2.5)).toFixed(2));
+      let ef = Math.max(0, Math.min(1, (z2 - .1) * 2.5));
+      if (vertical && L) {   // en el celular el nombre ocupa el centro: si la etiqueta cae encima, se apaga hasta que el planeta pase de largo
+        const mx = st.left + cx + x1 * Rs * pe * k, top = st.top + cy + ey + w * esc / 2;
+        if (mx + 58 > L.left - 6 && mx - 58 < L.right + 6 && top + 36 > L.top - 6 && top < L.bottom + 6) ef = 0;
+      }
+      el.style.setProperty("--ef", ef.toFixed(2));
     });
   }
   planetas.forEach((el, i) => {
