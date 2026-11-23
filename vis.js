@@ -249,7 +249,7 @@ void main(){
       $$(".pistas button").forEach(b => b.setAttribute("aria-selected", b.dataset.pista === id));
       armarTramos();
       mostrarLetra(""); elLetra.classList.remove("pausa");
-      vista(id);
+      vista(id); Fondo.cancion(id);
     }
     if (tocar) reproducir();
   }
@@ -263,7 +263,7 @@ void main(){
     audio.play().catch(e => console.warn("No se pudo reproducir:", e));
     if (!iniciada) { iniciada = true; try { if (innerWidth >= 1200 && localStorage.getItem("vis-letra") !== "0") abrirLetra(true); } catch { } }
     elAntes.hidden = true; elLetra.hidden = false;
-    cargarVideo();
+    Fondo.activar(pista);
   }
   function pausar() { audio.pause(); }
 
@@ -319,67 +319,14 @@ void main(){
     if (elLetra.textContent.trim() && !quieto) { elLetra.classList.add("sale"); setTimeout(poner, 240); } else poner();
   }
 
-  /* ---------- Fondos en video generados con Sinestesia (estilo Galaxia) ---------- */
-  // Decidido y Vuelvo = Galaxia de Sinestesia (cada una con sus colores y notas). En la portada, un teaser en bucle de cada una; al dar play, el video completo sincronizado con el audio.
-  const vid = $("#fondo"), TEASER = { decidido: $("#tDecidido"), vuelvo: $("#tVuelvo") };
-  const VIDEO = { decidido: "video/decidido-galaxia", vuelvo: "video/vuelvo-galaxia" };
-  const esVertical = () => innerHeight > innerWidth;
-  const fuentes = base => `<source src="${base}.webm" type='video/webm; codecs="av01.0.05M.10"'><source src="${base}.mp4" type="video/mp4">`;
-  let vidClave = "";
-  const teaserClave = {};
-
-  function cargarVideo() {
-    const clave = pista + (esVertical() ? "-v" : "-h");
-    if (clave === vidClave) return;
-    vidClave = clave;                       // la imagen anterior se queda hasta que el nuevo video esté listo
-    vid.innerHTML = fuentes(VIDEO[pista] + (esVertical() ? "-vertical" : ""));
-    vid.preload = "auto"; vid.load();
-  }
-  vid.addEventListener("canplay", () => vid.classList.add("lista"));
-
-  function cargarTeaser(id) {
-    const el = TEASER[id], clave = esVertical() ? "v" : "h";
-    if (teaserClave[id] === clave) return;
-    teaserClave[id] = clave;
-    const base = `video/teaser-${id}${clave === "v" ? "-vertical" : ""}`;
-    el.poster = `${base}.jpg`;
-    el.innerHTML = fuentes(base); el.load();
-    if (quieto) el.classList.add("lista"); else el.play().catch(() => {});
-  }
-  Object.values(TEASER).forEach(el => el.addEventListener("loadeddata", () => el.classList.add("lista")));
-
-  function vista(id) {
-    document.body.dataset.vista = id;
-    cargarTeaser(id);
-    for (const k in TEASER) if (k !== id) TEASER[k].pause();
-  }
-  addEventListener("resize", () => { vista(pista === "" ? "decidido" : document.body.dataset.vista || pista); if (iniciada) cargarVideo(); });
-
-  // El audio manda; el video lo sigue. Si se atrasa poco, acelera o frena un poco para alcanzarlo sin saltos.
-  function videoSync(s) {
-    const cuerpo = document.body.classList;
-    if (iniciada) {
-      const quiere = !audio.paused;
-      if (vid.readyState >= 1 && !vid.seeking) {
-        const d = vid.currentTime - s;
-        if (Math.abs(d) > .35) { vid.currentTime = s; if (vid.playbackRate !== 1) vid.playbackRate = 1; }
-        else { const r = quiere && Math.abs(d) > .06 ? Math.max(.92, Math.min(1.08, 1 - d * .8)) : 1; if (Math.abs(vid.playbackRate - r) > .005) vid.playbackRate = r; }
-      }
-      if (quiere && vid.paused) vid.play().catch(() => {});
-      if (!quiere && !vid.paused) vid.pause();
-      cuerpo.toggle("video", vid.classList.contains("lista"));
-    }
-    const t = TEASER[document.body.dataset.vista], cubre = cuerpo.contains("video");
-    if (t) {
-      if (cubre && !t.paused) t.pause();
-      else if (!cubre && t.paused && !quieto && t.readyState >= 2) t.play().catch(() => {});
-    }
-    cuerpo.toggle("cubierto", cubre || !!(t && t.classList.contains("lista")));
-  }
+  /* ---------- Fondo animado (módulo fondo.js) ----------
+     El tiempo de la canción manda: la letra y el fondo salen de él. Todo lo que toca al video vive en fondo.js. */
+  Fondo.iniciar({ audio });
+  function vista(id) { Fondo.vista(id); }
 
   function sincronizar() {
     const c = CANCIONES[pista], s = audio.currentTime || 0;
-    videoSync(s);
+    Fondo.sincronizar(s);
     const seg = Math.floor(s);
     if (seg !== segPuesto) {
       segPuesto = seg;
