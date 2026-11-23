@@ -12,8 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Audiowide&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="vis.css?v=14">
 <link rel="stylesheet" href="tipo.css?v=14">
-<link rel="stylesheet" href="cartoon.css?v=1">
-<link rel="stylesheet" href="portal.css?v=4">
+<link rel="stylesheet" href="cartoon.css?v=4">
+<link rel="stylesheet" href="portal.css?v=5">
 <script>/* La entrada se muestra salvo que el enlace ya apunte a una sección o canción */
 (function(){var r=document.documentElement;r.classList.add(location.hash?"sin-portal":"en-portal")})();</script>
 <noscript><style>#portal{display:none!important}html.en-portal,html.en-portal body{overflow:auto!important;height:auto!important}</style></noscript>
@@ -92,7 +92,7 @@
     <div class="pantalla">
       <div class="antes" id="antes">
         <h1 class="nombre" id="nombre" aria-label="Los Voyagers"><span>Los</span><span>Voyagers</span></h1>
-        <p class="bajada">Rock alternativo desde Lima. Cada canción se ve como suena: elige una y mírala con su letra.</p>
+        <p class="bajada"><span class="col">Rock alternativo</span> desde Lima. Cada canción se ve <span class="col">como suena</span>: elige una y mírala con su letra.</p>
         <div class="invitar" role="group" aria-label="Elige una canción">
           <button class="carta" type="button" data-sintonizar="decidido">
             <span class="carta-play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span>
@@ -129,7 +129,7 @@
       <header class="cab"><h2 id="t-bitacora">Bitácora</h2><span class="m">Rock alternativo · Lima, Perú · desde 2023</span></header>
       <div class="bitacora">
         <div class="bio">
-          <p class="corta" id="bio-corta">Los Voyagers son una banda de rock alternativo de Lima. Cuatro amigos que hacen canciones sobre irse lejos y volver. Sus singles «Vuelvo» (2025) y «Decidido» (2026) ya están en todas las plataformas.</p>
+          <p class="corta" id="bio-corta">Los Voyagers son una banda de <span class="col">rock alternativo</span> de Lima. Cuatro amigos que hacen canciones sobre irse lejos y volver. Sus singles <span class="col">«Vuelvo»</span> (2025) y <span class="col">«Decidido»</span> (2026) ya están en todas las plataformas.</p>
           <div class="larga" id="bio-larga">
             <p>Los Voyagers son John (voz y guitarra), Aarón (guitarra), Gustavo (bajo) y Diego (batería). Tocan juntos en Lima desde 2023 y hacen rock alternativo en español: guitarras al frente, canciones tristes que suenan fuerte.</p>
             <p>El nombre viene de la Voyager 1, la sonda que se alejó tanto que ya no puede volver. Lo único que regresa a la Tierra es su señal. Con esa idea arman su primer EP, de cinco canciones, sobre perderse y volver.</p>
@@ -208,7 +208,7 @@
   <section class="sec canal" id="canal" aria-labelledby="t-canal">
     <div class="caja">
       <h2 id="t-canal">Abrir canal</h2>
-      <p class="lema">A la Voyager 1 le toma un día-luz contestar. A nosotros, bastante menos.</p>
+      <p class="lema">A la Voyager 1 le toma <span class="col">un día-luz</span> contestar. A nosotros, bastante menos.</p>
       <a class="correo" href="mailto:booking@losvoyagers.pe?subject=Booking%20%C2%B7%20Los%20Voyagers">booking@losvoyagers.pe</a>
       <nav class="redes m" aria-label="Redes de la banda">
         <a href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener">Spotify ↗</a>
@@ -231,7 +231,8 @@
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="fondo.js?v=1"></script>
-<script src="vis.js?v=16"></script>
-<script src="portal.js?v=3"></script>
+<script src="vis.js?v=17"></script>
+<script src="juego.js?v=1"></script>
+<script src="portal.js?v=4"></script>
 </body>
 </html>

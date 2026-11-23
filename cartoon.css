@@ -83,3 +83,101 @@ body.sonando .bio .corta { animation: latidoGlobo calc(60s / var(--bpm, 120)) ea
 @media (prefers-reduced-motion: reduce) { body.sonando #bitacora .caja, body.sonando .bio .corta, .trip li:hover { animation: none; } }
 
 .menu a { white-space: nowrap; }
+
+/* ====================================================================================================
+   v2 · Juguetón: todo lo que se lee o se toca habla Space Jam.
+   Regla: una palabra con color por frase, el resto estándar; cada cosa que se toca responde con un salto.
+   ==================================================================================================== */
+.m { font-family: var(--toon); font-size: 11px; letter-spacing: .08em; }
+.distancia, .datos, .datos *, .tele dd, .ruta .salto, .copiado { font-family: var(--mono); }
+.col { color: var(--senal); text-decoration: underline wavy color-mix(in srgb, var(--senal) 60%, transparent) 2px; text-underline-offset: .24em; text-decoration-skip-ink: none; }
+@keyframes salta { 0% { transform: none; } 35% { transform: translateY(-.2em) rotate(-7deg) scale(1.14); } 70% { transform: translateY(.03em) rotate(2deg); } 100% { transform: none; } }
+@keyframes brilla { 0%, 100% { opacity: .35; transform: scale(.7) rotate(0); } 50% { opacity: 1; transform: scale(1.2) rotate(22deg); } }
+
+/* Letras que saltan: los títulos de sección se parten en letras (juego.js) */
+.pal { display: inline-block; white-space: nowrap; }
+.ch { display: inline-block; }
+.ch:hover, .ch.salta { animation: salta .6s var(--ease); }
+h2 .pal:first-of-type .ch { color: var(--senal); }
+h2::after { content: "✦"; display: inline-block; margin-left: .3em; font-size: .42em; vertical-align: top; color: var(--senal); text-shadow: none; animation: brilla 2.6s ease-in-out infinite; }
+
+.bajada { font-family: var(--display); font-style: normal; font-weight: 600; max-width: 30ch; font-size: clamp(18px, 1.7vw, 26px); line-height: 1.35; }
+.lema { font-weight: 600; }
+
+/* Barra */
+.menu a { display: inline-block; font-family: var(--toon); font-size: 11px; transition: color .2s, transform .3s var(--ease); }
+.menu a:hover, .menu a:focus-visible { color: var(--senal); transform: skewX(-8deg) translateY(-2px) rotate(-2deg); }
+.distancia { border: 2px solid var(--papel); border-radius: 999px; padding: 6px 14px; background: rgba(2, 0, 1, .6); box-shadow: 3px 3px 0 var(--cal); }
+
+/* Tarjetas de canción en la portada */
+.carta { border: 3px solid var(--papel); border-radius: 26px; background: rgba(2, 0, 1, .6); box-shadow: 6px 6px 0 var(--cal); }
+.carta:hover, .carta:focus-visible { transform: translate(-3px, -5px) rotate(-1.2deg); box-shadow: 10px 10px 0 var(--fri); border-color: var(--papel); background: rgba(2, 0, 1, .78); }
+.carta-play { background: var(--senal); color: var(--tinta); border: 3px solid var(--tinta); box-shadow: 4px 4px 0 var(--tinta); }
+.carta:hover .carta-play { background: #ffb36b; }
+.carta-play::after { border-color: var(--senal); }
+.carta-txt em { font-style: normal; font-weight: 600; }
+
+/* Reproductor */
+.consola { border-top: 3px solid var(--papel); }
+.play { background: var(--senal); color: var(--tinta); border: 3px solid var(--tinta); box-shadow: 4px 4px 0 var(--cal); }
+.play:hover { background: #ffb36b; transform: translate(-2px, -2px) rotate(-6deg); }
+.pistas { border: 3px solid var(--papel); border-radius: 999px; padding: 4px; background: rgba(2, 0, 1, .6); }
+.pistas button { border-radius: 999px; }
+.pistas button[aria-selected="true"] { background: var(--senal); color: var(--tinta); }
+.pistas button:hover { color: var(--senal); } .pistas button[aria-selected="true"]:hover { color: var(--tinta); }
+.btn-letra { border: 3px solid var(--papel); border-radius: 999px; padding: 0 18px; min-height: 44px; background: rgba(2, 0, 1, .6); box-shadow: 3px 3px 0 var(--fri); transition: transform .2s var(--ease), box-shadow .2s; }
+.btn-letra:hover, .btn-letra[aria-expanded="true"] { background: var(--papel); color: var(--tinta); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--fri); }
+.tramos i { border-radius: 999px; height: 8px; } .tramos i.activo { height: 16px; }
+.panel-letra ol button { font-family: var(--toon); font-size: 14px; letter-spacing: .02em; }
+
+/* Todas las secciones, con la misma caja de historieta */
+.sec .caja { background: rgba(2, 0, 1, .5); -webkit-backdrop-filter: blur(8px) saturate(1.2); backdrop-filter: blur(8px) saturate(1.2); border: 3px solid var(--papel); border-radius: 30px; box-shadow: 10px 10px 0 var(--cal), 20px 20px 0 var(--fri); }
+#imagenes .caja { box-shadow: 10px 10px 0 var(--fri), 20px 20px 0 var(--cal); }
+#sobrevuelos .caja { box-shadow: 10px 10px 0 var(--acc), 20px 20px 0 var(--fri); }
+.cab { border-bottom: 3px dashed color-mix(in srgb, var(--papel) 45%, transparent); }
+
+/* Imágenes: fotos pegadas como polaroids de historieta */
+.foto .img { border: 3px solid var(--papel); border-radius: 16px; box-shadow: 5px 5px 0 var(--cal); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+.foto:nth-child(odd) .img { transform: rotate(-.7deg); } .foto:nth-child(even) .img { transform: rotate(.7deg); box-shadow: 5px 5px 0 var(--fri); }
+.foto:hover .img { transform: rotate(0) scale(1.015); box-shadow: 9px 9px 0 var(--senal); }
+.foto figcaption a { border: 2px solid var(--papel); border-radius: 999px; padding: 2px 10px; text-decoration: none; font-family: var(--toon); font-size: 10px; transition: background-color .2s, color .2s; }
+.foto figcaption a:hover { background: var(--senal); color: var(--tinta); border-color: var(--senal); }
+
+/* Señales: discos como stickers */
+.disco .tapa { border: 3px solid var(--papel); border-radius: 24px; box-shadow: 6px 6px 0 var(--cal); transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+.disco:nth-child(odd) .tapa { transform: rotate(-1deg); } .disco:nth-child(even) .tapa { transform: rotate(1deg); box-shadow: 6px 6px 0 var(--fri); }
+.disco .tapa:hover { transform: rotate(0) translateY(-4px); box-shadow: 10px 10px 0 var(--senal); }
+.disco .tapa span { background: var(--senal); color: var(--tinta); border: 2px solid var(--tinta); border-radius: 999px; font-family: var(--toon); }
+.disco .tapa.vacia { border-style: dashed; }
+.disco .enlaces a { border: 2px solid var(--papel); border-radius: 999px; padding: 4px 14px; text-decoration: none; transition: background-color .2s, color .2s, transform .3s var(--ease); }
+.disco .enlaces a:hover { background: var(--senal); color: var(--tinta); border-color: var(--senal); transform: translateY(-2px) rotate(-2deg); }
+
+/* Sobrevuelos: la ruta como un recorrido de juego */
+.ruta i::before { height: 4px; border-radius: 2px; top: 9px; }
+.ruta i::after { width: 20px; height: 20px; top: 1px; border: 3px solid var(--tinta); box-shadow: 0 0 0 3px var(--papel); background: var(--acc); }
+.ruta .futura i::after { background: var(--tinta); border-color: var(--papel); box-shadow: none; }
+.ruta li:hover i::after { animation: salta .6s var(--ease); }
+.ruta .fecha { align-self: flex-start; background: var(--papel); color: var(--tinta); border-radius: 999px; padding: 3px 10px; font-size: 10px; font-family: var(--mono); }
+.formato { border-top: 3px dashed color-mix(in srgb, var(--papel) 45%, transparent); }
+.formato p { border: 3px solid var(--papel); border-radius: 18px; padding: 14px 16px; background: rgba(2, 0, 1, .55); box-shadow: 4px 4px 0 var(--fri); font-weight: 600; }
+.formato p:nth-child(even) { box-shadow: 4px 4px 0 var(--cal); transform: rotate(.8deg); } .formato p:nth-child(odd) { transform: rotate(-.6deg); }
+
+/* Abrir canal */
+.redes { border-top: 3px dashed color-mix(in srgb, var(--papel) 45%, transparent); gap: 12px 14px; }
+.redes a { display: inline-block; border: 3px solid var(--papel); border-radius: 999px; padding: 8px 18px; color: var(--papel); box-shadow: 3px 3px 0 var(--cal); transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .2s, color .2s; }
+.redes a:hover, .redes a:focus-visible { background: var(--senal); color: var(--tinta); border-color: var(--tinta); transform: translate(-2px, -3px) rotate(-3deg); box-shadow: 6px 6px 0 var(--tinta); }
+.pie { font-family: var(--toon); }
+
+/* Chispas al tocar (juego.js) */
+.chispa { position: fixed; z-index: 150; pointer-events: none; font-size: 20px; line-height: 1; margin: -10px 0 0 -10px; color: var(--senal); text-shadow: 2px 2px 0 var(--tinta); }
+
+@media (max-width: 620px) {
+  .sec .caja { border-radius: 22px; box-shadow: 6px 6px 0 var(--cal), 12px 12px 0 var(--fri); }
+  .foto:nth-child(odd) .img, .foto:nth-child(even) .img { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ch:hover, .ch.salta, h2::after, .ruta li:hover i::after { animation: none; } .menu a:hover, .carta:hover, .redes a:hover { transform: none; } }
+.distancia, .foto figcaption a { white-space: nowrap; }
+.distancia { font-size: 10.5px; letter-spacing: .05em; }
+.marca { white-space: nowrap; }
+.ruta b { font-size: clamp(9.5px, .86vw, 12px); letter-spacing: 0; line-height: 1.2; overflow-wrap: anywhere; }
+@media (max-width: 960px) { .ruta b { font-size: 14px; } }

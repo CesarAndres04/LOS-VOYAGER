@@ -464,7 +464,6 @@ void main(){
     // con la entrada abierta, el nombre espera: portal.js lo lanza al salir de ella
     const introNombre = gsap.from("#nombre span", { yPercent: 108, duration: 1.4, ease: "expo.out", stagger: .14, delay: .1, paused: document.documentElement.classList.contains("en-portal") });
     window.vgIntro = () => introNombre.play();
-    $$("h2").forEach(h => gsap.from(h, { clipPath: "inset(0 0 100% 0)", y: 36, duration: 1.1, ease: "expo.out", clearProps: "clipPath,transform", scrollTrigger: { trigger: h, start: "top 90%", once: true } }));
     $$(".sec .caja").forEach(c => gsap.from(c, { y: 48, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: c, start: "top 92%", once: true } }));
     $$(".ruta li").forEach((li, i) => gsap.from(li.querySelector("i"), { "--trazo": 0, duration: .6, delay: i * .12, ease: "power2.out", scrollTrigger: { trigger: "#ruta", start: "top 80%" } }));
   } else {
