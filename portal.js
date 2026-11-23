@@ -70,14 +70,14 @@
   addEventListener("pointermove", e => { ptr.x = e.clientX; ptr.y = e.clientY; }, { passive: true });
   portal.addEventListener("pointerdown", e => {
     if (e.target.closest(".pl, .saltar-entrada") || ocupado) return;
-    if (Math.hypot(e.clientX - orb.cx, e.clientY - orb.cy) < orb.R * 1.7) { orb.arrastra = true; orb.ult = [e.clientX, e.clientY, performance.now()]; orb.escObj = .84; orb.vel = 0; if (portal.setPointerCapture) portal.setPointerCapture(e.pointerId); }
+    { orb.arrastra = true; orb.ult = [e.clientX, e.clientY, performance.now()]; orb.escObj = .84; orb.vel = 0; if (portal.setPointerCapture) portal.setPointerCapture(e.pointerId); }
   });
-  const suelta = () => { if (!orb.arrastra) return; orb.arrastra = false; orb.escObj = 1; orb.vesc += 1.6; orb.wy = Math.max(-10, Math.min(10, orb.vel)); };
+  const suelta = () => { if (!orb.arrastra) return; orb.arrastra = false; orb.escObj = 1; orb.vesc += 1.6; orb.wy = Math.max(-10, Math.min(10, orb.vel)); sp.vy = orb.wy; };
   portal.addEventListener("pointerup", suelta); portal.addEventListener("pointercancel", suelta);
   portal.addEventListener("pointermove", e => {
     if (!orb.arrastra) return;
     const ahora = performance.now(), dt = Math.max(.008, (ahora - orb.ult[2]) / 1000), dx = e.clientX - orb.ult[0], dy = e.clientY - orb.ult[1];
-    orb.ay += dx / orb.R * 1.5; orb.tilt = Math.max(-.7, Math.min(.7, orb.tilt + dy / orb.R * .9)); orb.vel = orb.vel * .6 + (dx / orb.R * 1.5 / dt) * .4;
+    orb.ay += dx / orb.R * 1.5; sp.ry += dx / orb.R * 1.5; orb.tilt = Math.max(-.7, Math.min(.7, orb.tilt + dy / orb.R * .9)); orb.vel = orb.vel * .6 + (dx / orb.R * 1.5 / dt) * .4;
     orb.ult = [e.clientX, e.clientY, ahora];
   });
   function dibujarOrb(dt, seg, explota) {
@@ -115,6 +115,39 @@
   }
   crearOrb();
 
+
+  /* ---------- Los planetas, como una galería esférica alrededor de la esfera ----------
+     Siete planetas repartidos sobre una esfera que rodea al Saturno de partículas: giran solos, se arrastran con inercia, los de atrás se
+     alejan y se apagan, y al enfocar uno con el teclado la esfera lo trae al frente. */
+  const sp = { ry: Math.random() * 6, rx: .42, vy: 0, k: quieto ? 1 : 0, lock: false, quieta: false, foco: false };
+  const dirs = planetas.map((_, i) => { const n = planetas.length, u = (1 - (i + .5) / n * 2) * .66, r = Math.sqrt(1 - u * u), th = i * Math.PI * (3 - Math.sqrt(5)); return { x: Math.cos(th) * r, y: -u, z: Math.sin(th) * r }; });
+  const stageEl = $("#stage");
+  function planetasEsfera(dt) {
+    if (sp.lock || !stageEl) return;
+    const st = stageEl.getBoundingClientRect(), cx = orb.cx - st.left, cy = orb.cy - st.top, vertical = st.height > st.width;
+    const Rs = vertical ? Math.min(st.width * .44, st.height * .3) : Math.min(st.width * .4, st.height * .46), s0 = vertical ? .6 : 1.1, k = sp.k;
+    if (!quieto && !orb.arrastra && !sp.foco) { sp.ry += (sp.vy + (sp.quieta ? .02 : .13)) * dt; sp.vy *= Math.exp(-2 * dt); }
+    const cr = Math.cos(sp.ry), sr = Math.sin(sp.ry), cxx = Math.cos(sp.rx), sx = Math.sin(sp.rx);
+    planetas.forEach((el, i) => {
+      const d = dirs[i], x1 = d.x * cr + d.z * sr, z1 = -d.x * sr + d.z * cr, y2 = d.y * cxx - z1 * sx, z2 = d.y * sx + z1 * cxx;
+      const pe = 1 / (1 - z2 * .22), w = el.offsetWidth, h = el.offsetHeight, esc = s0 * pe * (.82 + .18 * z2) * (.3 + .7 * k);
+      el.style.left = (cx + x1 * Rs * pe * k - w / 2).toFixed(1) + "px"; el.style.top = (cy + y2 * Rs * pe * k - h / 2).toFixed(1) + "px";
+      el.style.scale = esc.toFixed(3); el.style.setProperty("--s", esc.toFixed(3));
+      const f = Math.max(0, Math.min(1, (z2 + 1) / 2));
+      el.style.opacity = ((.3 + .7 * Math.pow(f, .7)) * Math.min(1, k * 1.6)).toFixed(3);
+      el.style.zIndex = 10 + Math.round(z2 * 10); el.style.pointerEvents = z2 > -.15 ? "auto" : "none";
+      el.style.setProperty("--ef", Math.max(0, Math.min(1, (z2 - .1) * 2.5)).toFixed(2));
+    });
+  }
+  planetas.forEach((el, i) => {
+    el.addEventListener("pointerenter", () => { sp.quieta = true; }); el.addEventListener("pointerleave", () => { sp.quieta = false; });
+    el.addEventListener("focus", () => {
+      if (!window.gsap || quieto) return;
+      const a = Math.atan2(dirs[i].x, dirs[i].z), meta = -a, dl = ((meta - sp.ry) % (2 * Math.PI) + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+      sp.foco = true; gsap.to(sp, { ry: sp.ry + dl, duration: .9, ease: "power3.out", onComplete: () => { sp.foco = false; } });
+    });
+  });
+
   let ultimo = 0;
   function cuadro(ahora) {
     if (!abierto) return;
@@ -131,6 +164,7 @@
         else { g.globalAlpha = a * (.3 + e.z * .7); g.fillStyle = "#f4f0ff"; g.beginPath(); g.arc(x, y, e.r, 0, 6.283); g.fill(); }
       }
       dibujarOrb(dt, seg, 0);
+      planetasEsfera(dt);
     } else {
       // Salto: cada estrella se aleja del planeta elegido en línea recta y deja una estela
       const p = estado.p, k1 = Math.exp(p * Math.log(KMAX)), k0 = Math.exp(Math.max(0, p - .09) * Math.log(KMAX));
@@ -151,6 +185,7 @@
   }
   function arrancar() { abierto = true; ultimo = performance.now(); requestAnimationFrame(cuadro); }
   medirOrb(); if (document.fonts) document.fonts.ready.then(medirOrb);
+  planetasEsfera(0);
   if (abierto) arrancar();
 
   /* ---------- Entrar y volver ---------- */
@@ -175,7 +210,7 @@
   }
 
   function zambullir(el) {
-    if (ocupado) return; ocupado = true;
+    if (ocupado) return; ocupado = true; sp.lock = true;
     const destino = el.dataset.ir || "";
     const cuerpo = $(".cuerpo, .sonda", el), r = cuerpo.getBoundingClientRect();
     const ox = r.left + r.width / 2, oy = r.top + r.height / 2, color = getComputedStyle(el).getPropertyValue("--c").trim() || "#ff5a2c";
@@ -225,7 +260,7 @@
 
   // Entrada de la propia entrada: los planetas llegan uno por uno
   if (abierto && window.gsap && !quieto) {
-    gsap.from(planetas, { scale: .15, opacity: 0, duration: 1.4, ease: "expo.out", stagger: .09, delay: .25 });
+    gsap.to(sp, { k: 1, duration: 2.6, ease: "expo.out", delay: .25 });
     gsap.from(".logo .l2 i", { yPercent: 110, duration: 1.3, ease: "expo.out", delay: .1 });
     gsap.from([".logo .l1", ".logo .l3", ".indicio", ".pie-portal"], { opacity: 0, y: 14, duration: 1.1, ease: "power2.out", stagger: .1, delay: .5 });
   }
@@ -236,10 +271,11 @@
     if (abierto) return;
     scrollTo({ top: 0, behavior: "instant" }); root.classList.add("en-portal"); inerte(true);
     portal.hidden = false; portal.style.opacity = 1; ocupado = false; estado.modo = "reposo";
+    sp.lock = false; if (quieto || !window.gsap) sp.k = 1;
     arrancar();
     if (window.gsap && !quieto) {
       gsap.from(portal, { opacity: 0, duration: .7, ease: "power1.out" });
-      gsap.from(planetas, { scale: .3, opacity: 0, duration: 1.1, ease: "expo.out", stagger: .07, clearProps: "transform,opacity,scale,x,y,zIndex,visibility,filter" });
+      sp.k = 0; gsap.to(sp, { k: 1, duration: 2, ease: "expo.out" });
     }
   });
 })();
