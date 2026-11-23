@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="vis.css?v=14">
 <link rel="stylesheet" href="tipo.css?v=14">
-<link rel="stylesheet" href="portal.css?v=1">
+<link rel="stylesheet" href="portal.css?v=2">
 <script>/* La entrada se muestra salvo que el enlace ya apunte a una sección o canción */
 (function(){var r=document.documentElement;r.classList.add(location.hash?"sin-portal":"en-portal")})();</script>
 <noscript><style>#portal{display:none!important}html.en-portal,html.en-portal body{overflow:auto!important;height:auto!important}</style></noscript>
@@ -24,14 +24,8 @@
   <p class="indicio m"><b>Señal recibida</b> · Lima, Perú · elige un planeta para entrar</p>
   <div class="escena">
     <div class="stage" id="stage">
-      <svg class="orbitas" viewBox="-100 -60 200 120" aria-hidden="true" focusable="false">
-        <defs><linearGradient id="gO1" x1="0" x2="1"><stop offset="0" stop-color="#ff5a2c"/><stop offset="1" stop-color="#b4279d"/></linearGradient><linearGradient id="gO2" x1="0" x2="1"><stop offset="0" stop-color="#3765af"/><stop offset="1" stop-color="#6a9ff3"/></linearGradient></defs>
-        <g class="o1"><ellipse rx="92" ry="23" transform="rotate(-18)" stroke="url(#gO1)"/><circle cx="84" cy="-27" r="1.8" fill="#ffb36b"/></g>
-        <g class="o2"><ellipse rx="76" ry="17" transform="rotate(14)" stroke="url(#gO2)"/><circle cx="-73" cy="-5" r="1.4" fill="#9ccaff"/></g>
-        <g class="o3"><ellipse rx="58" ry="12" transform="rotate(-48)" stroke="#f1ece2" stroke-opacity=".35"/></g>
-      </svg>
       <p class="logo"><span class="l1">Los</span><span class="l2"><i>Voyagers</i></span><span class="l3">rock alternativo, a un día-luz</span></p>
-      <button type="button" class="pl pl-disco" data-sintonizar="decidido" aria-label="Decidido, escuchar con el visualizer" style="--x:20;--y:31;--d:19;--mx:30;--my:33;--md:40;--c:#6a9ff3">
+      <button type="button" class="pl pl-disco" data-sintonizar="decidido" aria-label="Decidido, escuchar con el visualizer" style="--x:20;--y:31;--d:19;--mx:30;--my:37;--md:38;--c:#6a9ff3">
         <span class="flota"><span class="cuerpo"><img src="assets/decidido-900.webp" width="900" height="900" alt="" decoding="async"></span></span>
         <span class="et"><b>Decidido</b><i>Pista 01 · 4:06</i></span>
       </button>
@@ -163,7 +157,7 @@
       <header class="cab"><h2 id="t-imagenes">Imágenes recibidas</h2><a class="btn lleno" href="prensa/los-voyagers-kit-de-prensa.zip" download>Kit de prensa · .zip</a></header>
       <div class="fotos">
         <figure class="foto ancha"><div class="img"><img src="imagenes/vivo-dia-banda.webp" width="2048" height="1536" alt="La banda tocando en vivo de día, escenario con estructura roja" loading="lazy"></div><figcaption class="m"><span>IMG 01 · En vivo · 13.11.2026</span><a href="prensa/04-los-voyagers-en-vivo-dia.jpg" download>JPG 2048 px</a></figcaption></figure>
-        <figure class="foto"><div class="img"><img src="imagenes/kiosko.webp" width="1200" height="1200" alt="Los cuatro integrantes junto a un kiosko de periódicos en Lima" loading="lazy"></div><figcaption class="m"><span>IMG 02 · Kiosko · Lima</span><a href="prensa/01-los-voyagers-kiosko.jpg" download>JPG 1600 px</a></figcaption></figure>
+        <figure class="foto"><div class="img"><img src="imagenes/kiosko.webp" width="1600" height="1600" alt="Los cuatro integrantes junto a un kiosko de periódicos en Lima" loading="lazy"></div><figcaption class="m"><span>IMG 02 · Kiosko · Lima</span><a href="prensa/01-los-voyagers-kiosko.jpg" download>JPG 1600 px</a></figcaption></figure>
         <figure class="foto alta"><div class="img"><img src="imagenes/vivo-dia-voz.webp" width="1536" height="2048" alt="El vocalista cantando con guitarra roja" loading="lazy"></div><figcaption class="m"><span>IMG 03 · Voz</span><a href="prensa/06-los-voyagers-voz-en-vivo.jpg" download>JPG 2048 px</a></figcaption></figure>
         <figure class="foto"><div class="img"><img src="imagenes/vereda.webp" width="1600" height="1416" alt="La banda en una vereda de Lima a la hora azul" loading="lazy"></div><figcaption class="m"><span>IMG 04 · Vereda · Lima</span><a href="prensa/02-los-voyagers-vereda.jpg" download>JPG 1600 px</a></figcaption></figure>
         <figure class="foto ancha"><div class="img"><img src="imagenes/vivo-noche-banda.webp" width="2048" height="1536" alt="La banda en un bar de Lima con luz rosada" loading="lazy"></div><figcaption class="m"><span>IMG 05 · En vivo · 19.11.2026</span><a href="prensa/05-los-voyagers-en-vivo-noche.jpg" download>JPG 2048 px</a></figcaption></figure>
@@ -236,6 +230,6 @@
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="vis.js?v=15"></script>
-<script src="portal.js?v=1"></script>
+<script src="portal.js?v=2"></script>
 </body>
 </html>

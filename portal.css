@@ -4,7 +4,7 @@
 html.en-portal, html.en-portal body { overflow: hidden; height: 100%; }
 html.sin-portal #portal { display: none; }
 
-.portal { position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; overflow: hidden;
+.portal { touch-action: none; position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; overflow: hidden;
   background: radial-gradient(ellipse 70% 60% at 50% 46%, #0d0b2b 0%, #06041a 46%, #020001 100%); color: var(--papel); font-family: var(--display); }
 .portal[hidden] { display: none; }
 #estrellas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
@@ -24,13 +24,13 @@ html.sin-portal #portal { display: none; }
 .orbitas ellipse { fill: none; stroke-width: 1.1; vector-effect: non-scaling-stroke; }
 @keyframes gira { to { transform: rotate(360deg); } }
 
-.logo { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 44cqw; text-align: center; pointer-events: none; margin: 0; }
+.logo { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 36cqw; text-align: center; pointer-events: none; margin: 0; }
 .logo span { display: block; font-family: var(--titulo); text-transform: uppercase; line-height: .8; }
-.logo .l1 { font-size: 4.6cqw; font-weight: 800; letter-spacing: .5em; margin-right: -.5em; color: var(--papel); }
-.logo .l2 { font-size: 11.6cqw; font-weight: 900; letter-spacing: .005em; margin-top: .5cqw; padding: .6cqw 0 .4cqw; color: var(--senal);
+.logo .l1 { text-shadow: 0 0 10px #020001; font-size: 3.8cqw; font-weight: 800; letter-spacing: .5em; margin-right: -.5em; color: var(--papel); }
+.logo .l2 { font-size: 9.4cqw; font-weight: 900; letter-spacing: .005em; margin-top: .5cqw; padding: .6cqw 0 .4cqw; color: var(--senal);
   text-shadow: .55cqw .55cqw 0 #b4279d, 1.1cqw 1.1cqw 0 #3765af, 0 0 3cqw rgba(255, 90, 44, .35); }
 .logo .l2 i { display: inline-block; font-style: normal; }
-.logo .l3 { margin-top: 1.4cqw; font-family: var(--serif); font-style: italic; text-transform: none; font-weight: 500; font-size: 2.2cqw; letter-spacing: .01em; color: #e8e1ee; line-height: 1.2; }
+.logo .l3 { margin-top: 1.2cqw; font-family: var(--serif); font-style: italic; text-transform: none; font-weight: 500; font-size: 1.9cqw; text-shadow: 0 0 12px #020001, 0 0 3px #020001; letter-spacing: .01em; color: #e8e1ee; line-height: 1.2; }
 
 /* Planetas */
 .pl { position: absolute; appearance: none; background: none; border: 0; padding: 0; margin: 0; color: inherit; font: inherit; cursor: pointer; text-align: center;
@@ -80,8 +80,8 @@ html.sin-portal #portal { display: none; }
 @media (max-aspect-ratio: 5/6) {
   .stage { width: min(94vw, calc((100svh - 150px) * .5)); aspect-ratio: .5 / 1; }
   .pl { width: calc(var(--md) * 1cqw); height: calc(var(--md) * 1cqw); left: calc(var(--mx) * 1% - var(--md) * .5cqw); top: calc(var(--my) * 1% - var(--md) * .5cqw); }
-  .orbitas { top: 13%; width: 150%; } .logo { top: 13%; width: 90cqw; }
-  .logo .l1 { font-size: 8.4cqw; } .logo .l2 { font-size: 23cqw; } .logo .l3 { font-size: 5.2cqw; margin-top: 3cqw; }
+  .logo { top: 15%; width: 62cqw; }
+  .logo .l1 { font-size: 7cqw; } .logo .l2 { font-size: 18cqw; } .logo .l3 { font-size: 4.4cqw; margin-top: 2.4cqw; }
   .et { margin-top: 1.6cqw; } .pl-anillo .et { margin-top: 4cqw; }
   .et b { font-size: clamp(12px, 4.3cqw, 20px); } .et i { font-size: clamp(8.5px, 2.5cqw, 11px); }
   .cuerpo { box-shadow: 0 0 calc(var(--md) * .3cqw) calc(var(--md) * .03cqw) color-mix(in srgb, var(--c) 48%, transparent); }
