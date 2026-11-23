@@ -12,8 +12,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="vis.css?v=14">
 <link rel="stylesheet" href="tipo.css?v=14">
+<link rel="stylesheet" href="portal.css?v=1">
+<script>/* La entrada se muestra salvo que el enlace ya apunte a una sección o canción */
+(function(){var r=document.documentElement;r.classList.add(location.hash?"sin-portal":"en-portal")})();</script>
+<noscript><style>#portal{display:none!important}html.en-portal,html.en-portal body{overflow:auto!important;height:auto!important}</style></noscript>
 </head>
 <body data-cancion="decidido">
+<div id="portal" class="portal" role="dialog" aria-modal="true" aria-label="Entrada a Los Voyagers: elige un planeta">
+  <canvas id="estrellas" aria-hidden="true"></canvas>
+  <div class="bloom" aria-hidden="true"></div>
+  <p class="indicio m"><b>Señal recibida</b> · Lima, Perú · elige un planeta para entrar</p>
+  <div class="escena">
+    <div class="stage" id="stage">
+      <svg class="orbitas" viewBox="-100 -60 200 120" aria-hidden="true" focusable="false">
+        <defs><linearGradient id="gO1" x1="0" x2="1"><stop offset="0" stop-color="#ff5a2c"/><stop offset="1" stop-color="#b4279d"/></linearGradient><linearGradient id="gO2" x1="0" x2="1"><stop offset="0" stop-color="#3765af"/><stop offset="1" stop-color="#6a9ff3"/></linearGradient></defs>
+        <g class="o1"><ellipse rx="92" ry="23" transform="rotate(-18)" stroke="url(#gO1)"/><circle cx="84" cy="-27" r="1.8" fill="#ffb36b"/></g>
+        <g class="o2"><ellipse rx="76" ry="17" transform="rotate(14)" stroke="url(#gO2)"/><circle cx="-73" cy="-5" r="1.4" fill="#9ccaff"/></g>
+        <g class="o3"><ellipse rx="58" ry="12" transform="rotate(-48)" stroke="#f1ece2" stroke-opacity=".35"/></g>
+      </svg>
+      <p class="logo"><span class="l1">Los</span><span class="l2"><i>Voyagers</i></span><span class="l3">rock alternativo, a un día-luz</span></p>
+      <button type="button" class="pl pl-disco" data-sintonizar="decidido" aria-label="Decidido, escuchar con el visualizer" style="--x:20;--y:31;--d:19;--mx:30;--my:33;--md:40;--c:#6a9ff3">
+        <span class="flota"><span class="cuerpo"><img src="assets/decidido-900.webp" width="900" height="900" alt="" decoding="async"></span></span>
+        <span class="et"><b>Decidido</b><i>Pista 01 · 4:06</i></span>
+      </button>
+      <button type="button" class="pl pl-disco" data-sintonizar="vuelvo" aria-label="Vuelvo, escuchar con el visualizer" style="--x:80;--y:31;--d:15;--mx:74;--my:38;--md:33;--c:#cc8a4a">
+        <span class="flota"><span class="cuerpo"><img src="assets/vuelvo-900.webp" width="900" height="900" alt="" decoding="async"></span></span>
+        <span class="et"><b>Vuelvo</b><i>Pista 02 · 3:08</i></span>
+      </button>
+      <a class="pl pl-bitacora" href="#bitacora" data-ir="#bitacora" style="--x:11;--y:67;--d:9;--mx:18;--my:58;--md:22;--c:#ff5a2c">
+        <span class="flota"><span class="cuerpo"></span></span>
+        <span class="et"><b>Bitácora</b><i>La banda</i></span>
+      </a>
+      <a class="pl pl-anillo" href="#imagenes" data-ir="#imagenes" style="--x:33;--y:76;--d:11;--mx:56;--my:62;--md:24;--c:#3f78d8">
+        <span class="flota"><span class="aro atras"></span><span class="cuerpo"></span><span class="aro frente"></span></span>
+        <span class="et"><b>Imágenes</b><i>Kit de prensa</i></span>
+      </a>
+      <a class="pl pl-senales" href="#senales" data-ir="#senales" style="--x:67;--y:77;--d:10;--mx:81;--my:74;--md:20;--c:#36e0ea">
+        <span class="flota"><span class="cuerpo"></span></span>
+        <span class="et"><b>Señales</b><i>Discos</i></span>
+      </a>
+      <a class="pl pl-sobrevuelos" href="#sobrevuelos" data-ir="#sobrevuelos" style="--x:89;--y:66;--d:7;--mx:28;--my:80;--md:16;--c:#8cff72">
+        <span class="flota"><span class="cuerpo"></span></span>
+        <span class="et"><b>Sobrevuelos</b><i>Trayectoria</i></span>
+      </a>
+      <a class="pl pl-sonda" href="#canal" data-ir="#canal" style="--x:50;--y:91;--d:9;--mx:62;--my:88;--md:20;--c:#ff5a2c">
+        <span class="flota"><svg class="sonda" viewBox="0 0 100 100" aria-hidden="true" focusable="false" fill="none" stroke="#f1ece2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="46" cy="38" rx="31" ry="12" transform="rotate(-30 46 38)" fill="#2a0f0a" stroke="#ff5a2c" stroke-width="2.2"/>
+          <ellipse cx="46" cy="38" rx="21" ry="7.5" transform="rotate(-30 46 38)" stroke="#ff5a2c" stroke-opacity=".5"/>
+          <path d="M46 38 L68 20"/><circle cx="69.5" cy="18.8" r="2.4" fill="#f1ece2"/>
+          <path d="M44 44 L40 58"/><rect x="31" y="56" width="18" height="12" rx="2" fill="#0d0b2b"/><path d="M33 62h14M40 56v12" stroke-opacity=".5"/>
+          <path d="M40 68 L14 88"/><rect x="8" y="86" width="9" height="6" rx="1" fill="#0d0b2b"/>
+          <path d="M49 62 L86 76"/><circle cx="88" cy="77" r="2" fill="#5f8fe8" stroke="none"/>
+          <path d="M45 68 L52 90"/><circle cx="53" cy="92" r="1.8" fill="#ffb36b" stroke="none"/>
+        </svg></span>
+        <span class="et"><b>Abrir canal</b><i>Booking</i></span>
+      </a>
+    </div>
+  </div>
+  <div class="pie-portal m">
+    <span class="km">Voyager 1 · <b data-voyager-km>25 908 000 000</b> km</span>
+    <span class="legal">Los Voyagers, sus canciones y todo lo relacionado © 2026 · Lima, Perú</span>
+    <button class="saltar-entrada" id="saltarEntrada" type="button">Saltar entrada</button>
+  </div>
+</div>
 <canvas id="cielo" aria-hidden="true"></canvas>
 <!-- Fondos en video generados con la app Sinestesia, estilo Galaxia, uno por canción (ver LEEME). Antes del play, un teaser en bucle de cada una. -->
 <video id="tDecidido" class="fondo-video" muted loop playsinline preload="none" aria-hidden="true"></video>
@@ -174,6 +235,7 @@
 <audio id="audio" preload="none"></audio>
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
-<script src="vis.js?v=14"></script>
+<script src="vis.js?v=15"></script>
+<script src="portal.js?v=1"></script>
 </body>
 </html>
