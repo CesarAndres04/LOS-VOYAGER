@@ -1,0 +1,85 @@
+/* Voz cartoon (v15): la misma de la entrada, llevada al interior. Se carga después de tipo.css.
+   Letra: Audiowide inclinada con extrusión en capas, como el logo de Space Jam. La extrusión usa los colores de la canción que suena
+   (--cal, --fri), así que el título cambia de tinta junto con el fondo animado. La bitácora se arma como páginas de historieta:
+   contorno grueso, sombras duras de color y un latido al BPM de la canción. */
+:root { --toon: "Audiowide", "Big Shoulders Stencil Display", "Arial Black", sans-serif; --tinta: #0b0820; }
+
+/* ---------- Títulos ---------- */
+.nombre, h2, .correo, .carta-txt b, .disco h3, .trip b, .ruta b, .pistas button, .panel-letra header b, .marca, .letra {
+  font-family: var(--toon); font-weight: 400; font-stretch: 100%; }
+.nombre, h2, .correo, .carta-txt b, .letra {
+  text-shadow: .04em .04em 0 var(--cal), .08em .08em 0 var(--fri), .12em .12em 0 var(--tinta), 0 0 .6em rgba(0, 0, 0, .35); }
+
+.nombre { color: var(--senal); font-size: clamp(46px, 9.2vw, 158px); line-height: .98; letter-spacing: .01em; transform: skewX(-8deg); transform-origin: 0 100%; padding: .05em .2em .2em .02em; margin-bottom: -.1em; }
+h2 { color: var(--papel); font-size: clamp(28px, 4.6vw, 80px); line-height: 1.02; letter-spacing: .01em; transform: skewX(-8deg); transform-origin: 0 100%; padding-bottom: .14em; }
+.correo { font-size: clamp(22px, 4.4vw, 76px); letter-spacing: 0; line-height: 1.05; border-bottom-width: 5px; padding-bottom: .2em; word-break: break-word; }
+.carta-txt b { font-size: clamp(22px, 2.3vw, 36px); letter-spacing: .02em; text-shadow: .05em .05em 0 var(--cal), .1em .1em 0 var(--tinta); }
+.disco h3 { font-size: 28px; letter-spacing: .02em; text-shadow: 2px 2px 0 var(--cal), 4px 4px 0 var(--tinta); }
+.trip b { font-size: 21px; letter-spacing: .03em; }
+.ruta b { letter-spacing: .02em; }
+.pistas button { font-size: 15px; letter-spacing: .06em; }
+.marca { font-size: 17px; letter-spacing: .1em; text-shadow: 2px 2px 0 var(--cal); }
+.panel-letra header b { font-size: 16px; letter-spacing: .06em; }
+
+/* ---------- La letra de la canción ---------- */
+.letra { color: var(--papel); font-style: normal; font-size: clamp(28px, 5.1vw, 92px); line-height: 1.06; letter-spacing: .01em; text-transform: uppercase; font-variation-settings: normal;
+  transform: skewX(-8deg); transform-origin: 0 100%; }
+.letra .w { padding: .1em .2em .26em .04em; margin: -.1em -.2em -.26em -.04em; }
+
+/* ---------- Bitácora: páginas de historieta ---------- */
+#bitacora .caja { background: rgba(2, 0, 1, .44); -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25);
+  border: 3px solid var(--papel); border-radius: 30px; box-shadow: 10px 10px 0 var(--cal), 20px 20px 0 var(--fri); }
+#bitacora .cab { border-bottom: 3px dashed color-mix(in srgb, var(--papel) 45%, transparent); }
+#bitacora .bitacora { gap: clamp(30px, 4.6vw, 70px); align-items: start; }
+
+/* El texto corto es un globo de diálogo, y su cola apunta a la tripulación */
+.bio .corta { position: relative; background: var(--papel); color: var(--tinta); font-weight: 600; font-size: clamp(18px, 1.7vw, 25px); line-height: 1.38;
+  padding: clamp(18px, 2vw, 28px) clamp(20px, 2.4vw, 32px); border: 3px solid var(--tinta); border-radius: 30px; box-shadow: 7px 7px 0 var(--acc); transform: rotate(-.7deg); }
+.bio .corta::after { content: ""; position: absolute; right: 12%; bottom: -26px; width: 34px; height: 30px; background: var(--papel); border: 3px solid var(--tinta); border-top: 0; border-left: 0;
+  transform: skewX(34deg) rotate(8deg); transform-origin: top; border-radius: 0 0 8px 0; }
+.bio .larga { margin-top: 38px; }
+.bio .larga p { color: #d7d0e2; }
+
+.bitacora .btn { border: 3px solid var(--papel); border-radius: 999px; font-family: var(--toon); font-size: 12px; letter-spacing: .08em; box-shadow: 4px 4px 0 var(--cal); background: rgba(2, 0, 1, .55);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background-color .2s, color .2s; }
+.bitacora .btn:hover { background: var(--papel); color: var(--bg); transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--cal); }
+.bitacora .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--cal); }
+
+/* Telemetría: fichas pegadas como stickers */
+.tele dl { border: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tele dl div { border: 3px solid var(--papel); border-radius: 18px; padding: 14px 16px; background: rgba(2, 0, 1, .62); box-shadow: 5px 5px 0 var(--fri); }
+.tele dl div:nth-child(2n) { transform: rotate(1.2deg); box-shadow: 5px 5px 0 var(--cal); } .tele dl div:nth-child(2n+1) { transform: rotate(-.8deg); }
+.tele dd { font-family: var(--toon); text-transform: none; letter-spacing: .02em; font-size: 17px; }
+.tele .ancho dd { font-size: clamp(20px, 2.1vw, 30px); }
+
+/* Tripulación: cuatro insignias numeradas */
+.trip { counter-reset: trip; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
+.trip li { counter-increment: trip; position: relative; display: grid; gap: 4px; padding: 16px 14px 14px 52px; border: 3px solid var(--tinta); border-radius: 18px; color: var(--tinta);
+  box-shadow: 5px 5px 0 var(--tinta); transition: transform .35s var(--ease); }
+.trip li::before { content: counter(trip); position: absolute; left: 12px; top: 12px; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--tinta); color: var(--papel); font-family: var(--toon); font-size: 14px; }
+.trip li:nth-child(1) { background: var(--senal); transform: rotate(-1.6deg); } .trip li:nth-child(2) { background: #6a9ff3; transform: rotate(1.2deg); }
+.trip li:nth-child(3) { background: #ffb36b; transform: rotate(1deg); } .trip li:nth-child(4) { background: #d6329f; transform: rotate(-1.2deg); color: #fff; }
+.trip li:nth-child(4)::before { background: #fff; color: var(--tinta); } .trip li:nth-child(4) .m { color: #fde4f4; }
+.trip li:hover { animation: meneo .6s var(--ease); }
+.trip .m { color: color-mix(in srgb, var(--tinta) 78%, transparent); }
+@keyframes meneo { 0%, 100% { translate: 0; } 25% { translate: 0 -6px; rotate: 2deg; } 60% { translate: 0 2px; rotate: -2deg; } }
+
+/* Latido: con música sonando, las sombras duras laten al BPM de la canción */
+body.sonando #bitacora .caja { animation: latidoCaja calc(60s / var(--bpm, 120)) ease-in-out infinite alternate; }
+body.sonando .bio .corta { animation: latidoGlobo calc(60s / var(--bpm, 120)) ease-in-out infinite alternate; }
+@keyframes latidoCaja { from { box-shadow: 10px 10px 0 var(--cal), 20px 20px 0 var(--fri); } to { box-shadow: 14px 14px 0 var(--cal), 27px 27px 0 var(--fri); } }
+@keyframes latidoGlobo { from { box-shadow: 7px 7px 0 var(--acc); } to { box-shadow: 10px 10px 0 var(--acc); } }
+
+@media (max-width: 960px) { #bitacora .caja { box-shadow: 7px 7px 0 var(--cal), 14px 14px 0 var(--fri); } }
+@media (max-width: 620px) {
+  .nombre { font-size: clamp(40px, 13.2vw, 76px); }
+  h2 { font-size: clamp(24px, 8vw, 40px); }
+  .letra { font-size: clamp(22px, 7.2vw, 38px); }
+  .correo { font-size: clamp(18px, 6.2vw, 34px); }
+  .trip { grid-template-columns: 1fr 1fr; } .trip li { padding-left: 48px; }
+  .tele dl { grid-template-columns: 1fr; }
+  #bitacora .caja { border-radius: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { body.sonando #bitacora .caja, body.sonando .bio .corta, .trip li:hover { animation: none; } }
+
+.menu a { white-space: nowrap; }
