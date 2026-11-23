@@ -49,7 +49,7 @@
     x.fillStyle = gr; x.fillRect(0, 0, 32, 32); return s;
   });
   function crearOrb() {
-    const movil = W < 700, nE = movil ? 1500 : 3000, nA = movil ? 240 : 520, oro = Math.PI * (3 - Math.sqrt(5)), pts = [];
+    const movil = W < 700, nE = movil ? 2600 : 5600, nA = movil ? 420 : 950, oro = Math.PI * (3 - Math.sqrt(5)), pts = [];
     const esparcir = () => { const a = Math.random() * 6.283, b = Math.acos(2 * Math.random() - 1), r = 2 + Math.random() * 3.2; return [Math.sin(b) * Math.cos(a) * r, Math.sin(b) * Math.sin(a) * r, Math.cos(b) * r]; };
     for (let i = 0; i < nE; i++) {
       const y = 1 - (i + .5) / nE * 2, r = Math.sqrt(1 - y * y), th = oro * i, e = esparcir(), s = .93 + Math.random() * .07;
@@ -89,10 +89,10 @@
       orb.vesc += (orb.escObj - orb.esc) * 70 * dt; orb.vesc *= Math.exp(-6.5 * dt); orb.esc += orb.vesc * dt;
     }
     const ax = .36 + orb.tilt + (quieto ? 0 : Math.sin(t * .5) * .1), cx = Math.cos(ax), sx = Math.sin(ax), esc = orb.esc;
-    const mx = (ptr.x - orb.cx) / R, my = (ptr.y - orb.cy) / R, rad = .42, base = W < 700 ? 2.3 : 3.1, ex = explota || 0, mult = 1 + ex * ex * 9;
+    const mx = (ptr.x - orb.cx) / R, my = (ptr.y - orb.cy) / R, rad = .3, base = W < 700 ? 2.1 : 2.7, ex = explota || 0, mult = 1 + ex * ex * 9;
     const cs = Math.cos(orb.ay), sn = Math.sin(orb.ay), cr = Math.cos(orb.ay * 1.7), sr = Math.sin(orb.ay * 1.7);
     g.globalCompositeOperation = "lighter";
-    const damp = Math.exp(-3.6 * dt), cargar = 30 * dt;
+    const damp = Math.exp(-3.6 * dt), cargar = 42 * dt;
     for (let i = 0; i < pts.length; i++) {
       const q = pts[i]; if (t < q.re) continue;
       const ca = q.anillo ? cr : cs, sa = q.anillo ? sr : sn;   // el anillo gira más rápido
@@ -100,8 +100,10 @@
       if (!quieto) {
         q.vx -= q.dx * cargar; q.vy -= q.dy * cargar; q.vz -= q.dz * cargar;
         const vx = x1 * esc + q.dx - mx, vy = y2 * esc + q.dy - my, d2 = vx * vx + vy * vy;
-        if (d2 < rad * rad && d2 > 1e-5) { const d = Math.sqrt(d2), f = (1 - d / rad) * 2.4; q.vx += vx / d * f; q.vy += vy / d * f; q.vz += f * .6; }
+        if (d2 < rad * rad && d2 > 1e-5) { const d = Math.sqrt(d2), f = (1 - d / rad) * 1.0; q.vx += vx / d * f; q.vy += vy / d * f; q.vz += f * .3; }
         q.vx *= damp; q.vy *= damp; q.vz *= damp; q.dx += q.vx * dt * 36; q.dy += q.vy * dt * 36; q.dz += q.vz * dt * 36;
+        // la nube se deforma pero no se va: el empuje del cursor tiene tope (la entrada inicial, más lejana, no lo tiene)
+        if (t > q.re + 2.6) { const m = Math.hypot(q.dx, q.dy, q.dz); if (m > .22) { const k = .22 / m; q.dx *= k; q.dy *= k; q.dz *= k; } }
       } else { q.dx = q.dy = q.dz = 0; }
       const X = x1 * esc + q.dx, Y = y2 * esc + q.dy, Z = z2 * esc + q.dz, pe = 1 / (1 - Z * .16);
       const ap = Math.min(1, (t - q.re) / .5), prof = Math.max(0, Math.min(1, (Z + 1.6) / 3.2));
