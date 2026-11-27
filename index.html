@@ -4,235 +4,82 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Un día-luz · Los Voyagers</title>
-<meta name="description" content="Los Voyagers, rock alternativo desde Lima. Sintoniza la señal: un visualizer que se mueve con cada canción.">
+<meta name="description" content="Los Voyagers, rock alternativo desde Lima. Cruza la entrada y sigue la señal.">
 <meta name="theme-color" content="#020001">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Audiowide&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Audiowide&family=Bangers&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="vis.css?v=16">
 <link rel="stylesheet" href="tipo.css?v=14">
-<link rel="stylesheet" href="cartoon.css?v=8">
-<link rel="stylesheet" href="portal.css?v=7">
-<script>/* La entrada se muestra salvo que el enlace ya apunte a una sección o canción */
-(function(){var r=document.documentElement;r.classList.add(location.hash?"sin-portal":"en-portal")})();</script>
-<noscript><style>#portal{display:none!important}html.en-portal,html.en-portal body{overflow:auto!important;height:auto!important}</style></noscript>
+<link rel="stylesheet" href="cartoon.css?v=10">
+<link rel="stylesheet" href="portal.css?v=26">
+<link rel="stylesheet" href="pasadizo.css?v=4">
+<link rel="stylesheet" href="menu.css?v=2">
+<link rel="stylesheet" href="musica.css?v=3">
+<link rel="stylesheet" href="fotos.css?v=2">
+<script>/* La entrada se muestra salvo que el enlace apunte directo al pasadizo */
+(function(){var r=document.documentElement;r.classList.add(location.hash==="#pasadizo"?"sin-portal":"en-portal")})();</script>
+<noscript><style>html.en-portal,html.en-portal body{overflow:auto!important}</style></noscript>
 </head>
-<body data-cancion="decidido">
-<div id="portal" class="portal" role="dialog" aria-modal="true" aria-label="Entrada a Los Voyagers: elige un planeta">
+<body>
+<div id="portal" class="portal" role="dialog" aria-modal="true" aria-label="Entrada a Los Voyagers: acércate a la sonda">
   <canvas id="estrellas" aria-hidden="true"></canvas>
+  <div class="cielo-v" aria-hidden="true"></div>
+  <div class="agujero" aria-hidden="true"></div>
   <div class="bloom" aria-hidden="true"></div>
-  <p class="indicio m"><b>Señal recibida</b> · Lima, Perú · elige un planeta para entrar</p>
   <div class="escena">
     <div class="stage" id="stage">
       <p class="logo"><span class="l1">Los</span><span class="l2"><i>Voyagers</i></span><span class="l3">rock alternativo, a un día-luz</span></p>
-      <button type="button" class="pl pl-disco" data-sintonizar="decidido" aria-label="Decidido, escuchar con el visualizer" style="--x:20;--y:31;--d:19;--mx:30;--my:37;--md:38;--c:#6a9ff3">
-        <span class="flota"><span class="cuerpo"><img src="assets/decidido-900.webp" width="900" height="900" alt="" decoding="async"></span></span>
-        <span class="et"><b>Decidido</b><i>Pista 01 · 4:06</i></span>
+      <button type="button" class="pl pl-sonda" aria-label="Nosotros somos Los Voyagers: entrar a la página" style="--x:30;--y:76;--d:17;--mx:30;--my:74;--md:26;--c:#ffffff">
+        <span class="flota"><svg class="sonda" focusable="false" viewBox="0 0 240 240" aria-hidden="true"><path d="M132.0 100.0L66.0 8.0" stroke="#ffd447" stroke-width="2" fill="none"/><path d="M128.0 104.0L82.0 62.0" stroke="#1fbd78" stroke-width="1.6" fill="none"/><path d="M168.0 98.0L208.0 48.0" stroke="#12a8bd" stroke-width="1.4" fill="none"/><polygon points="106.9,131.9 99.0,139.0 103.8,144.8" fill="#2456d6"/><polygon points="117.1,144.1 112.0,138.0 108.7,150.7" fill="#ffffff"/><path d="M106.9 131.9L117.1 144.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="99.0,139.0 91.0,146.1 95.7,151.7" fill="#f78a1d"/><polygon points="108.7,150.7 103.8,144.8 100.3,157.2" fill="#b3126f"/><path d="M99.0 139.0L108.7 150.7" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="91.0,146.1 83.1,153.3 87.5,158.5" fill="#ffffff"/><polygon points="100.3,157.2 95.7,151.7 91.9,163.7" fill="#12a8bd"/><path d="M91.0 146.1L100.3 157.2" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="83.1,153.3 75.2,160.4 79.3,165.3" fill="#b3126f"/><polygon points="91.9,163.7 87.5,158.5 83.4,170.2" fill="#ffd447"/><path d="M83.1 153.3L91.9 163.7" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="75.2,160.4 67.3,167.6 71.2,172.2" fill="#12a8bd"/><polygon points="83.4,170.2 79.3,165.3 75.0,176.8" fill="#2456d6"/><path d="M75.2 160.4L83.4 170.2" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="67.3,167.6 59.4,174.7 63.0,179.0" fill="#ffd447"/><polygon points="75.0,176.8 71.2,172.2 66.6,183.3" fill="#f78a1d"/><path d="M67.3 167.6L75.0 176.8" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="59.4,174.7 51.5,181.8 54.8,185.8" fill="#2456d6"/><polygon points="66.6,183.3 63.0,179.0 58.2,189.8" fill="#ffffff"/><path d="M59.4 174.7L66.6 183.3" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="51.5,181.8 43.6,189.0 46.7,192.7" fill="#f78a1d"/><polygon points="58.2,189.8 54.8,185.8 49.7,196.3" fill="#b3126f"/><path d="M51.5 181.8L58.2 189.8" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="43.6,189.0 35.7,196.1 38.5,199.5" fill="#ffffff"/><polygon points="49.7,196.3 46.7,192.7 41.3,202.9" fill="#12a8bd"/><path d="M43.6 189.0L49.7 196.3" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="35.7,196.1 27.8,203.3 30.3,206.3" fill="#b3126f"/><polygon points="41.3,202.9 38.5,199.5 32.9,209.4" fill="#ffd447"/><path d="M35.7 196.1L41.3 202.9" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="27.8,203.3 19.9,210.4 22.2,213.2" fill="#12a8bd"/><polygon points="32.9,209.4 30.3,206.3 24.5,215.9" fill="#2456d6"/><path d="M27.8 203.3L32.9 209.4" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="19.9,210.4 11.9,217.5 14.0,220.0" fill="#ffd447"/><polygon points="24.5,215.9 22.2,213.2 16.1,222.5" fill="#f78a1d"/><path d="M19.9 210.4L24.5 215.9" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="18.0,212.0 6.0,224.0 14.0,222.0 22.0,232.0 22.0,220.0" fill="#e8351f"/><polygon points="116.0,100.0 142.0,82.0 180.0,91.0 188.0,113.0 160.0,128.0 124.0,119.0" fill="#14309a"/><polygon points="142.0,82.0 180.0,91.0 172.0,103.0 146.0,97.0" fill="#ffd447"/><polygon points="180.0,91.0 188.0,113.0 172.0,103.0" fill="#f78a1d"/><polygon points="146.0,97.0 172.0,103.0 160.0,128.0 150.0,107.0" fill="#ffffff"/><polygon points="172.0,103.0 188.0,113.0 160.0,128.0" fill="#b3126f"/><polygon points="116.0,100.0 142.0,82.0 146.0,97.0 124.0,119.0" fill="#12a8bd"/><polygon points="124.0,119.0 146.0,97.0 150.0,107.0 160.0,128.0" fill="#2456d6"/><polygon points="152.0,101.0 161.0,103.0 158.0,119.0 150.0,106.0" fill="#e8351f"/><polygon points="137.0,84.0 134.0,59.0 152.0,54.0 158.0,84.0" fill="#2456d6"/><polygon points="134.0,59.0 152.0,54.0 147.0,68.0" fill="#ffffff"/><polygon points="147.0,68.0 152.0,54.0 158.0,84.0 150.0,84.0" fill="#b3126f"/><polygon points="137.0,84.0 134.0,59.0 143.0,77.0" fill="#12a8bd"/><polygon points="157.0,78.0 176.0,66.0 188.0,82.0 172.0,91.0" fill="#f78a1d"/><polygon points="157.0,78.0 176.0,66.0 170.0,79.0" fill="#ffd447"/><polygon points="176.0,66.0 188.0,82.0 178.0,79.0" fill="#e8351f"/><polygon points="179.1,111.9 186.2,109.7 185.2,105.4" fill="#12a8bd"/><polygon points="176.9,102.1 178.0,107.0 184.2,101.1" fill="#b3126f"/><path d="M179.1 111.9L176.9 102.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="186.2,109.7 193.2,107.5 192.4,103.8" fill="#ffd447"/><polygon points="184.2,101.1 185.2,105.4 191.6,100.1" fill="#ffffff"/><path d="M186.2 109.7L184.2 101.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="193.2,107.5 200.3,105.3 199.6,102.2" fill="#b3126f"/><polygon points="191.6,100.1 192.4,103.8 198.9,99.1" fill="#12a8bd"/><path d="M193.2 107.5L191.6 100.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="200.3,105.3 207.4,103.1 206.8,100.6" fill="#ffffff"/><polygon points="198.9,99.1 199.6,102.2 206.2,98.1" fill="#ffd447"/><path d="M200.3 105.3L198.9 99.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="207.4,103.1 214.4,101.0 214.0,99.0" fill="#12a8bd"/><polygon points="206.2,98.1 206.8,100.6 213.6,97.0" fill="#b3126f"/><path d="M207.4 103.1L206.2 98.1" stroke="#ffffff" stroke-width="1" fill="none"/><polygon points="204.0,81.0 224.0,83.0 222.0,99.0 205.0,97.0" fill="#ffffff"/><polygon points="204.0,81.0 214.0,82.0 205.0,97.0" fill="#12a8bd"/><polygon points="214.0,99.0 224.0,83.0 222.0,99.0" fill="#2456d6"/><polygon points="233.9,92.0 230.9,97.3 225.0,98.9 219.7,95.9 218.1,90.0 221.1,84.7 227.0,83.1 232.3,86.1" fill="#e8351f"/><polygon points="230.4,90.4 228.3,93.1 225.0,92.7 223.6,89.6 225.7,86.9 229.0,87.3" fill="#ffd447"/><polygon points="212.0,101.0 231.0,105.0 227.0,122.0 210.0,117.0" fill="#b3126f"/><polygon points="212.0,101.0 231.0,105.0 219.0,109.0" fill="#f78a1d"/><polygon points="219.0,109.0 227.0,122.0 210.0,117.0" fill="#2456d6"/><polygon points="226.4,127.9 223.6,132.9 218.1,134.4 213.1,131.6 211.6,126.1 214.4,121.1 219.9,119.6 224.9,122.4" fill="#ffffff"/><polygon points="219.0,119.5 226.0,124.0 219.0,127.0" fill="#1fbd78"/><polygon points="221.6,127.3 220.0,129.4 217.4,129.1 216.4,126.7 218.0,124.6 220.6,124.9" fill="#0f0c40"/><g transform="rotate(28 150 142)"><path d="M147.0 121.0L147.0 135.0" stroke="#ffd447" stroke-width="2.4" fill="none"/><polygon points="139.0,134.0 155.0,134.0 155.0,147.0 139.0,147.0" fill="#f78a1d"/><polygon points="139.0,134.0 150.0,134.0 139.0,143.0" fill="#ffd447"/><polygon points="155.0,138.0 155.0,147.0 144.0,147.0" fill="#e8351f"/><path d="M134.0 140.0L139.0 140.0" stroke="#12a8bd" stroke-width="2" fill="none"/><path d="M155.0 140.0L161.0 140.0" stroke="#1fbd78" stroke-width="2" fill="none"/><polygon points="139.0,149.0 155.0,149.0 155.0,162.0 139.0,162.0" fill="#2456d6"/><polygon points="139.0,149.0 150.0,149.0 139.0,158.0" fill="#12a8bd"/><polygon points="155.0,153.0 155.0,162.0 144.0,162.0" fill="#14309a"/><path d="M134.0 155.0L139.0 155.0" stroke="#12a8bd" stroke-width="2" fill="none"/><path d="M155.0 155.0L161.0 155.0" stroke="#1fbd78" stroke-width="2" fill="none"/><polygon points="139.0,164.0 155.0,164.0 155.0,177.0 139.0,177.0" fill="#b3126f"/><polygon points="139.0,164.0 150.0,164.0 139.0,173.0" fill="#e8351f"/><polygon points="155.0,168.0 155.0,177.0 144.0,177.0" fill="#ffffff"/><path d="M134.0 170.0L139.0 170.0" stroke="#12a8bd" stroke-width="2" fill="none"/><path d="M155.0 170.0L161.0 170.0" stroke="#1fbd78" stroke-width="2" fill="none"/></g><polygon points="171.9,140.9 159.9,153.4 139.6,160.0 115.1,159.2 91.1,151.2 72.5,137.7 62.8,121.2 64.1,105.1 76.1,92.6 96.4,86.0 120.9,86.8 144.9,94.8 163.5,108.3 173.2,124.8" fill="#14309a"/><polygon points="168.9,142.5 157.2,154.7 137.3,161.0 113.2,160.2 89.7,152.4 71.3,139.2 61.8,123.1 63.1,107.5 74.8,95.3 94.7,89.0 118.8,89.8 142.3,97.6 160.7,110.8 170.2,126.9" fill="#b3126f"/><clipPath id="plato"><polygon points="162.9,150.5 153.2,161.5 136.9,168.1 116.5,169.4 95.1,165.1 76.0,155.9 62.0,143.3 55.4,129.1 57.1,115.5 66.8,104.5 83.1,97.9 103.5,96.6 124.9,100.9 144.0,110.1 158.0,122.7 164.6,136.9"/></clipPath><polygon points="162.9,150.5 153.2,161.5 136.9,168.1 116.5,169.4 95.1,165.1 76.0,155.9 62.0,143.3 55.4,129.1 57.1,115.5 66.8,104.5 83.1,97.9 103.5,96.6 124.9,100.9 144.0,110.1 158.0,122.7 164.6,136.9" fill="#ffffff"/><g clip-path="url(#plato)"><polygon points="40.0,90.0 96.0,90.0 68.0,138.0 40.0,150.0" fill="#12a8bd"/><polygon points="40.0,150.0 68.0,138.0 92.0,176.0 40.0,180.0" fill="#2456d6"/><polygon points="68.0,138.0 88.0,126.0 118.0,180.0 92.0,176.0" fill="#14309a"/><polygon points="88.0,126.0 108.0,142.0 150.0,180.0 118.0,180.0" fill="#b3126f"/><polygon points="108.0,142.0 146.0,150.0 176.0,172.0 150.0,180.0" fill="#e8351f"/><polygon points="146.0,150.0 178.0,118.0 180.0,150.0 176.0,172.0" fill="#f78a1d"/><polygon points="122.0,96.0 178.0,104.0 178.0,118.0 140.0,122.0" fill="#ffd447"/><polygon points="140.0,122.0 178.0,118.0 146.0,150.0 132.0,138.0" fill="#ffffff"/><polygon points="96.0,90.0 122.0,96.0 112.0,112.0 86.0,108.0" fill="#ffd447"/><polygon points="68.0,138.0 86.0,108.0 92.0,119.0 80.0,133.0" fill="#1fbd78"/><polygon points="112.0,112.0 140.0,122.0 132.0,138.0 108.0,142.0" fill="#ffffff"/><polygon points="92.0,176.0 104.0,160.0 118.0,180.0" fill="#0f0c40"/><polygon points="150.0,180.0 160.0,158.0 176.0,172.0" fill="#ffd447"/><polygon points="122.0,96.0 134.0,98.0 118.0,120.0 112.0,112.0" fill="#12a8bd"/></g><path d="M70.0 118.0L108.0 142.0" stroke="#0f0c40" stroke-width="2.4" fill="none"/><path d="M152.0 120.0L108.0 142.0" stroke="#2456d6" stroke-width="2.4" fill="none"/><path d="M104.0 166.0L108.0 142.0" stroke="#14309a" stroke-width="2.4" fill="none"/><polygon points="118.9,143.3 114.8,150.7 106.7,152.9 99.3,148.8 97.1,140.7 101.2,133.3 109.3,131.1 116.7,135.2" fill="#0f0c40"/><polygon points="108.0,131.0 118.0,137.0 108.0,142.0" fill="#e8351f"/><polygon points="98.0,137.0 108.0,131.0 108.0,142.0" fill="#ffd447"/><polygon points="108.0,142.0 115.0,150.0 101.0,150.0" fill="#12a8bd"/><rect x="26" y="196" width="4" height="4" fill="#e8351f"/><rect x="34" y="204" width="3" height="3" fill="#ffffff"/><rect x="22" y="186" width="3" height="3" fill="#ffd447"/><rect x="40" y="214" width="3" height="3" fill="#12a8bd"/><rect x="30" y="230" width="3" height="3" fill="#b3126f"/><rect x="196" y="140" width="4" height="4" fill="#ffd447"/><rect x="204" y="148" width="3" height="3" fill="#1fbd78"/><rect x="192" y="152" width="3" height="3" fill="#e8351f"/><rect x="212" y="138" width="3" height="3" fill="#ffffff"/><rect x="60" y="100" width="3" height="3" fill="#12a8bd"/><rect x="54" y="110" width="4" height="4" fill="#b3126f"/><rect x="50" y="98" width="3" height="3" fill="#ffd447"/></svg></span>
+        
       </button>
-      <button type="button" class="pl pl-disco" data-sintonizar="vuelvo" aria-label="Vuelvo, escuchar con el visualizer" style="--x:80;--y:31;--d:15;--mx:74;--my:38;--md:33;--c:#cc8a4a">
-        <span class="flota"><span class="cuerpo"><img src="assets/vuelvo-900.webp" width="900" height="900" alt="" decoding="async"></span></span>
-        <span class="et"><b>Vuelvo</b><i>Pista 02 · 3:08</i></span>
-      </button>
-      <a class="pl pl-bitacora" href="#bitacora" data-ir="#bitacora" style="--x:11;--y:67;--d:9;--mx:18;--my:58;--md:22;--c:#ff5a2c">
-        <span class="flota"><span class="cuerpo"></span></span>
-        <span class="et"><b>Bitácora</b><i>La banda</i></span>
-      </a>
-      <a class="pl pl-anillo" href="#imagenes" data-ir="#imagenes" style="--x:33;--y:76;--d:11;--mx:56;--my:62;--md:24;--c:#3f78d8">
-        <span class="flota"><span class="aro atras"></span><span class="cuerpo"></span><span class="aro frente"></span></span>
-        <span class="et"><b>Imágenes</b><i>Kit de prensa</i></span>
-      </a>
-      <a class="pl pl-senales" href="#senales" data-ir="#senales" style="--x:67;--y:77;--d:10;--mx:81;--my:74;--md:20;--c:#36e0ea">
-        <span class="flota"><span class="cuerpo"></span></span>
-        <span class="et"><b>Señales</b><i>Discos</i></span>
-      </a>
-      <a class="pl pl-sobrevuelos" href="#sobrevuelos" data-ir="#sobrevuelos" style="--x:89;--y:66;--d:7;--mx:28;--my:80;--md:16;--c:#8cff72">
-        <span class="flota"><span class="cuerpo"></span></span>
-        <span class="et"><b>Sobrevuelos</b><i>Trayectoria</i></span>
-      </a>
-      <a class="pl pl-sonda" href="#canal" data-ir="#canal" style="--x:50;--y:91;--d:9;--mx:62;--my:88;--md:20;--c:#ff5a2c">
-        <span class="flota"><svg class="sonda" viewBox="0 0 100 100" aria-hidden="true" focusable="false" fill="none" stroke="#f1ece2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <ellipse cx="46" cy="38" rx="31" ry="12" transform="rotate(-30 46 38)" fill="#2a0f0a" stroke="#ff5a2c" stroke-width="2.2"/>
-          <ellipse cx="46" cy="38" rx="21" ry="7.5" transform="rotate(-30 46 38)" stroke="#ff5a2c" stroke-opacity=".5"/>
-          <path d="M46 38 L68 20"/><circle cx="69.5" cy="18.8" r="2.4" fill="#f1ece2"/>
-          <path d="M44 44 L40 58"/><rect x="31" y="56" width="18" height="12" rx="2" fill="#0d0b2b"/><path d="M33 62h14M40 56v12" stroke-opacity=".5"/>
-          <path d="M40 68 L14 88"/><rect x="8" y="86" width="9" height="6" rx="1" fill="#0d0b2b"/>
-          <path d="M49 62 L86 76"/><circle cx="88" cy="77" r="2" fill="#5f8fe8" stroke="none"/>
-          <path d="M45 68 L52 90"/><circle cx="53" cy="92" r="1.8" fill="#ffb36b" stroke="none"/>
-        </svg></span>
-        <span class="et"><b>Abrir canal</b><i>Booking</i></span>
-      </a>
     </div>
   </div>
   <div class="pie-portal m">
     <span class="km">Voyager 1 · <b data-voyager-km>25 908 000 000</b> km</span>
-    <span class="legal">Los Voyagers, sus canciones y todo lo relacionado © 2026 · Lima, Perú</span>
     <button class="saltar-entrada" id="saltarEntrada" type="button">Saltar entrada</button>
   </div>
 </div>
-<canvas id="cielo" aria-hidden="true"></canvas>
-<!-- Fondos en video generados con la app Sinestesia, estilo Galaxia, uno por canción (ver LEEME). Antes del play, un teaser en bucle de cada una. -->
-<video id="tDecidido" class="fondo-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-<video id="tVuelvo" class="fondo-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-<video id="fondo" class="fondo-video" muted playsinline preload="none" aria-hidden="true"></video>
-<div id="oscurecer" aria-hidden="true"></div>
-<a class="saltar" href="#bitacora">Saltar al contenido</a>
-
-<header class="barra">
-  <a class="marca" href="#arriba" aria-label="Los Voyagers, inicio">Los Voyagers</a>
-  <nav class="menu m" aria-label="Secciones">
-    <a href="#bitacora">Bitácora</a><a href="#imagenes">Imágenes</a><a href="#senales">Señales</a><a href="#sobrevuelos">Sobrevuelos</a><a href="#canal">Abrir canal</a>
-  </nav>
-  <span class="m distancia" title="Distancia estimada de la Voyager 1 a la Tierra, con datos de la NASA/JPL">Voyager 1 · <b data-voyager-km>25 908 000 000</b> km</span>
-</header>
-
-<main id="arriba">
-  <!-- 1 · Receptor: el visualizer -->
-  <section class="receptor" aria-label="Visualizer">
-    <div class="pantalla">
-      <div class="antes" id="antes">
-        <h1 class="nombre" id="nombre" aria-label="Los Voyagers"><span>Los</span><span>Voyagers</span></h1>
-        <p class="bajada"><span class="col">Rock alternativo</span> desde Lima. Cada canción se ve <span class="col">como suena</span>: elige una y mírala con su letra.</p>
-        <div class="invitar" role="group" aria-label="Elige una canción">
-          <button class="carta" type="button" data-sintonizar="decidido">
-            <span class="carta-play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span>
-            <span class="carta-txt"><b>Decidido</b><span class="m">Galaxia · 4:06</span><em>«Pero ya está decidido»</em></span>
-          </button>
-          <button class="carta" type="button" data-sintonizar="vuelvo">
-            <span class="carta-play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5 3l12 7-12 7z"/></svg></span>
-            <span class="carta-txt"><b>Vuelvo</b><span class="m">Galaxia · 3:08</span><em>«Habrá una razón para amar así»</em></span>
-          </button>
-        </div>
-        <p class="aviso m">Con sonido · audífonos mejor</p>
-      </div>
-      <div class="letra" id="letra" aria-live="polite" hidden></div>
-      <p class="nota-fin m" id="notaFin" hidden>La letra termina aquí. Lo que sigue es la señal alejándose.</p>
-    </div>
-
-    <div class="consola" role="group" aria-label="Reproductor">
-      <button class="play" id="play" type="button" aria-label="Reproducir"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M5 3l12 7-12 7z"/><path class="i-pausa" d="M5 3h4v14H5zM11 3h4v14h-4z"/></svg></button>
-      <div class="pistas" role="tablist" aria-label="Canción">
-        <button role="tab" type="button" data-pista="decidido" aria-selected="true">Decidido</button>
-        <button role="tab" type="button" data-pista="vuelvo" aria-selected="false">Vuelvo</button>
-      </div>
-      <button class="btn-letra m" id="verLetra" type="button" aria-expanded="false" aria-controls="panelLetra">Letra</button>
-      <div class="linea">
-        <div class="tramos" id="tramos" role="slider" tabindex="0" aria-label="Posición en la canción" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-        <div class="datos m"><span id="tramo">verso</span><span id="tiempo">0:00 / 4:06</span><span id="ficha">136 BPM · La menor</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2 · Bitácora -->
-  <section class="sec" id="bitacora" aria-labelledby="t-bitacora">
-    <div class="caja">
-      <header class="cab"><h2 id="t-bitacora">Bitácora</h2><span class="m">Rock alternativo · Lima, Perú · desde 2023</span></header>
-      <div class="bitacora">
-        <div class="bio">
-          <p class="corta" id="bio-corta">Los Voyagers son una banda de <span class="col">rock alternativo</span> de Lima. Cuatro amigos que hacen canciones sobre irse lejos y volver. Sus singles <span class="col">«Vuelvo»</span> (2025) y <span class="col">«Decidido»</span> (2026) ya están en todas las plataformas.</p>
-          <div class="larga" id="bio-larga">
-            <p>Los Voyagers son John (voz y guitarra), Aarón (guitarra), Gustavo (bajo) y Diego (batería). Tocan juntos en Lima desde 2023 y hacen rock alternativo en español: guitarras al frente, canciones tristes que suenan fuerte.</p>
-            <p>El nombre viene de la Voyager 1, la sonda que se alejó tanto que ya no puede volver. Lo único que regresa a la Tierra es su señal. Con esa idea arman su primer EP, de cinco canciones, sobre perderse y volver.</p>
-            <p>En octubre de 2025 publican «Vuelvo», con videoclip, y en agosto de 2026 llega «Decidido». En 2026 pasaron por el Bar El Dragón de Barranco, la audición de Suena La Noche en Music Market y dos fechas en Lima en noviembre. Ahora terminan el EP y buscan escenarios para presentarlo.</p>
-          </div>
-          <div class="botones"><button class="btn" type="button" data-copiar="bio-corta">Copiar bio corta</button><button class="btn" type="button" data-copiar="bio-larga">Copiar bio larga</button><span class="m copiado" aria-live="polite"></span></div>
-        </div>
-        <div class="tele">
-          <dl>
-            <div class="ancho"><dt class="m">Voyager 1 · distancia a la Tierra</dt><dd class="m acento"><span data-voyager-km>25 908 000 000</span> km</dd></div>
-            <div><dt class="m">Su señal tarda</dt><dd class="m" data-voyager-luz>24 h 00 min</dd></div>
-            <div><dt class="m">Los Voyagers en misión</dt><dd class="m acento"><span data-mision-dias>1121</span> días</dd></div>
-          </dl>
-          <ul class="trip" aria-label="Tripulación">
-            <li><b>John</b><span class="m">voz y guitarra</span></li><li><b>Aarón</b><span class="m">guitarra</span></li>
-            <li><b>Gustavo</b><span class="m">bajo</span></li><li><b>Diego</b><span class="m">batería</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 · Imágenes recibidas: llegan línea por línea, como las fotos de la sonda -->
-  <section class="sec" id="imagenes" aria-labelledby="t-imagenes">
-    <div class="caja">
-      <header class="cab"><h2 id="t-imagenes">Imágenes recibidas</h2><a class="btn lleno" href="prensa/los-voyagers-kit-de-prensa.zip" download>Kit de prensa · .zip</a></header>
-      <div class="fotos">
-        <figure class="foto ancha"><div class="img"><img src="imagenes/vivo-dia-banda.webp" width="2048" height="1536" alt="La banda tocando en vivo de día, escenario con estructura roja" loading="lazy"></div><figcaption class="m"><span>IMG 01 · En vivo · 13.11.2026</span><a href="prensa/04-los-voyagers-en-vivo-dia.jpg" download>JPG 2048 px</a></figcaption></figure>
-        <figure class="foto"><div class="img"><img src="imagenes/kiosko.webp" width="1600" height="1600" alt="Los cuatro integrantes junto a un kiosko de periódicos en Lima" loading="lazy"></div><figcaption class="m"><span>IMG 02 · Kiosko · Lima</span><a href="prensa/01-los-voyagers-kiosko.jpg" download>JPG 1600 px</a></figcaption></figure>
-        <figure class="foto alta"><div class="img"><img src="imagenes/vivo-dia-voz.webp" width="1536" height="2048" alt="El vocalista cantando con guitarra roja" loading="lazy"></div><figcaption class="m"><span>IMG 03 · Voz</span><a href="prensa/06-los-voyagers-voz-en-vivo.jpg" download>JPG 2048 px</a></figcaption></figure>
-        <figure class="foto"><div class="img"><img src="imagenes/vereda.webp" width="1600" height="1416" alt="La banda en una vereda de Lima a la hora azul" loading="lazy"></div><figcaption class="m"><span>IMG 04 · Vereda · Lima</span><a href="prensa/02-los-voyagers-vereda.jpg" download>JPG 1600 px</a></figcaption></figure>
-        <figure class="foto ancha"><div class="img"><img src="imagenes/vivo-noche-banda.webp" width="2048" height="1536" alt="La banda en un bar de Lima con luz rosada" loading="lazy"></div><figcaption class="m"><span>IMG 05 · En vivo · 19.11.2026</span><a href="prensa/05-los-voyagers-en-vivo-noche.jpg" download>JPG 2048 px</a></figcaption></figure>
-        <figure class="foto"><div class="img"><img src="imagenes/vivo-dia-bateria.webp" width="1536" height="2048" alt="El baterista tocando en vivo de día" loading="lazy"></div><figcaption class="m"><span>IMG 06 · Batería</span><a href="fotos/vivo-dia-bateria.webp" download>WebP 2048 px</a></figcaption></figure>
-      </div>
-      <p class="m nota">Libres para prensa citando a Los Voyagers.</p>
-    </div>
-  </section>
-
-  <!-- 4 · Señales emitidas -->
-  <section class="sec" id="senales" aria-labelledby="t-senales">
-    <div class="caja">
-      <header class="cab"><h2 id="t-senales">Señales emitidas</h2><a class="m" href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener">Todo en Spotify ↗</a></header>
-      <div class="discos">
-        <article class="disco" data-pista="decidido">
-          <button class="tapa" type="button" data-sintonizar="decidido" aria-label="Escuchar Decidido en el visualizer"><img src="assets/decidido-900.webp" width="900" height="900" alt="" loading="lazy"><span class="m">Sintonizar</span></button>
-          <h3>Decidido</h3><p class="m meta">Single · 14.08.2026 · 4:06 · 136 BPM · La menor<br>ISRC QT6FG2670347</p>
-          <p class="m enlaces"><a href="https://open.spotify.com/track/1PkFrKaeXV9bHYA51lHPke" target="_blank" rel="noopener">Spotify</a><a href="https://music.apple.com/pe/album/decidido/6794141871?i=6794141872" target="_blank" rel="noopener">Apple Music</a><a href="https://www.deezer.com/album/1036594372" target="_blank" rel="noopener">Deezer</a></p>
-        </article>
-        <article class="disco" data-pista="vuelvo">
-          <button class="tapa" type="button" data-sintonizar="vuelvo" aria-label="Escuchar Vuelvo en el visualizer"><img src="assets/vuelvo-900.webp" width="900" height="900" alt="" loading="lazy"><span class="m">Sintonizar</span></button>
-          <h3>Vuelvo</h3><p class="m meta">Single + videoclip · 17.10.2025 · 3:09 · 117.5 BPM · Mi mayor<br>ISRC QT3F22599457</p>
-          <p class="m enlaces"><a href="https://open.spotify.com/track/7IpJkuCf6n0QJLOCswal4q" target="_blank" rel="noopener">Spotify</a><a href="https://music.apple.com/pe/album/vuelvo/1842425913?i=1842425914" target="_blank" rel="noopener">Apple Music</a><a href="https://www.youtube.com/watch?v=T1SDRPZFOKY" target="_blank" rel="noopener">Videoclip</a></p>
-        </article>
-        <article class="disco pronto">
-          <div class="tapa vacia"><span class="m">Señal en preparación</span></div>
-          <h3>EP · 5 canciones</h3><p class="m meta">Hola · Vuelvo · Prohibido apoyarse · Los Sueños · Decidido<br>Perderse y volver</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · Sobrevuelos -->
-  <section class="sec" id="sobrevuelos" aria-labelledby="t-sobrevuelos">
-    <div class="caja">
-      <header class="cab"><h2 id="t-sobrevuelos">Sobrevuelos</h2><span class="m">Trayectoria desde el despegue · días de viaje entre paradas</span></header>
-      <ol class="ruta" id="ruta"></ol>
-      <div class="formato">
-        <p><span class="m">En escena</span>4 integrantes: voz y guitarra, guitarra eléctrica, bajo y batería</p>
-        <p><span class="m">Rider y stage plot</span>A pedido, por correo</p>
-        <p><span class="m">Base</span>Lima · listos para viajar</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 · Abrir canal -->
-  <section class="sec canal" id="canal" aria-labelledby="t-canal">
-    <div class="caja">
-      <h2 id="t-canal">Abrir canal</h2>
-      <p class="lema">A la Voyager 1 le toma <span class="col">un día-luz</span> contestar. A nosotros, bastante menos.</p>
-      <a class="correo" href="mailto:booking@losvoyagers.pe?subject=Booking%20%C2%B7%20Los%20Voyagers">booking@losvoyagers.pe</a>
-      <nav class="redes m" aria-label="Redes de la banda">
-        <a href="https://open.spotify.com/artist/79JBzLkRFj1qpFfbIcvW3l" target="_blank" rel="noopener">Spotify ↗</a>
-        <a href="https://music.apple.com/pe/artist/los-voyagers/1799073274" target="_blank" rel="noopener">Apple Music ↗</a>
-        <a href="https://www.youtube.com/@LosVoyagers" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="https://www.instagram.com/los.voyagers/" target="_blank" rel="noopener">Instagram ↗</a>
-        <a href="https://www.tiktok.com/@losvoyagers" target="_blank" rel="noopener">TikTok ↗</a>
-        <a href="https://linktr.ee/losvoyagers" target="_blank" rel="noopener">Linktree ↗</a>
-      </nav>
-      <footer class="pie m"><span>© 2026 Los Voyagers · Lima, Perú</span><span>Fin de la transmisión</span></footer>
-    </div>
-  </section>
-</main>
-
-<aside class="panel-letra" id="panelLetra" hidden aria-label="Letra completa">
-  <header><b id="plTitulo">Decidido · letra</b><button id="cerrarLetra" type="button" aria-label="Cerrar la letra">Cerrar</button></header>
-  <ol id="plLineas"></ol>
-</aside>
-<audio id="audio" preload="none"></audio>
-<script src="assets/vendor/gsap.min.js"></script>
-<script src="assets/vendor/ScrollTrigger.min.js"></script>
-<script src="fondo.js?v=1"></script>
-<script src="vis.js?v=17"></script>
-<script src="juego.js?v=1"></script>
-<script src="portal.js?v=7"></script>
+<!-- El pasadizo: lo que hay al cruzar la entrada (pasadizo.js). El contenido de la banda vendrá en «destino». -->
+<section id="pasadizo" aria-label="Pasadizo de Los Voyagers">
+  <canvas aria-hidden="true"></canvas>
+  <button type="button" class="marca">Volver a la entrada</button>
+  <div class="guia"><p class="pista">Desliza para entrar</p><button type="button" class="avanzar">Entrar</button></div>
+  <div class="destino" id="menu">
+    <h1>¿Qué señal sigues?</h1>
+    <div class="m-opciones">
+    <button type="button" class="m-opcion" data-lado="-1" data-titulo="Música y canciones">
+      <span class="m-obj"><span class="m-anillo"></span>
+        <span class="m-carta m-tapa"><img src="assets/decidido-450.webp" alt=""></span><span class="m-carta m-tapa"><img src="assets/vuelvo-450.webp" alt=""></span>
+        <svg viewBox="0 0 300 300" class="m-disco" aria-hidden="true"><circle cx="150" cy="150" r="128" fill="#0b0912"/><circle cx="150" cy="150" r="70" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="77" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="84" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="91" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="98" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="105" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="112" fill="none" stroke="#2b2548" stroke-width="1.4"/><circle cx="150" cy="150" r="119" fill="none" stroke="#2b2548" stroke-width="1.4"/><polygon points="228.3,51.3 238.7,60.5 248.0,70.8 256.1,82.0 262.9,94.1 268.4,106.8 215.8,126.0 212.7,118.9 208.9,112.2 204.4,106.0 199.3,100.3 193.5,95.2" fill="#35c6ff" opacity="0.85"/><polygon points="268.4,106.8 270.4,112.8 272.1,118.8 273.5,125.0 274.6,131.2 275.4,137.4 233.6,141.6 233.1,137.4 232.3,133.3 231.4,129.2 230.2,125.2 228.9,121.2" fill="#ffffff" opacity="0.8"/><polygon points="75.8,251.9 65.1,243.1 55.4,233.2 46.8,222.3 39.5,210.6 33.5,198.1 85.3,176.7 88.6,183.7 92.7,190.2 97.4,196.2 102.8,201.7 108.8,206.6" fill="#ff4fc3" opacity="0.85"/><polygon points="33.5,198.1 31.4,192.7 29.6,187.2 28.0,181.6 26.7,176.0 25.6,170.3 55.3,165.4 56.1,169.8 57.1,174.1 58.3,178.3 59.7,182.5 61.3,186.6" fill="#9b4dff" opacity="0.9"/><polygon points="254.0,221.1 251.1,225.2 248.0,229.2 244.7,233.1 241.3,236.8 237.8,240.4 219.7,221.7 222.5,218.9 225.2,215.9 227.8,212.9 230.2,209.7 232.5,206.5" fill="#2442d6" opacity="0.8"/><polygon points="212.0,150.0 211.5,158.0 209.9,165.9 207.4,173.5 203.8,180.7 199.4,187.4 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#ff4fc3"/><polygon points="197.7,184.7 192.8,190.6 187.2,195.8 181.0,200.2 174.3,203.8 167.1,206.5 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#6a2bd9"/><polygon points="167.3,203.3 160.3,205.0 153.1,205.9 145.8,205.8 138.6,204.8 131.6,202.9 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#35c6ff"/><polygon points="130.8,209.0 123.4,206.0 116.4,202.1 109.9,197.3 104.1,191.7 99.1,185.4 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#2442d6"/><polygon points="102.3,184.7 98.2,178.2 95.0,171.3 92.7,164.0 91.4,156.5 91.0,148.8 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#9b4dff"/><polygon points="94.0,150.0 94.5,142.8 95.9,135.6 98.2,128.8 101.4,122.2 105.4,116.2 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#ffffff"/><polygon points="99.8,113.6 105.0,107.4 110.9,101.9 117.4,97.3 124.5,93.5 132.0,90.7 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#d63ad0"/><polygon points="131.8,93.9 139.2,92.0 146.8,91.1 154.4,91.2 162.0,92.2 169.4,94.3 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#2f7dff"/><polygon points="167.3,96.7 174.0,99.4 180.4,103.0 186.2,107.3 191.4,112.3 196.0,118.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#ff4fc3"/><polygon points="200.2,113.6 204.5,120.3 207.8,127.6 210.2,135.3 211.6,143.2 212.0,151.2 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0 150.0,150.0" fill="#1a1f7a"/><polygon points="167.0,150.0 162.0,162.0 150.0,167.0 138.0,162.0 133.0,150.0 138.0,138.0 150.0,133.0 162.0,138.0" fill="#120d22"/><polygon points="155.0,150.0 152.5,154.3 147.5,154.3 145.0,150.0 147.5,145.7 152.5,145.7" fill="#ffffff"/></svg><span class="m-anillo frente"></span></span>
+      <span class="m-nombre">MÚSICA</span><span class="m-detalle">Canciones publicadas</span>
+    </button>
+    <div class="m-guia"><p class="m-globo" aria-live="polite">¡Elige tu planeta!</p><div class="m-nave" aria-hidden="true"></div></div>
+    <button type="button" class="m-opcion" data-lado="1" data-titulo="Fotografías">
+      <span class="m-obj"><span class="m-anillo"></span>
+        <span class="m-carta m-foto"><img src="imagenes/vivo-noche-banda.webp" alt=""></span><span class="m-carta m-foto"><img src="imagenes/kiosko.webp" alt=""></span><span class="m-carta m-foto"><img src="imagenes/vereda.webp" alt=""></span>
+        <svg viewBox="0 0 300 300" class="m-camara" aria-hidden="true"><polygon points="34.0,96.0 62.0,72.0 112.0,70.0 126.0,48.0 188.0,48.0 202.0,70.0 252.0,74.0 270.0,98.0 264.0,232.0 240.0,246.0 52.0,244.0 36.0,222.0" fill="#6a2bd9"/><polygon points="34.0,96.0 62.0,72.0 112.0,70.0 96.0,104.0" fill="#35c6ff"/><polygon points="112.0,70.0 126.0,48.0 188.0,48.0 170.0,76.0" fill="#ffffff"/><polygon points="170.0,76.0 188.0,48.0 202.0,70.0" fill="#ff4fc3"/><polygon points="202.0,70.0 252.0,74.0 270.0,98.0 214.0,104.0" fill="#9b4dff"/><polygon points="34.0,96.0 96.0,104.0 62.0,168.0 36.0,160.0" fill="#2442d6"/><polygon points="36.0,160.0 62.0,168.0 52.0,244.0 36.0,222.0" fill="#1a1f7a"/><polygon points="214.0,104.0 270.0,98.0 266.0,170.0 236.0,150.0" fill="#d63ad0"/><polygon points="236.0,150.0 266.0,170.0 264.0,232.0 216.0,222.0" fill="#ff4fc3"/><polygon points="52.0,244.0 90.0,206.0 150.0,244.0" fill="#2442d6"/><polygon points="150.0,244.0 216.0,222.0 240.0,246.0" fill="#9b4dff"/><polygon points="226.0,156.0 218.5,189.0 197.4,215.4 166.9,230.1 133.1,230.1 102.6,215.4 81.5,189.0 74.0,156.0 81.5,123.0 102.6,96.6 133.1,81.9 166.9,81.9 197.4,96.6 218.5,123.0" fill="#120d22"/><polygon points="215.7,162.6 206.3,190.4 185.8,211.5 158.2,221.5 129.0,218.6 103.9,203.2 88.0,178.6 84.3,149.4 93.7,121.6 114.2,100.5 141.8,90.5 171.0,93.4 196.1,108.8 212.0,133.4" fill="#ffffff"/><polygon points="208.0,156.0 207.5,163.5 206.1,170.9 203.7,178.0 200.4,184.8 196.2,191.0 169.1,170.5 170.8,167.9 172.2,165.1 173.2,162.2 173.8,159.1 174.0,156.0" fill="#35c6ff"/><polygon points="196.9,190.1 192.1,195.9 186.6,201.0 180.5,205.3 173.9,208.9 166.8,211.5 157.0,179.0 159.9,177.9 162.6,176.4 165.1,174.6 167.4,172.5 169.4,170.1" fill="#2f7dff"/><polygon points="167.9,211.2 160.6,213.0 153.2,213.9 145.7,213.8 138.2,212.8 131.0,210.8 142.1,178.7 145.1,179.5 148.2,179.9 151.3,180.0 154.4,179.6 157.4,178.8" fill="#2442d6"/><polygon points="132.1,211.2 125.1,208.4 118.5,204.7 112.5,200.2 107.1,195.0 102.4,189.1 130.3,169.7 132.2,172.1 134.5,174.3 137.0,176.2 139.7,177.7 142.6,178.8" fill="#1a1f7a"/><polygon points="103.1,190.1 99.1,183.7 95.9,176.9 93.7,169.7 92.3,162.3 92.0,154.8 126.0,155.5 126.1,158.6 126.7,161.7 127.6,164.7 128.9,167.5 130.6,170.1" fill="#6a2bd9"/><polygon points="92.0,156.0 92.5,148.5 93.9,141.1 96.3,134.0 99.6,127.2 103.8,121.0 130.9,141.5 129.2,144.1 127.8,146.9 126.8,149.8 126.2,152.9 126.0,156.0" fill="#9b4dff"/><polygon points="103.1,121.9 107.9,116.1 113.4,111.0 119.5,106.7 126.1,103.1 133.2,100.5 143.0,133.0 140.1,134.1 137.4,135.6 134.9,137.4 132.6,139.5 130.6,141.9" fill="#d63ad0"/><polygon points="132.1,100.8 139.4,99.0 146.8,98.1 154.3,98.2 161.8,99.2 169.0,101.2 157.9,133.3 154.9,132.5 151.8,132.1 148.7,132.0 145.6,132.4 142.6,133.2" fill="#ff4fc3"/><polygon points="167.9,100.8 174.9,103.6 181.5,107.3 187.5,111.8 192.9,117.0 197.6,122.9 169.7,142.3 167.8,139.9 165.5,137.7 163.0,135.8 160.3,134.3 157.4,133.2" fill="#35c6ff"/><polygon points="196.9,121.9 200.9,128.3 204.1,135.1 206.3,142.3 207.7,149.7 208.0,157.2 174.0,156.5 173.9,153.4 173.3,150.3 172.4,147.3 171.1,144.5 169.4,141.9" fill="#2442d6"/><polygon points="180.0,156.0 174.3,173.6 159.3,184.5 140.7,184.5 125.7,173.6 120.0,156.0 125.7,138.4 140.7,127.5 159.3,127.5 174.3,138.4" fill="#120d22"/><polygon points="136.0,140.0 158.0,134.0 146.0,156.0" fill="#35c6ff"/><polygon points="172.0,170.0 169.0,175.2 163.0,175.2 160.0,170.0 163.0,164.8 169.0,164.8" fill="#ffffff"/><polygon points="52.0,86.0 88.0,84.0 86.0,102.0 52.0,104.0" fill="#ffffff"/><polygon points="52.0,104.0 86.0,102.0 88.0,84.0" fill="#35c6ff"/><polygon points="247.0,90.0 244.4,96.4 238.0,99.0 231.6,96.4 229.0,90.0 231.6,83.6 238.0,81.0 244.4,83.6" fill="#ff4fc3"/><polygon points="218.0,62.0 240.0,62.0 244.0,74.0 216.0,72.0" fill="#ffffff"/></svg><span class="m-anillo frente"></span></span>
+      <span class="m-nombre">FOTOS</span><span class="m-detalle">La banda en imágenes</span>
+    </button>
+  </div>
+  </div>
+  <div class="seccion" hidden><h2></h2><p>Aquí irá la sección</p><button type="button">Volver al menú</button></div>
+</section>
+<script src="agujero2d.js?v=1"></script>
+<script src="agujero-estilo.js?v=5"></script>
+<script src="agujero-particulas.js?v=16"></script>
+<script src="agujero.js?v=15"></script>
+<script src="assets/vendor/motion.js"></script>
+<script src="componentes.js?v=5"></script>
+<script src="cielo.js?v=2"></script>
+<script src="pasadizo-arte.js?v=3"></script>
+<script src="pasadizo.js?v=11"></script>
+<script src="transicion.js?v=2"></script>
+<script src="menu.js?v=4"></script>
+<script src="musica.js?v=3"></script>
+<script src="fotos.js?v=2"></script>
+<script src="portal.js?v=34"></script>
 </body>
 </html>

@@ -1,0 +1,53 @@
+/* Sección de Fotos (fotos.js): el mismo mundo del menú, en azules y morados */
+#fotos { position: absolute; inset: 0; z-index: 4; color: #fff; overflow: hidden;
+  background: radial-gradient(ellipse 60% 55% at 96% 25%, rgba(214, 58, 208, .4), transparent 70%), radial-gradient(ellipse 60% 55% at 4% 75%, rgba(36, 66, 214, .4), transparent 70%), radial-gradient(ellipse 50% 40% at 50% 100%, rgba(106, 43, 217, .38), transparent 70%), #120d22; }
+#fotos[hidden] { display: none; }
+#pasadizo #fotos button { position: static; margin: 0; padding: 0; background: none; border: 0; color: inherit; font: inherit; letter-spacing: normal; text-transform: none; cursor: pointer; box-shadow: none; text-shadow: none; }
+#pasadizo #fotos button:focus-visible, #fotos a:focus-visible { outline: 3px solid #35c6ff; outline-offset: 3px; }
+#fotos h2, #fotos p, #fotos figure { margin: 0; }
+#fotos a { color: #a8ecff; text-underline-offset: 4px; text-shadow: none; }
+
+.fo-scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: thin; scrollbar-color: #6a2bd9 transparent; outline: none; }
+.fo-largo { height: 700%; }
+.fo-escena { position: sticky; top: 0; height: calc(100% / 7); overflow: hidden; perspective: 1500px; }
+.fo-mundo { position: absolute; left: 50%; top: 52%; width: 0; height: 0; transform-style: preserve-3d; }
+#pasadizo #fotos .fo-carta { position: absolute; left: 0; top: 0; display: block; padding: 5px; background: #fff; backface-visibility: visible; will-change: transform; transition: background-color .25s; }
+#pasadizo #fotos .fo-carta:nth-child(3n+1):hover { background: #35c6ff; }
+#pasadizo #fotos .fo-carta:nth-child(3n+2):hover { background: #ff4fc3; }
+#pasadizo #fotos .fo-carta:nth-child(3n):hover { background: #9b4dff; }
+.fo-carta img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; border: 0; border-radius: 0; box-shadow: none; pointer-events: none; }
+
+.fo-cab { position: absolute; left: 0; right: 0; top: 0; display: grid; justify-items: center; gap: 12px; padding: 20px 16px 0; pointer-events: none; }
+.fo-cab > * { pointer-events: auto; }
+#pasadizo #fotos .fo-volver { position: absolute; left: 16px; top: 20px; padding: 11px 13px; background: #000; font: 400 11px/1 "Audiowide", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+#fotos .fo-cab h2 { font: 400 clamp(40px, 5.4vw, 76px)/1 "Bangers", sans-serif; letter-spacing: .06em; padding: 8px 26px 4px; color: #120d22; background: #fff; clip-path: polygon(3% 8%, 100% 0, 97% 92%, 0 100%); transform: none; text-shadow: none; }
+#fotos .fo-cab h2::after { content: none; }
+.fo-formas { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+#pasadizo #fotos .fo-formas button { font: 400 11px/1 "Audiowide", sans-serif; letter-spacing: .12em; text-transform: uppercase; padding: 10px 12px; border: 1.5px solid rgba(255, 255, 255, .42); background: rgba(18, 13, 34, .7); }
+#pasadizo #fotos .fo-formas button[aria-pressed="true"] { background: #fff; color: #120d22; border-color: #fff; }
+
+.fo-pie { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: center; gap: 8px; padding: 0 16px max(16px, env(safe-area-inset-bottom)); text-align: center; font-size: 11px; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; color: #b9c6ff; pointer-events: none; }
+.fo-pie a { pointer-events: auto; }
+.fo-pista { color: #fff; }
+
+.fo-detalle { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 62px 16px 20px; }
+.fo-detalle[hidden] { display: none; }
+.fo-velo { position: absolute; inset: 0; background: rgba(8, 4, 18, .93); }
+.fo-detalle figure { position: relative; display: grid; justify-items: center; gap: 14px; pointer-events: none; }
+.fo-grande { display: block; width: auto; height: auto; max-width: min(100%, calc(100vw - 150px)); max-height: calc(100vh - 170px); max-height: calc(100svh - 170px); padding: 6px; background: #fff; border: 0; border-radius: 0; box-shadow: 10px 10px 0 #6a2bd9; pointer-events: auto; touch-action: pan-y; user-select: none; }
+.fo-detalle figcaption { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 22px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #b9c6ff; pointer-events: auto; }
+.fo-texto { color: #fff; }
+#pasadizo #fotos .fo-detalle > button { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .12); font: 400 24px/1 sans-serif; }
+#pasadizo #fotos .fo-detalle > button:hover { background: #6a2bd9; }
+#pasadizo #fotos .fo-cerrar { right: 14px; top: 14px; font-size: 18px; }
+#pasadizo #fotos .fo-antes { left: 14px; top: 50%; translate: 0 -50%; }
+#pasadizo #fotos .fo-despues { right: 14px; top: 50%; translate: 0 -50%; }
+
+@media (max-aspect-ratio: 5/6) {
+  .fo-cab { padding-top: 66px; gap: 10px; }
+  .fo-formas { gap: 6px; } #pasadizo #fotos .fo-formas button { padding: 9px 9px; }
+  .fo-grande { max-width: calc(100vw - 32px); max-height: calc(100svh - 230px); }
+  #pasadizo #fotos .fo-antes { top: auto; bottom: 18px; translate: none; left: 22px; }
+  #pasadizo #fotos .fo-despues { top: auto; bottom: 18px; translate: none; right: 22px; }
+  .fo-detalle { padding-bottom: 84px; }
+}

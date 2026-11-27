@@ -27,7 +27,7 @@
     cv.width = Math.round(W * d); cv.height = Math.round(H * d); g.setTransform(d, 0, 0, d, 0, 0);
     const n = Math.round(Math.max(110, Math.min(360, W * H / 5200)));
     estrellas = Array.from({ length: n }, () => {
-      const z = .25 + Math.random() * .75, brillo = Math.random() < .14;
+      const z = .25 + Math.random() * .75, brillo = Math.random() < .025;
       return { x: Math.random() * W, y: Math.random() * H, z, r: .5 + z * 1.15, f: Math.random() * 6.28, v: .6 + Math.random() * 1.6,
         brillo, t: brillo ? 12 + z * 24 : 0, c: Math.floor(Math.random() * COLORES.length) };
     });
@@ -36,143 +36,83 @@
   addEventListener("pointermove", e => { tx = (e.clientX / W - .5) * 2; ty = (e.clientY / H - .5) * 2; }, { passive: true });
 
 
-  /* ---------- La esfera de partículas ----------
-     Una nube de puntos sobre una esfera (espiral áurea) y un anillo. Entra desde el desorden, se mece, se deja empujar por el cursor
-     (se aparta y vuelve), se aprieta al mantener pulsado y gira con inercia al lanzarla. El nombre flota dentro. */
-  const orb = { pts: [], cx: 0, cy: 0, R: 100, t0: performance.now(), ay: 0, tilt: 0, wy: 0, esc: 1, vesc: 0, escObj: 1, arrastra: false, ult: null, vel: 0 };
-  const ptr = { x: -9999, y: -9999 };
-  const PAL = [[95, 143, 232], [150, 80, 220], [214, 50, 159], [255, 90, 44], [255, 179, 107]];
-  const spritesOrb = Array.from({ length: 24 }, (_, i) => {
-    const u = i / 23 * (PAL.length - 1), a = PAL[Math.floor(u)], b = PAL[Math.min(PAL.length - 1, Math.floor(u) + 1)], f = u - Math.floor(u);
-    const c = a.map((v, k) => Math.round(v + (b[k] - v) * f)), s = document.createElement("canvas"); s.width = s.height = 32; const x = s.getContext("2d");
-    const gr = x.createRadialGradient(16, 16, 0, 16, 16, 16); gr.addColorStop(0, "rgba(255,255,255,.95)"); gr.addColorStop(.18, `rgba(${c},.95)`); gr.addColorStop(.5, `rgba(${c},.28)`); gr.addColorStop(1, `rgba(${c},0)`);
-    x.fillStyle = gr; x.fillRect(0, 0, 32, 32); return s;
-  });
-  function crearOrb() {
-    const movil = W < 700, nE = movil ? 2600 : 5600, nA = movil ? 420 : 950, oro = Math.PI * (3 - Math.sqrt(5)), pts = [];
-    const esparcir = () => { const a = Math.random() * 6.283, b = Math.acos(2 * Math.random() - 1), r = 2 + Math.random() * 3.2; return [Math.sin(b) * Math.cos(a) * r, Math.sin(b) * Math.sin(a) * r, Math.cos(b) * r]; };
-    for (let i = 0; i < nE; i++) {
-      const y = 1 - (i + .5) / nE * 2, r = Math.sqrt(1 - y * y), th = oro * i, e = esparcir(), s = .93 + Math.random() * .07;
-      pts.push({ x: Math.cos(th) * r * s, y: y * s, z: Math.sin(th) * r * s, c: Math.max(0, Math.min(23, Math.round(((1 - y) / 2 + (Math.random() - .5) * .3) * 23))), dx: e[0], dy: e[1], dz: e[2], vx: 0, vy: 0, vz: 0, re: Math.random() * 1.7, anillo: false });
-    }
-    for (let i = 0; i < nA; i++) {
-      const a = Math.random() * 6.283, rr = 1.38 + (Math.random() - .5) * .2, e = esparcir();
-      pts.push({ x: Math.cos(a) * rr, y: (Math.random() - .5) * .05, z: Math.sin(a) * rr, c: 15 + Math.floor(Math.random() * 9), dx: e[0], dy: e[1], dz: e[2], vx: 0, vy: 0, vz: 0, re: 1 + Math.random() * 1.4, anillo: true });
-    }
-    orb.pts = pts; orb.nombre = movil;
-  }
-  function medirOrb() {
+  /* ---------- El agujero negro ----------
+     Es el centro del sistema (agujero.js): la luz de su disco orbita en 3D y los planetas giran a su alrededor. */
+  const centro = { x: 0, y: 0 };                          // en pantalla; ahí queda la sombra del agujero
+  const CENTRO_ALTO = .57;                                // altura del centro dentro del escenario: arriba va el nombre
+  const cajaAgujero = $(".agujero", portal);
+  let agujero = null;
+  function medirCentro() {
     const st = $("#stage"), lg = $(".logo", portal); if (!st || !lg) return;
-    const a = st.getBoundingClientRect(), l = lg.getBoundingClientRect();
-    orb.cx = l.left + l.width / 2; orb.cy = l.top + l.height / 2; orb.R = a.width * (a.height > a.width ? .33 : .2); orb.lg = l;
+    const a = st.getBoundingClientRect();
+    if (!a.width) return;
+    centro.x = a.left + a.width / 2; centro.y = a.top + a.height * CENTRO_ALTO; centro.lg = lg.getBoundingClientRect();
   }
-  addEventListener("resize", () => { medirOrb(); if (orb.nombre !== (W < 700)) crearOrb(); });
-  addEventListener("pointermove", e => { ptr.x = e.clientX; ptr.y = e.clientY; }, { passive: true });
-  portal.addEventListener("pointerdown", e => {
-    if (e.target.closest(".pl, .saltar-entrada") || ocupado) return;
-    { orb.arrastra = true; orb.ult = [e.clientX, e.clientY, performance.now()]; orb.escObj = .84; orb.vel = 0; if (portal.setPointerCapture) portal.setPointerCapture(e.pointerId); }
-  });
-  const suelta = () => { if (!orb.arrastra) return; orb.arrastra = false; orb.escObj = 1; orb.vesc += 1.6; orb.wy = Math.max(-10, Math.min(10, orb.vel)); sp.vy = orb.wy; };
-  portal.addEventListener("pointerup", suelta); portal.addEventListener("pointercancel", suelta);
-  portal.addEventListener("pointermove", e => {
-    if (!orb.arrastra) return;
-    const ahora = performance.now(), dt = Math.max(.008, (ahora - orb.ult[2]) / 1000), dx = e.clientX - orb.ult[0], dy = e.clientY - orb.ult[1];
-    orb.ay += dx / orb.R * 1.5; sp.ry += dx / orb.R * 1.5; orb.tilt = Math.max(-.7, Math.min(.7, orb.tilt + dy / orb.R * .9)); orb.vel = orb.vel * .6 + (dx / orb.R * 1.5 / dt) * .4;
-    orb.ult = [e.clientX, e.clientY, ahora];
-  });
-  function dibujarOrb(dt, seg, explota) {
-    const pts = orb.pts, R = orb.R, t = (performance.now() - orb.t0) / 1000;
-    if (!pts.length) return;
-    if (!quieto) {
-      orb.ay += (.22 + orb.wy) * dt; orb.wy *= Math.exp(-1.5 * dt); orb.tilt *= Math.exp(-1.2 * dt);
-      if (!orb.arrastra) { const cerca = Math.hypot(ptr.x - orb.cx, ptr.y - orb.cy) < R * 1.1; orb.escObj = cerca ? 1.05 : 1; }
-      orb.vesc += (orb.escObj - orb.esc) * 70 * dt; orb.vesc *= Math.exp(-6.5 * dt); orb.esc += orb.vesc * dt;
-    }
-    const ax = .36 + orb.tilt + (quieto ? 0 : Math.sin(t * .5) * .1), cx = Math.cos(ax), sx = Math.sin(ax), esc = orb.esc;
-    const mx = (ptr.x - orb.cx) / R, my = (ptr.y - orb.cy) / R, rad = .3, base = W < 700 ? 2.1 : 2.7, ex = explota || 0, mult = 1 + ex * ex * 9;
-    const cs = Math.cos(orb.ay), sn = Math.sin(orb.ay), cr = Math.cos(orb.ay * 1.7), sr = Math.sin(orb.ay * 1.7);
-    g.globalCompositeOperation = "lighter";
-    const damp = Math.exp(-3.6 * dt), cargar = 42 * dt;
-    for (let i = 0; i < pts.length; i++) {
-      const q = pts[i]; if (t < q.re) continue;
-      const ca = q.anillo ? cr : cs, sa = q.anillo ? sr : sn;   // el anillo gira más rápido
-      const x1 = q.x * ca + q.z * sa, z1 = -q.x * sa + q.z * ca, y2 = q.y * cx - z1 * sx, z2 = q.y * sx + z1 * cx;
-      if (!quieto) {
-        q.vx -= q.dx * cargar; q.vy -= q.dy * cargar; q.vz -= q.dz * cargar;
-        const vx = x1 * esc + q.dx - mx, vy = y2 * esc + q.dy - my, d2 = vx * vx + vy * vy;
-        if (d2 < rad * rad && d2 > 1e-5) { const d = Math.sqrt(d2), f = (1 - d / rad) * 1.0; q.vx += vx / d * f; q.vy += vy / d * f; q.vz += f * .3; }
-        q.vx *= damp; q.vy *= damp; q.vz *= damp; q.dx += q.vx * dt * 36; q.dy += q.vy * dt * 36; q.dz += q.vz * dt * 36;
-        // la nube se deforma pero no se va: el empuje del cursor tiene tope (la entrada inicial, más lejana, no lo tiene)
-        if (t > q.re + 2.6) { const m = Math.hypot(q.dx, q.dy, q.dz); if (m > .22) { const k = .22 / m; q.dx *= k; q.dy *= k; q.dz *= k; } }
-      } else { q.dx = q.dy = q.dz = 0; }
-      const X = x1 * esc + q.dx, Y = y2 * esc + q.dy, Z = z2 * esc + q.dz, pe = 1 / (1 - Z * .16);
-      const ap = Math.min(1, (t - q.re) / .5), prof = Math.max(0, Math.min(1, (Z + 1.6) / 3.2));
-      const a = (.25 + .75 * prof) * ap * (quieto ? 1 : .85 + .15 * Math.sin(seg * 2 + i)) * (1 - Math.min(1, ex * 1.1));
-      if (a <= .01) continue;
-      const sz = base * pe * (.7 + .5 * prof) * 4.2 * (q.anillo ? .8 : 1);
-      g.globalAlpha = a * (q.anillo ? .8 : 1);
-      g.drawImage(spritesOrb[q.c], orb.cx + X * R * pe * mult - sz / 2, orb.cy + Y * R * pe * mult - sz / 2, sz, sz);
-    }
-    g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+  function encuadre(w, h) {
+    medirCentro();
+    const disco = w < h ? w * .96 : Math.min(w * .64, h * 1.12);    // ancho del disco en pantalla: lejos, con espacio alrededor
+    const escala = 1070 / disco;
+    centro.escala = escala;                                // píxeles de la figura por píxel de pantalla
+    return { escala, ox: 604 - (centro.x || w / 2) * escala, oy: 360 - (centro.y || h * .54) * escala };
   }
-  crearOrb();
+  let cielo = null;
+  function encender() {
+    const caja = $(".cielo-v", portal); if (!cielo && caja && window.Cielo) { cielo = Cielo.crear(caja); portal.classList.toggle("ligera", cielo.ligero); }
+    if (!agujero && cajaAgujero && window.Agujero) agujero = Agujero.crear(cajaAgujero, { sinCielo: !!cielo, encuadre, mundo: new URLSearchParams(location.search).get("mundo") || "particulas", superficie: portal, energia: () => window.Componentes ? Componentes.energia() : 0 }); }
+  const reencuadrar = () => { medirCentro(); if (agujero) agujero.medir(); };
+  addEventListener("resize", reencuadrar);
 
 
-  /* ---------- Los planetas, como una galería esférica alrededor de la esfera ----------
-     Siete planetas repartidos sobre una esfera que rodea al Saturno de partículas: giran solos, se arrastran con inercia, los de atrás se
-     alejan y se apagan, y al enfocar uno con el teclado la esfera lo trae al frente. */
-  const sp = { ry: Math.random() * 6, rx: .42, vy: 0, k: quieto ? 1 : 0, lock: false, quieta: false, foco: false };
-  const dirs = planetas.map((_, i) => { const n = planetas.length, u = (1 - (i + .5) / n * 2) * .66, r = Math.sqrt(1 - u * u), th = i * Math.PI * (3 - Math.sqrt(5)); return { x: Math.cos(th) * r, y: -u, z: Math.sin(th) * r }; });
+  /* ---------- La sonda, por delante del aro ----------
+     Recorre solo la mitad delantera del anillo, de un lado al otro y de vuelta, girando sobre sí misma. Nunca pasa por detrás. */
+  const sp = { k: quieto ? 1 : 0, lock: false, quieta: false, t: 0 };
   const stageEl = $("#stage");
-  function planetasEsfera(dt) {
-    if (sp.lock || !stageEl) return;
-    const st = stageEl.getBoundingClientRect(), cx = orb.cx - st.left, cy = orb.cy - st.top, vertical = st.height > st.width;
-    const Rs = vertical ? Math.min(st.width * .36, st.height * .3) : Math.min(st.width * .4, st.height * .46), s0 = vertical ? .86 : 1.1, k = sp.k, vv = vertical ? 1.5 : 1, L = orb.lg;
-    if (!quieto && !orb.arrastra && !sp.foco) { sp.ry += (sp.vy + (sp.quieta ? .02 : .13)) * dt; sp.vy *= Math.exp(-2 * dt); }
-    const cr = Math.cos(sp.ry), sr = Math.sin(sp.ry), cxx = Math.cos(sp.rx), sx = Math.sin(sp.rx);
-    planetas.forEach((el, i) => {
-      const d = dirs[i], x1 = d.x * cr + d.z * sr, z1 = -d.x * sr + d.z * cr, y2 = d.y * cxx - z1 * sx, z2 = d.y * sx + z1 * cxx;
-      const pe = 1 / (1 - z2 * .22), w = el.offsetWidth, h = el.offsetHeight, esc = s0 * pe * (.82 + .18 * z2) * (.3 + .7 * k);
-      const ey = y2 * Rs * pe * k * vv;
-      el.style.left = (cx + x1 * Rs * pe * k - w / 2).toFixed(1) + "px"; el.style.top = (cy + ey - h / 2).toFixed(1) + "px";
-      el.style.scale = esc.toFixed(3); el.style.setProperty("--s", esc.toFixed(3));
-      const f = Math.max(0, Math.min(1, (z2 + 1) / 2));
-      el.style.opacity = ((.3 + .7 * Math.pow(f, .7)) * Math.min(1, k * 1.6)).toFixed(3);
-      el.style.zIndex = 10 + Math.round(z2 * 10); el.style.pointerEvents = z2 > -.15 ? "auto" : "none";
-      let ef = Math.max(0, Math.min(1, (z2 - .1) * 2.5));
-      if (vertical && L) {   // en el celular el nombre ocupa el centro: si la etiqueta cae encima, se apaga hasta que el planeta pase de largo
-        const mx = st.left + cx + x1 * Rs * pe * k, top = st.top + cy + ey + w * esc / 2;
-        if (mx + 58 > L.left - 6 && mx - 58 < L.right + 6 && top + 36 > L.top - 6 && top < L.bottom + 6) ef = 0;
-      }
-      el.style.setProperty("--ef", ef.toFixed(2));
-    });
+  const ORBITA = 455;                                      // radio de su recorrido, en píxeles de la figura (el aro llega a ~570)
+  function deriva(dt) {
+    const el = planetas[0];
+    if (sp.lock || !stageEl || !el || !centro.escala) return;
+    const st = stageEl.getBoundingClientRect(), vertical = st.height > st.width;
+    if (!quieto && !sp.quieta) sp.t += dt;
+    const k = sp.k, t = sp.t;
+    // ángulo sobre el disco: π/2 es el punto más cercano; oscila sin llegar nunca a las puntas ni detrás
+    const a = Math.PI / 2 + Math.sin(t * .13 + .75) * (vertical ? .78 : 1.12), z = Math.sin(a);
+    const lejos = 1 + (1 - k) * 1.6;                       // al entrar llega desde fuera
+    const px = Math.cos(a) * ORBITA * lejos, py = (z * ORBITA * .2 + (vertical ? 170 : 22) + Math.sin(t * .31 + 1) * 14) * lejos;
+    const ci = Math.cos(.22), si = Math.sin(.22);          // la misma inclinación que el disco
+    // del centro del disco (625, 345) al punto que la página usa como centro (604, 360)
+    const x = (625 - 604 + px * ci - py * si) / centro.escala, y = (345 - 360 + px * si + py * ci) / centro.escala;
+    const w = el.offsetWidth, h = el.offsetHeight, esc = (.62 + .36 * z) * (.4 + .6 * k);
+    const cx = Math.max(w * esc * .42, Math.min(innerWidth - w * esc * .42, centro.x + x));
+    el.style.left = (cx - st.left - w / 2).toFixed(1) + "px"; el.style.top = (centro.y - st.top + y - h / 2).toFixed(1) + "px";
+    el.style.scale = esc.toFixed(3);
+    el.style.setProperty("--giro", (Math.sin(t * .17) * 20 + Math.sin(t * .061) * 26).toFixed(1) + "deg");
+    el.style.opacity = Math.min(1, k * 1.5).toFixed(3); el.style.zIndex = 20;
   }
-  planetas.forEach((el, i) => {
-    el.addEventListener("pointerenter", () => { sp.quieta = true; }); el.addEventListener("pointerleave", () => { sp.quieta = false; });
-    el.addEventListener("focus", () => {
-      if (!window.gsap || quieto) return;
-      const a = Math.atan2(dirs[i].x, dirs[i].z), meta = -a, dl = ((meta - sp.ry) % (2 * Math.PI) + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
-      sp.foco = true; gsap.to(sp, { ry: sp.ry + dl, duration: .9, ease: "power3.out", onComplete: () => { sp.foco = false; } });
-    });
+  planetas.forEach(el => {
+    const para = () => { sp.quieta = true; }, sigue = () => { sp.quieta = false; };
+    if (!window.Componentes) { el.addEventListener("pointerenter", para); el.addEventListener("pointerleave", sigue); }
+    el.addEventListener("focus", () => { para(); }); el.addEventListener("blur", sigue);
   });
 
-  let ultimo = 0;
+  let ultimo = 0, limpio = false;
   function cuadro(ahora) {
     if (!abierto) return;
     const dt = Math.min(.05, (ahora - ultimo) / 1000 || .016); ultimo = ahora;
     px += (tx - px) * .06; py += (ty - py) * .06;
-    g.clearRect(0, 0, W, H);
+    // Con el agujero encima, las estrellas de reposo no se ven: no vale la pena repintar el lienzo en cada cuadro
+    const tapado = estado.modo === "reposo" && agujero && agujero.opaco;
+    if (!tapado || !limpio) g.clearRect(0, 0, W, H);
+    limpio = tapado; cv.style.visibility = tapado ? "hidden" : "";
     const seg = ahora / 1000;
     if (estado.modo === "reposo") {
-      for (const e of estrellas) {
-        if (!quieto) { e.y -= e.z * 5 * dt; if (e.y < -20) { e.y = H + 20; e.x = Math.random() * W; } }
+      if (!agujero || !agujero.opaco) for (const e of estrellas) {
+        if (!quieto) { e.y -= e.z * 2.2 * dt; if (e.y < -20) { e.y = H + 20; e.x = Math.random() * W; } }
         const x = e.x - px * e.z * 16, y = e.y - py * e.z * 16;
-        const a = quieto ? .85 : .55 + .45 * Math.sin(seg * e.v + e.f);
+        const a = quieto ? .6 : .36 + .34 * Math.sin(seg * e.v * .6 + e.f);
         if (e.brillo) { g.globalAlpha = a * (.5 + e.z * .5); g.drawImage(sprites[e.c], x - e.t / 2, y - e.t / 2, e.t, e.t); }
         else { g.globalAlpha = a * (.3 + e.z * .7); g.fillStyle = "#f4f0ff"; g.beginPath(); g.arc(x, y, e.r, 0, 6.283); g.fill(); }
       }
-      dibujarOrb(dt, seg, 0);
-      planetasEsfera(dt);
+      deriva(dt);
     } else {
       // Salto: cada estrella se aleja del planeta elegido en línea recta y deja una estela
       const p = estado.p, k1 = Math.exp(p * Math.log(KMAX)), k0 = Math.exp(Math.max(0, p - .09) * Math.log(KMAX));
@@ -186,24 +126,41 @@
       };
       for (const e of estrellas) pinta(e, 1);
       for (const e of tunel) pinta(e, .9);
-      dibujarOrb(dt, seg, p);
+      if (cajaAgujero) { cajaAgujero.style.opacity = Math.max(0, 1 - p * 1.25); cajaAgujero.style.transform = "scale(" + (1 + p * p * .9).toFixed(3) + ")"; }
     }
     g.globalAlpha = 1;
     requestAnimationFrame(cuadro);
   }
-  function arrancar() { abierto = true; ultimo = performance.now(); requestAnimationFrame(cuadro); }
-  medirOrb(); if (document.fonts) document.fonts.ready.then(medirOrb);
-  planetasEsfera(0);
+  function arrancar() { abierto = true; encender(); ultimo = performance.now(); requestAnimationFrame(cuadro); }
+  medirCentro(); if (document.fonts) document.fonts.ready.then(reencuadrar);
+  deriva(0);
   if (abierto) arrancar();
 
   /* ---------- Entrar y volver ---------- */
   const inerte = v => resto.forEach(s => $$(s).forEach(el => { try { el.inert = v; } catch { } }));
   if (abierto) inerte(true);
 
+  // Las piezas animadas (componentes.js, hechas con Motion)
+  const C = window.Componentes, boton = planetas[0];
+  const nombre = C && C.titulo($(".logo", portal)), nave = C && boton && C.sonda(boton);
+  // mientras se muestra la viñeta, la sonda se detiene (va antes que el click que entra)
+  const globo = nave && C.vineta(boton, portal, nave, si => { sp.quieta = si; });
+  function presentar() {
+    if (!C) { sp.k = 1; return; }
+    nombre.entrar(); nave.entrar(sp); C.agujero(agujero); if (cielo) cielo.entrar();
+    if (!C.quieto) C.animar($(".pie-portal", portal), { opacity: [0, 1] }, { duration: 1, delay: 1.8 });
+  }
+  let enCurso = [];
+
   function limpiar() {
-    if (window.gsap) gsap.set([...planetas, ...$$(".logo, .indicio, .pie-portal, .et", portal)], { clearProps: "transform,opacity,scale,x,y,zIndex,visibility,filter" });
+    enCurso.forEach(a => a.stop()); enCurso = [];
+    $$(".logo, .pie-portal, .et", portal).forEach(el => { el.style.opacity = ""; });
+    if (C && boton) C.reponer(boton);
+    if (globo) globo.esconder();
+    if (cielo) cielo.reponer();
     portal.classList.remove("entrando"); estado.modo = "reposo"; estado.p = 0; tunel = [];
-    $(".bloom", portal).style.opacity = 0;
+    const bloom = $(".bloom", portal); bloom.style.opacity = 0; bloom.style.transform = "";
+    if (cajaAgujero) cajaAgujero.style.opacity = cajaAgujero.style.transform = "";
   }
   function cerrar() {
     abierto = false; ocupado = false; portal.hidden = true; limpiar(); inerte(false);
@@ -214,45 +171,28 @@
     if (destino) { const el = $(destino); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: "instant" }); }
     else scrollTo({ top: 0, behavior: "instant" });
     if (window.vgIntro) window.vgIntro();
-    if (window.gsap && !quieto && !destino) gsap.from(".receptor .pantalla", { scale: 1.1, opacity: 0, filter: "blur(14px)", duration: 1.6, ease: "expo.out", clearProps: "transform,opacity,filter" });
+    if (window.Pasadizo) window.Pasadizo.entrar();
+    const pantalla = $(".receptor .pantalla");
+    if (C && !C.quieto && !destino && pantalla)
+      C.animar(pantalla, { scale: [1.1, 1], opacity: [0, 1], filter: ["blur(14px)", "blur(0px)"] }, { duration: 1.6, ease: [.16, 1, .3, 1] })
+        .then(() => { pantalla.style.transform = pantalla.style.opacity = pantalla.style.filter = ""; });
   }
 
+  // Al tocar la sonda: cae en espiral al agujero, bajan las cortinas de color y el iris abre la página
   function zambullir(el) {
     if (ocupado) return; ocupado = true; sp.lock = true;
     const destino = el.dataset.ir || "";
-    const cuerpo = $(".cuerpo, .sonda", el), r = cuerpo.getBoundingClientRect();
-    const ox = r.left + r.width / 2, oy = r.top + r.height / 2, color = getComputedStyle(el).getPropertyValue("--c").trim() || "#ff5a2c";
     portal.classList.add("entrando");
-    if (quieto || !window.gsap) { gsap_sin(destino); return; }
-
-    estado.ox = ox; estado.oy = oy; estado.p = 0; estado.modo = "salto";
-    const diag = Math.hypot(W, H);
-    tunel = Array.from({ length: 170 }, () => {
-      const a = Math.random() * 6.283, rr = (.012 + Math.random() * .1) * diag / 3;
-      return { x: ox + Math.cos(a) * rr, y: oy + Math.sin(a) * rr, z: .4 + Math.random() * .6, r: .5 + Math.random() };
-    });
-    const lejos = Math.hypot(Math.max(ox, W - ox), Math.max(oy, H - oy));
-    const escala = Math.min(lejos / (r.width / 2) * 1.1, 4.2); // no se agranda más: así la foto no se pixela ni se cortan las caras
-    const bloom = $(".bloom", portal); bloom.style.setProperty("--c", color); bloom.style.left = ox + "px"; bloom.style.top = oy + "px";
-    el.style.zIndex = 5;
-
-    const tl = gsap.timeline({ onComplete: cerrar });
-    tl.to($(".et", el), { opacity: 0, duration: .2 }, 0);
-    tl.to($$(".logo, .indicio, .pie-portal", portal), { opacity: 0, duration: .5, ease: "power1.in" }, 0);
-    tl.to($$(".logo", portal), { scale: 1.5, duration: 1, ease: "power2.in" }, 0);
-    planetas.filter(o => o !== el).forEach(o => {
-      const q = o.getBoundingClientRect(), dx = q.left + q.width / 2 - W / 2, dy = q.top + q.height / 2 - H / 2;
-      tl.to(o, { x: dx * 1.7, y: dy * 1.7, scale: 2.6, opacity: 0, duration: 1.15, ease: "power2.in" }, .02);
-    });
-    tl.to(el, { scale: escala, duration: 1.3, ease: "power3.in" }, .1);
-    tl.to($$(".cuerpo, .sonda, .aro", el), { opacity: 0, duration: .45, ease: "power1.in" }, .9);
-    tl.to(estado, { p: 1, duration: 1.35, ease: "power2.in" }, 0);
-    tl.fromTo(bloom, { opacity: 0, scale: .1 }, { opacity: 1, scale: 1, duration: .55, ease: "power2.in" }, .85);
-    tl.call(() => revelar(destino), null, 1.3);
-    tl.to(portal, { opacity: 0, duration: .9, ease: "power1.out" }, 1.32);
+    if (quieto || !C || !window.Transicion) { sinMovimiento(destino); return; }
+    const st = stageEl.getBoundingClientRect(), r = el.getBoundingClientRect();
+    const luego = (valor, hasta, ajustes) => { const a = C.animar(valor, hasta, ajustes); enCurso.push(a); return a; };
+    luego($$(".et, .logo, .pie-portal", portal), { opacity: 0 }, { duration: .45 });
+    if (globo) globo.viajar(0);
+    enCurso.push(C.caida(el, { x: r.left + r.width / 2 - st.left, y: r.top + r.height / 2 - st.top }, { x: centro.x - st.left, y: centro.y - st.top }, globo ? globo.viajar : null));
+    window.Transicion.pasar(() => { revelar(destino); cerrar(); }, { demora: 1.05 });
   }
   // Sin movimiento: un fundido corto
-  function gsap_sin(destino) {
+  function sinMovimiento(destino) {
     portal.style.transition = "opacity .45s"; portal.style.opacity = 0;
     revelar(destino);
     setTimeout(() => { portal.style.transition = ""; portal.style.opacity = ""; cerrar(); }, 480);
@@ -261,29 +201,26 @@
   planetas.forEach(el => el.addEventListener("click", e => { if (el.dataset.ir) e.preventDefault(); zambullir(el); }));
   $("#saltarEntrada").addEventListener("click", () => {
     if (ocupado) return; ocupado = true;
-    if (quieto || !window.gsap) { gsap_sin(""); return; }
-    gsap.to(portal, { opacity: 0, duration: .6, ease: "power1.out", onStart: () => revelar(""), onComplete: cerrar });
+    if (quieto || !C || !window.Transicion) { sinMovimiento(""); return; }
+    window.Transicion.pasar(() => { revelar(""); cerrar(); });
   });
   addEventListener("keydown", e => { if (e.key === "Escape" && abierto && !ocupado) $("#saltarEntrada").click(); });
 
-  // Entrada de la propia entrada: los planetas llegan uno por uno
-  if (abierto && window.gsap && !quieto) {
-    gsap.to(sp, { k: 1, duration: 2.6, ease: "expo.out", delay: .25 });
-    gsap.from(".logo .l2 i", { yPercent: 110, duration: 1.3, ease: "expo.out", delay: .1 });
-    gsap.from([".logo .l1", ".logo .l3", ".indicio", ".pie-portal"], { opacity: 0, y: 14, duration: 1.1, ease: "power2.out", stagger: .1, delay: .5 });
-  }
+  // La entrada de la propia entrada
+  if (abierto) presentar();
 
   // Volver al sistema: el nombre de la barra reabre la entrada (la música sigue sonando)
-  $(".marca").addEventListener("click", e => {
-    e.preventDefault();
-    if (abierto) return;
+  const volver = $(".marca");
+  function regresar() {
     scrollTo({ top: 0, behavior: "instant" }); root.classList.add("en-portal"); inerte(true);
     portal.hidden = false; portal.style.opacity = 1; ocupado = false; estado.modo = "reposo";
-    sp.lock = false; if (quieto || !window.gsap) sp.k = 1;
-    arrancar();
-    if (window.gsap && !quieto) {
-      gsap.from(portal, { opacity: 0, duration: .7, ease: "power1.out" });
-      sp.k = 0; gsap.to(sp, { k: 1, duration: 2, ease: "expo.out" });
-    }
+    sp.lock = false;
+    arrancar(); reencuadrar(); presentar();
+  }
+  if (volver) volver.addEventListener("click", e => {
+    e.preventDefault();
+    if (abierto) return;
+    if (window.Transicion && !quieto) window.Transicion.pasar(() => { if (window.Pasadizo) window.Pasadizo.salir(); regresar(); });
+    else regresar();
   });
 })();

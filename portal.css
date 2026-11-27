@@ -1,73 +1,61 @@
 /* Entrada · «Sistema Voyager»
    Homenaje al home de Space Jam (1996): un cielo de estrellas con destellos, un logo al centro y cada sección como un planeta.
-   Aquí los planetas son las canciones y las secciones del EPK. Al tocar uno la cámara se lanza hacia él y se entra al visualizer. */
+   Hoy es un agujero negro y una sola sonda a la deriva: al tocarla la cámara se lanza hacia ella y se entra al visualizer. */
 html.en-portal, html.en-portal body { overflow: hidden; height: 100%; }
 html.sin-portal #portal { display: none; }
 
-.portal { touch-action: none; position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; overflow: hidden;
-  background: radial-gradient(ellipse 70% 60% at 50% 46%, #0d0b2b 0%, #06041a 46%, #020001 100%); color: var(--papel); font-family: var(--display); }
+.portal { touch-action: none; user-select: none; -webkit-user-select: none; position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; justify-items: center; overflow: hidden;
+  background: radial-gradient(ellipse 60% 48% at 50% 55%, #07070f 0%, #030308 50%, #000 100%); color: var(--papel); font-family: var(--display); }
 .portal[hidden] { display: none; }
 #estrellas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.portal > *:not(#estrellas):not(.bloom) { position: relative; z-index: 2; }
+.portal > *:not(#estrellas):not(.bloom):not(.agujero):not(.cielo-v):not(.vineta) { position: relative; z-index: 2; }
+/* El agujero negro, centro del sistema: sobre las estrellas y detrás de los planetas */
+.agujero { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.agujero canvas { opacity: 1; }
+/* La oscuridad se cierra desde los bordes */
+.portal::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse 74% 66% at 50% 55%, transparent 40%, rgba(0, 0, 0, .22) 74%, rgba(0, 0, 0, .6) 100%); }
 
 .indicio { margin-top: max(16px, env(safe-area-inset-top)); padding: 0 var(--gut); text-align: center; color: var(--sub); letter-spacing: .14em; text-transform: uppercase; font-size: 11px; line-height: 1.5; }
 .indicio b { color: var(--senal); font-weight: 500; }
 
 /* Escenario: un cuadro que escala con el ancho para que los planetas conserven su lugar */
 .escena { align-self: center; width: 100%; display: grid; place-items: center; min-height: 0; }
-.stage { position: relative; container-type: inline-size; width: min(96vw, calc((100svh - 150px) * 1.28)); aspect-ratio: 1.28 / 1; }
+.stage { position: relative; container-type: inline-size; width: min(96vw, calc((100svh - 90px) * 1.28)); aspect-ratio: 1.28 / 1; }
 
-/* Órbitas detrás del logo, como el remolino de Space Jam */
-.orbitas { position: absolute; left: 50%; top: 46%; width: 78%; transform: translate(-50%, -50%); overflow: visible; pointer-events: none; opacity: .9; }
-.orbitas g { transform-box: view-box; transform-origin: 50% 50%; }
-.orbitas .o1 { animation: gira 46s linear infinite; } .orbitas .o2 { animation: gira 62s linear infinite reverse; } .orbitas .o3 { animation: gira 80s linear infinite; }
-.orbitas ellipse { fill: none; stroke-width: 1.1; vector-effect: non-scaling-stroke; }
-@keyframes gira { to { transform: rotate(360deg); } }
-
-.logo { z-index: 30; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 46cqw; text-align: center; pointer-events: none; margin: 0; }
+.logo { z-index: 30; position: absolute; left: 50%; top: 11%; transform: translate(-50%, -50%); width: 46cqw; text-align: center; pointer-events: none; margin: 0; }
 .logo span { display: block; font-family: "Audiowide", var(--titulo); text-transform: uppercase; line-height: .8; }
-.logo .l1 { text-shadow: 0 0 10px #020001; font-size: 2.5cqw; font-weight: 400; letter-spacing: .9em; margin-right: -.9em; transform: skewX(-8deg); color: var(--papel); }
-.logo .l2 { font-size: 7.4cqw; font-weight: 400; letter-spacing: .015em; margin-top: 1cqw; padding: .6cqw 0 .8cqw; color: var(--senal); transform: skewX(-8deg);
-  text-shadow: .35cqw .35cqw 0 #b4279d, .7cqw .7cqw 0 #3765af, 1.05cqw 1.05cqw 0 #0d0b2b, 0 0 3cqw rgba(255, 90, 44, .4); }
+.logo .l1 { text-shadow: 0 0 10px #000; font-size: 2.1cqw; font-weight: 400; letter-spacing: 1.5em; margin-right: -1.5em; color: #8f8a96; }
+.logo .l2 { font-size: 6.4cqw; font-weight: 400; letter-spacing: .12em; margin-right: -.12em; margin-top: 1.2cqw; padding: .6cqw 0 .8cqw; color: #d9d3c9;
+  text-shadow: 0 0 1.2cqw rgba(217, 211, 201, .28), 0 0 4cqw rgba(160, 52, 30, .55); animation: interferencia 11s steps(1, end) infinite; }
 .logo .l2 i { display: inline-block; font-style: normal; }
-.logo .l3 { margin-top: 1.2cqw; font-family: var(--toon, 'Audiowide'); font-style: normal; text-transform: uppercase; font-weight: 400; font-size: 1.15cqw; letter-spacing: .14em; text-shadow: 0 0 12px #020001, 0 0 3px #020001; letter-spacing: .01em; color: #e8e1ee; line-height: 1.2; }
+@keyframes interferencia { 0%, 100% { opacity: 1; transform: none; } 71% { opacity: .35; transform: translateX(-.25cqw); } 72% { opacity: 1; transform: translateX(.2cqw); } 73% { opacity: .6; transform: none; } 74% { opacity: 1; } }
+.logo .l3 { margin-top: 1.2cqw; font-family: var(--toon, 'Audiowide'); font-style: normal; text-transform: uppercase; font-weight: 400; font-size: 1.15cqw; letter-spacing: .14em; text-shadow: 0 0 12px #020001, 0 0 3px #020001; letter-spacing: .22em; color: #77737f; line-height: 1.2; }
 
 /* Planetas */
 .pl { position: absolute; appearance: none; background: none; border: 0; padding: 0; margin: 0; color: inherit; font: inherit; cursor: pointer; text-align: center;
   width: calc(var(--d) * 1cqw); height: calc(var(--d) * 1cqw); left: calc(var(--x) * 1% - var(--d) * .5cqw); top: calc(var(--y) * 1% - var(--d) * .5cqw); -webkit-tap-highlight-color: transparent; }
 .pl:focus-visible { outline: none; }
-.pl:focus-visible .cuerpo, .pl:focus-visible .sonda { outline: 2px solid var(--senal); outline-offset: .8cqw; }
+.pl:focus-visible .sonda { outline: 2px solid var(--senal); outline-offset: .8cqw; }
+/* Corta con todo lo demás: tinta plana, blanco y negro, contorno grueso de viñeta */
+.pl-sonda .sonda { rotate: var(--giro, 0deg); filter: drop-shadow(2.5px 0 0 #000) drop-shadow(-2.5px 0 0 #000) drop-shadow(0 2.5px 0 #000) drop-shadow(0 -2.5px 0 #000) drop-shadow(6px 7px 0 rgba(0, 0, 0, .75)); }
+.pl-sonda::before, .pl-sonda::after { content: ""; position: absolute; left: 50%; top: 42%; width: 100%; aspect-ratio: 1; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 2px #000; translate: -50% -50%; scale: .3; opacity: 0; pointer-events: none; animation: senal 5.4s ease-out infinite; }
+.pl-sonda::after { animation-delay: 2.7s; }
+@keyframes senal { 0% { scale: .3; opacity: .7; } 80%, 100% { scale: 2.3; opacity: 0; } }
+.flota::after { content: ""; position: absolute; left: 43%; top: 59%; width: 5%; aspect-ratio: 1; border-radius: 50%; background: #ff4a32; box-shadow: 0 0 8px 2px rgba(255, 74, 50, .8); animation: baliza 3.2s ease-in-out infinite; }
+@keyframes baliza { 0%, 78%, 100% { opacity: 0; } 84% { opacity: 1; } 92% { opacity: .15; } }
+.entrando .pl-sonda::before, .entrando .pl-sonda::after, .entrando .flota::after { display: none; }
 .flota { position: absolute; inset: 0; animation: flota 7s ease-in-out infinite alternate; transition: transform .6s var(--ease), filter .6s; }
 .pl:nth-of-type(2n) .flota { animation-duration: 9s; animation-delay: -3s; } .pl:nth-of-type(3n) .flota { animation-duration: 8s; animation-delay: -5s; }
 @keyframes flota { from { transform: translateY(-.7cqw) rotate(-1deg); } to { transform: translateY(.7cqw) rotate(1deg); } }
-.pl:hover .flota, .pl:focus-visible .flota { transform: scale(1.14); filter: brightness(1.15); }
-.cuerpo { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--fondo, #333);
-  box-shadow: 0 0 calc(var(--d) * .3cqw) calc(var(--d) * .03cqw) color-mix(in srgb, var(--c) 48%, transparent), 0 0 0 .12cqw color-mix(in srgb, var(--c) 40%, transparent); }
-.cuerpo img { position: absolute; left: -16%; top: -16%; width: 132%; height: 132%; max-width: none; object-fit: cover; filter: brightness(1.55) saturate(1.25) contrast(1.05); animation: deriva 26s ease-in-out infinite alternate; }
-@keyframes deriva { from { transform: translate(-6%, -3%) rotate(-4deg); } to { transform: translate(6%, 3%) rotate(4deg); } }
-.cuerpo::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
-  background: radial-gradient(circle at 31% 25%, rgba(255, 255, 255, .34) 0, rgba(255, 255, 255, 0) 30%), radial-gradient(circle at 70% 74%, rgba(0, 0, 0, 0) 44%, rgba(0, 0, 0, .62) 100%); }
-
-/* Anillo: la mitad de atrás va detrás del cuerpo y la de adelante, encima */
-.aro { position: absolute; left: -48%; right: -48%; top: -48%; bottom: -48%; border-radius: 50%; border: calc(var(--d) * .05cqw) solid #ff7a45; transform: rotate(-17deg) scaleY(.27);
-  box-shadow: 0 0 calc(var(--d) * .1cqw) rgba(255, 90, 44, .6), inset 0 0 calc(var(--d) * .08cqw) rgba(255, 90, 44, .5); pointer-events: none; }
-.aro.atras { clip-path: inset(0 0 50% 0); } .aro.frente { clip-path: inset(50% 0 0 0); }
-
-.et { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) scale(calc(1 / var(--s, 1))); transform-origin: 50% 0; opacity: var(--ef, 1); margin-top: 1cqw; white-space: nowrap; display: grid; gap: .2cqw; pointer-events: none; transition: opacity .3s; }
-.pl-anillo .et { margin-top: 2.4cqw; }
-.et b { font-family: var(--titulo); font-weight: 900; text-transform: uppercase; letter-spacing: .04em; font-size: clamp(13px, 1.95cqw, 28px); line-height: 1; color: var(--senal); text-shadow: 0 1px 0 #020001, 0 0 10px rgba(2, 0, 1, .9); transition: color .3s; }
+.pl:hover .flota, .pl:focus-visible .flota { transform: scale(1.14); }
+.sonda { position: absolute; inset: -12%; width: 124%; height: 124%; overflow: visible; }
+.et { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) scale(calc(1 / var(--s, 1))); transform-origin: 50% 0; opacity: var(--ef, 1); margin-top: 1cqw; white-space: nowrap; display: grid; gap: .4cqw; pointer-events: none; transition: opacity .3s; text-shadow: 0 0 4px #020001, 0 0 10px #020001; }
+.et b { font-family: var(--titulo); font-weight: 900; text-transform: uppercase; letter-spacing: .04em; font-size: clamp(13px, 1.95cqw, 28px); line-height: 1; color: #d9d3c9; letter-spacing: .12em; text-shadow: 0 1px 0 #020001, 0 0 10px rgba(2, 0, 1, .9); transition: color .3s; }
 .et i { font-style: normal; font-family: var(--toon, "Audiowide"); font-size: clamp(8px, .95cqw, 12px); letter-spacing: .08em; text-transform: uppercase; color: var(--sub); }
 .pl:hover .et b, .pl:focus-visible .et b { color: var(--papel); }
 
-/* Texturas de cada planeta */
-.pl-bitacora .cuerpo { --fondo: linear-gradient(172deg, #ffb36b 0 9%, #ff5a2c 9% 21%, #8a2a1c 21% 30%, #ffcf9a 30% 38%, #d9421d 38% 54%, #6b1d2e 54% 63%, #ff8a4c 63% 78%, #a02a1f 78% 100%); background: var(--fondo); }
-.pl-anillo .cuerpo { background: radial-gradient(circle at 40% 34%, #9ccaff 0, #3f78d8 42%, #123074 100%); }
-.pl-senales .cuerpo { background: radial-gradient(circle at 40% 36%, #d9ffff 0, #36e0ea 40%, #0a7490 100%); box-shadow: 0 0 calc(var(--d) * .5cqw) calc(var(--d) * .06cqw) rgba(54, 224, 234, .5); }
-.pl-sobrevuelos .cuerpo { background: repeating-linear-gradient(162deg, #8cff72 0 8%, #1f9a45 8% 17%, #d6ff9c 17% 20%, #136b32 20% 30%); }
-.sonda { position: absolute; inset: -12%; width: 124%; height: 124%; overflow: visible; filter: drop-shadow(0 0 1.2cqw rgba(255, 90, 44, .5)); }
-
 /* Pie de la entrada */
-.pie-portal { width: 100%; padding: 0 var(--gut) max(16px, env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 16px; color: var(--sub); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.6; }
+.pie-portal { width: 100%; padding: 0 var(--gut) max(16px, env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 16px; color: var(--sub); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.6; }
 .pie-portal .legal { text-align: center; color: #ff6a58; letter-spacing: .04em; max-width: 44ch; text-transform: none; font-family: var(--toon, 'Audiowide'); font-style: normal; font-size: 10px; letter-spacing: .06em; }
 .pie-portal .km b { color: var(--papel); font-weight: 500; }
 .saltar-entrada { justify-self: end; color: var(--sub); text-decoration: underline; text-underline-offset: 4px; letter-spacing: inherit; text-transform: inherit; font: inherit; background: none; border: 0; cursor: pointer; padding: 8px 0; }
@@ -78,16 +66,93 @@ html.sin-portal #portal { display: none; }
 
 /* Entrada de los elementos al cargar (sin JS de movimiento, se ven normales) */
 @media (max-aspect-ratio: 5/6) {
-  .stage { width: min(98vw, calc((100svh - 140px) * .52)); aspect-ratio: .52 / 1; }
+  .stage { width: min(98vw, calc((100svh - 100px) * .52)); aspect-ratio: .52 / 1; }
   .pl { width: calc(var(--md) * 1cqw); height: calc(var(--md) * 1cqw); left: calc(var(--mx) * 1% - var(--md) * .5cqw); top: calc(var(--my) * 1% - var(--md) * .5cqw); }
-  .logo { top: 50%; width: 62cqw; }
-  .logo .l1 { font-size: 4.2cqw; } .logo .l2 { font-size: 10.4cqw; } .logo .l3 { font-size: 2.6cqw; margin-top: 2.4cqw; }
-  .et { margin-top: 1.6cqw; } .pl-anillo .et { margin-top: 4cqw; }
+  .logo { top: 9%; width: 62cqw; }
+  .logo .l1 { font-size: 3.8cqw; } .logo .l2 { font-size: 9.2cqw; } .logo .l3 { font-size: 2.4cqw; margin-top: 2.4cqw; letter-spacing: .06em; white-space: nowrap; }
+  .et { margin-top: 1.6cqw; }
   .et b { font-size: clamp(12px, 4.3cqw, 20px); } .et i { font-size: clamp(8.5px, 2.5cqw, 11px); }
-  .cuerpo { box-shadow: 0 0 calc(var(--md) * .3cqw) calc(var(--md) * .03cqw) color-mix(in srgb, var(--c) 48%, transparent); }
-  .aro { border-width: calc(var(--md) * .05cqw); }
   .pie-portal { grid-template-columns: auto auto; justify-content: space-between; gap: 10px; font-size: 9.5px; letter-spacing: .05em; white-space: nowrap; } .pie-portal .legal { display: none; } .indicio { font-size: 10px; }
   .et b { text-shadow: 0 0 3px #020001, 0 0 8px #020001, 0 1px 0 #020001; } .et i { text-shadow: 0 0 6px #020001; }
 }
 @media (max-height: 560px) and (orientation: landscape) { .indicio { display: none; } .stage { width: min(96vw, calc((100svh - 70px) * 1.28)); } }
-@media (prefers-reduced-motion: reduce) { .flota, .cuerpo img, .orbitas g { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .flota, .flota::after, .logo .l2, .pl-sonda::before, .pl-sonda::after { animation: none; } }
+/* Aviso de videojuego bajo la sonda: parpadea a saltos */
+.pl-sonda .et b::before { content: "▶ "; color: var(--senal); animation: pulsar 1.4s steps(1, end) infinite; }
+@keyframes pulsar { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pl-sonda .et b::before { animation: none; } }
+/* Rótulo de viñeta */
+.pl-sonda .et { margin-top: .4cqw; background: #fff; color: #000; border: 2px solid #000; box-shadow: 4px 4px 0 #000; padding: 6px 12px 5px; gap: 3px; text-shadow: none; }
+.pl-sonda .et b, .pl-sonda:hover .et b, .pl-sonda:focus-visible .et b { color: #000; text-shadow: none; }
+.pl-sonda .et i { color: #000; text-shadow: none; }
+.pl-sonda:hover .et, .pl-sonda:focus-visible .et { box-shadow: 4px 4px 0 var(--senal); }
+.pl-sonda .et i { font-size: max(11px, .95cqw); }
+
+/* Con Motion (componentes.js) estas animaciones ya no van por CSS */
+.flota, .pl .flota { animation: none; transition: filter .6s; }
+.pl:hover .flota, .pl:focus-visible .flota { filter: brightness(1.15); }
+.logo .l2, .pl-sonda .et b::before { animation: none; }
+.pl-sonda::before, .pl-sonda::after, .flota::after, .pl-sonda .et b::before { content: none; }
+.logo .l2 i { white-space: nowrap; }
+.logo .letra-v { display: inline-block; }
+.onda { position: absolute; left: 0; top: -8%; width: 100%; aspect-ratio: 1; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 2px #000; opacity: 0; pointer-events: none; }
+.baliza { position: absolute; left: 43%; top: 59%; width: 5%; aspect-ratio: 1; border-radius: 50%; background: #ff4a32; box-shadow: 0 0 8px 2px rgba(255, 74, 50, .8); opacity: 0; }
+.flecha { display: inline-block; color: var(--senal); }
+.entrando .onda, .entrando .baliza { display: none; }
+/* Un solo contorno: se dibuja mucho más rápido en equipos sin tarjeta gráfica */
+.pl-sonda .sonda { filter: drop-shadow(0 0 3px #000) drop-shadow(5px 6px 0 rgba(0, 0, 0, .75)); }
+.pl-sonda .flota { will-change: transform; filter: none; }
+/* La viñeta oscurecía el cielo anterior; con fondo negro solo restaba fluidez */
+.portal::after { content: none; }
+
+/* El fondo: componentes de cielo.js */
+.portal { background: #000; }
+.cielo-v { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.cielo-v i { position: absolute; display: block; pointer-events: none; }
+.cielo-v .velo { border-radius: 50%; }
+.cielo-v .capa { position: absolute; left: -5%; top: -5%; width: 110%; height: 110%; }
+.cielo-v .destello { border-radius: 50%; background: #fff; opacity: .5; box-shadow: -1.5px 0 1px rgba(255, 70, 40, .85), 1.5px 0 1px rgba(50, 100, 255, .9), 0 0 7px 1px rgba(210, 230, 255, .5); }
+.cielo-v .estela { height: 1.5px; opacity: 0; rotate: 12.6deg; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(50, 90, 255, .8) 22%, rgba(90, 220, 200, .8) 42%, #fff 68%, rgba(255, 190, 60, .85) 84%, transparent); }
+.cielo-v .cruz { width: 12px; height: 12px; opacity: .4; background: linear-gradient(#73d7ff, #73d7ff) center / 100% 2px no-repeat, linear-gradient(#73d7ff, #73d7ff) center / 2px 100% no-repeat; }
+.cielo-v .cruz.roja { background: linear-gradient(#ff8261, #ff8261) center / 100% 2px no-repeat, linear-gradient(#ff8261, #ff8261) center / 2px 100% no-repeat; }
+
+/* Sin tarjeta gráfica: menos capas que repintar para que la animación vaya pareja */
+.portal.ligera .pl-sonda .sonda { filter: none; }
+.portal.ligera .onda { box-shadow: none; }
+.portal.ligera .onda ~ .onda { display: none; }
+
+/* Viñeta de cómic (componentes.js): facetas planas de color */
+.portal > .vineta { position: fixed; z-index: 4; left: 0; top: 0; width: clamp(220px, 20vw, 300px); opacity: 0; pointer-events: none; }
+.vineta svg { display: block; width: 100%; height: auto; overflow: visible; }
+.vineta .fondo { transform-box: view-box; transform-origin: 50% 50%; }
+.vineta.derecha .fondo { transform: scaleX(-1); }
+.vineta.debajo .fondo { transform: scaleY(-1); }
+.vineta.debajo.derecha .fondo { transform: scale(-1); }
+.vineta.debajo .texto { transform: translateY(42px); }
+
+/* La sonda en colores planos: sin contorno de tinta; sus ondas, de color */
+.pl-sonda .sonda, .portal.ligera .pl-sonda .sonda { filter: none; }
+.onda, .portal.ligera .onda { border-color: #12a8bd; box-shadow: none; }
+.onda ~ .onda { border-color: #ffd447; }
+.onda ~ .onda ~ .onda { border-color: #b3126f; }
+
+/* Título: pequeño y limpio, con una sola faceta de color por letra (el mismo concepto que la sonda) */
+.logo { top: 8.5%; }
+.logo .l1 { font-size: max(10px, 1.05cqw); letter-spacing: 1.2em; margin-right: -1.2em; color: #d9d3c9; text-shadow: none; }
+.logo .l2 { font-size: 3.5cqw; letter-spacing: .1em; margin-right: -.1em; margin-top: .7cqw; padding: .3cqw 0; text-shadow: none; }
+.logo .l3 { font-size: max(11px, .8cqw); margin-top: .7cqw; letter-spacing: .24em; color: #77737f; text-shadow: none; }
+.logo .letra-v { color: transparent; -webkit-background-clip: text; background-clip: text; background-image: linear-gradient(var(--corte, 135deg), var(--tinte, #12a8bd) 0 38%, #fff 38.5%); }
+.logo .letra-v:nth-child(1) { --tinte: #12a8bd; --corte: 135deg; }
+.logo .letra-v:nth-child(2) { --tinte: #ffd447; --corte: 215deg; }
+.logo .letra-v:nth-child(3) { --tinte: #e8351f; --corte: 45deg; }
+.logo .letra-v:nth-child(4) { --tinte: #2456d6; --corte: 150deg; }
+.logo .letra-v:nth-child(5) { --tinte: #b3126f; --corte: 315deg; }
+.logo .letra-v:nth-child(6) { --tinte: #f78a1d; --corte: 225deg; }
+.logo .letra-v:nth-child(7) { --tinte: #1fbd78; --corte: 30deg; }
+.logo .letra-v:nth-child(8) { --tinte: #ffd447; --corte: 120deg; }
+@media (max-aspect-ratio: 5/6) {
+  .logo { top: 8%; width: 70cqw; }
+  .logo .l1 { font-size: max(10px, 2.8cqw); }
+  .logo .l2 { font-size: 6.6cqw; margin-top: 1.6cqw; }
+  .logo .l3 { font-size: max(10px, 2.2cqw); margin-top: 1.6cqw; letter-spacing: .08em; }
+}

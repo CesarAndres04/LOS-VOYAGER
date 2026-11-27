@@ -1,0 +1,82 @@
+/* Sección de Música (musica.js): el mismo mundo del menú, en azules y morados */
+#musica { position: absolute; inset: 0; z-index: 4; color: #fff; --tono: #2442d6; }
+#musica[hidden] { display: none; }
+#pasadizo #musica button { position: static; margin: 0; padding: 0; background: none; border: 0; color: inherit; font: inherit; letter-spacing: normal; text-transform: none; cursor: pointer; box-shadow: none; text-shadow: none; }
+#pasadizo #musica button:focus-visible, #musica a:focus-visible, #musica input:focus-visible { outline: 3px solid #35c6ff; outline-offset: 3px; }
+#musica h2, #musica h3, #musica p { margin: 0; }
+#musica a { color: #fff; text-decoration: none; text-shadow: none; }
+
+.mu-fondo { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; display: flex; flex-direction: column; align-items: center; gap: clamp(18px, 3.4vh, 38px); padding: 20px 16px 130px;
+  background: radial-gradient(ellipse 60% 55% at 4% 30%, rgba(36, 66, 214, .42), transparent 70%), radial-gradient(ellipse 60% 55% at 96% 70%, rgba(214, 58, 208, .34), transparent 70%), radial-gradient(ellipse 50% 40% at 50% 0%, rgba(106, 43, 217, .4), transparent 70%), #120d22; }
+.mu-cab { width: 100%; display: grid; justify-items: center; gap: 10px; text-align: center; }
+#pasadizo #musica .mu-volver { justify-self: start; padding: 11px 13px; background: #000; font: 400 11px/1 "Audiowide", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+#musica .mu-cab h2 { font: 400 clamp(44px, 6.4vw, 92px)/1 "Bangers", sans-serif; letter-spacing: .06em; padding: 8px 26px 4px; color: #120d22; background: #fff; clip-path: polygon(3% 8%, 100% 0, 97% 92%, 0 100%); transform: none; text-shadow: none; }
+#musica .mu-cab h2::after { content: none; }
+.mu-cab p { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #b9c6ff; }
+
+.mu-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(36px, 9vw, 150px); }
+.mu-tarjeta { width: min(330px, 74vw, 40vh); display: grid; justify-items: start; gap: 10px; }
+.mu-arte { position: relative; width: 100%; aspect-ratio: 1; }
+.mu-disco { position: absolute; inset: 4%; border-radius: 50%; display: block; pointer-events: none; }
+.mu-disco svg { display: block; width: 117%; height: 117%; margin: -8.5%; }
+.mu-arte .mu-disco { transition: translate .55s cubic-bezier(.2, 1.4, .4, 1); }
+.mu-arte:hover .mu-disco, .mu-arte:focus-within .mu-disco, .mu-tarjeta.sonando .mu-disco { translate: 24% 0; }
+.mu-tarjeta.sonando .mu-disco svg { animation: mu-gira 3.2s linear infinite; }
+@keyframes mu-gira { to { rotate: 360deg; } }
+#pasadizo #musica .mu-tapa { position: absolute; inset: 0; display: block; padding: 6px; background: linear-gradient(135deg, #35c6ff, var(--tono) 45%, #ff4fc3); clip-path: polygon(0 3%, 97% 0, 100% 96%, 4% 100%); }
+.mu-tapa img { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; box-shadow: none; }
+.mu-toca { position: absolute; right: 14px; bottom: 14px; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: #120d22; transition: scale .25s; }
+.mu-tapa:hover .mu-toca { scale: 1.14; }
+#musica svg path { fill: currentColor; }
+.mu-toca svg { width: 22px; height: 22px; }
+#musica .mu-tarjeta h3 { font: 400 clamp(30px, 3vw, 42px)/1 "Bangers", sans-serif; letter-spacing: .06em; margin-top: 6px; text-transform: uppercase; text-shadow: 3px 3px 0 var(--tono); }
+.mu-meta { font-size: 11px; line-height: 1.5; letter-spacing: .14em; text-transform: uppercase; color: #b9c6ff; }
+#musica .mu-enlaces, .mu-perfiles { display: flex; flex-wrap: wrap; gap: 8px; }
+#musica .mu-enlaces a, .mu-perfiles a { font-size: 11px; line-height: 1; letter-spacing: .1em; text-transform: uppercase; padding: 9px 11px; border: 1.5px solid rgba(255, 255, 255, .42); transition: background-color .2s, border-color .2s; }
+#musica .mu-enlaces a:hover, #musica .mu-perfiles a:hover { background: #6a2bd9; border-color: #6a2bd9; }
+.mu-perfiles { justify-content: center; margin-top: auto; }
+
+/* Reproductor pequeño */
+.mu-mini { position: absolute; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); translate: -50% 0; z-index: 2; width: min(430px, calc(100% - 24px)); display: flex; align-items: center; gap: 12px; padding: 10px 14px 12px 10px; border-radius: 14px; background: #1d1638; box-shadow: 0 14px 40px rgba(0, 0, 0, .55); overflow: hidden; }
+#pasadizo #musica .mu-abrir { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; text-align: left; }
+.mu-mini-tapa { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 0; box-shadow: none; }
+.mu-abrir span { display: grid; gap: 4px; min-width: 0; }
+.mu-abrir b { justify-self: start; font: 400 22px/1 "Bangers", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.mu-abrir i { font-style: normal; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #b9c6ff; }
+#pasadizo #musica .mu-boton { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 50%; transition: background-color .2s, scale .15s; }
+.mu-boton:hover { background: rgba(255, 255, 255, .14); } .mu-boton:active { scale: .9; }
+.mu-boton svg { width: 22px; height: 22px; }
+.mu-mini-barra { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, .14); }
+.mu-mini-barra i { display: block; height: 100%; background: linear-gradient(90deg, #35c6ff, #ff4fc3); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* Reproductor completo */
+.mu-velo { position: absolute; inset: 0; z-index: 3; background: rgba(6, 3, 14, .78); }
+.mu-velo[hidden], .mu-lleno[hidden] { display: none; }
+.mu-lleno { position: absolute; z-index: 4; left: 0; right: 0; top: 0; bottom: 0; margin: auto; width: min(460px, calc(100% - 24px)); height: min(790px, calc(100% - 24px)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(7px, 1.4vh, 14px); padding: 16px 26px; border-radius: 22px; overflow: hidden auto; overscroll-behavior: contain; touch-action: pan-y;
+  background: linear-gradient(170deg, color-mix(in srgb, var(--tono) 62%, #120d22), #1a1330 48%, #120d22); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
+#pasadizo #musica .mu-cerrar { position: absolute; left: 12px; top: 12px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; }
+.mu-cerrar:hover { background: rgba(255, 255, 255, .14); } .mu-cerrar svg { width: 20px; height: 20px; }
+.mu-grande { position: relative; flex: none; width: min(300px, 62vw, 36vh); aspect-ratio: 1; margin-top: 12px; translate: -8% 0; }
+.mu-grande .mu-disco { inset: 5%; translate: 22% 0; }
+#musica.suena .mu-grande .mu-disco svg { animation: mu-gira 3.2s linear infinite; }
+.mu-grande-tapa { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 14px; box-shadow: 0 16px 40px rgba(0, 0, 0, .5); }
+.mu-datos { display: grid; justify-items: center; gap: 5px; text-align: center; margin-top: 8px; }
+#musica .mu-grande-titulo { font: 400 clamp(32px, 5vh, 44px)/1 "Bangers", sans-serif; letter-spacing: .06em; text-transform: uppercase; text-shadow: none; }
+.mu-datos p { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #b9c6ff; }
+#musica .mu-letra { min-height: 2.6em; width: 100%; display: grid; place-items: center; text-align: center; font-size: 14px; line-height: 1.3; color: #a8ecff; }
+.mu-linea { appearance: none; -webkit-appearance: none; width: 100%; flex: none; height: 22px; margin: 0; background: none; cursor: pointer; --k: 0%; }
+.mu-linea::-webkit-slider-runnable-track { height: 5px; border-radius: 3px; background: linear-gradient(90deg, #35c6ff, #ff4fc3 var(--k), rgba(255, 255, 255, .2) var(--k)); }
+.mu-linea::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; margin-top: -5px; border-radius: 50%; background: #fff; }
+.mu-linea::-moz-range-track { height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .2); } .mu-linea::-moz-range-progress { height: 5px; border-radius: 3px; background: #8f5cff; } .mu-linea::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: #fff; }
+.mu-tiempos { width: 100%; display: flex; justify-content: space-between; margin-top: -8px; font-size: 11px; color: #b9c6ff; }
+.mu-controles { display: flex; align-items: center; gap: 22px; }
+#pasadizo #musica .mu-controles .mu-play { width: 66px; height: 66px; background: #fff; color: #120d22; }
+.mu-play svg { width: 28px; height: 28px; }
+.mu-grande-enlaces { justify-content: center; }
+
+@media (max-width: 620px) {
+  .mu-fondo { gap: 26px; }
+  .mu-tarjeta { width: min(300px, 74vw); }
+  .mu-arte:hover .mu-disco, .mu-arte:focus-within .mu-disco, .mu-tarjeta.sonando .mu-disco { translate: 16% 0; }
+}
+@media (prefers-reduced-motion: reduce) { .mu-disco svg { animation: none !important; } .mu-arte .mu-disco { transition: none; } }
